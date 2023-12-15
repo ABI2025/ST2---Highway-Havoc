@@ -4,6 +4,11 @@ int main() {
 	//Fenster erstellen
 	sf::RenderWindow whandle(sf::VideoMode(800, 800), "Highway Havoc");
 	//Fenster updaten
+	sf::CircleShape Kreis(12.f);
+	Kreis.setFillColor(sf::Color::Blue);
+	
+
+
 	while (whandle.isOpen()) {
 		sf::Event event;
 		while (whandle.pollEvent(event))
@@ -12,7 +17,7 @@ int main() {
 		}
 
 		whandle.clear(sf::Color::Black);
-
+		whandle.draw(Kreis);
 		whandle.display();
 	}
 	return 0;

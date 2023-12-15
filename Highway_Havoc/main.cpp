@@ -2,23 +2,18 @@
 
 int main() {
 	//Fenster erstellen
-	sf::RenderWindow whandle(sf::VideoMode(800, 800), "Highway Havoc");
+	sf::RenderWindow window(sf::VideoMode(800, 800), "Highway Havoc");
 	//Fenster updaten
-	sf::CircleShape Kreis(12.f);
-	Kreis.setFillColor(sf::Color::Blue);
-	
-
-
-	while (whandle.isOpen()) {
+	while (window.isOpen()) {
 		sf::Event event;
-		while (whandle.pollEvent(event))
+		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) whandle.close();
+			if (event.type == sf::Event::Closed) window.close();
 		}
 
-		whandle.clear(sf::Color::Black);
-		whandle.draw(Kreis);
-		whandle.display();
+		window.clear(sf::Color::Black);
+
+		window.display();
 	}
 	return 0;
 }

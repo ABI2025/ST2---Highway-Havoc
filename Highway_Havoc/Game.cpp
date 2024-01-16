@@ -59,10 +59,10 @@ void Game::start()
 		zeitSeitLetztemFrame = frameLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemFrame >= deltaFrameZeit) 
 		{
-			for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++) 
-			{
+			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++) 
+			//{
 				this->render();
-			}
+			//}
 			frameLimitClock.restart().asMicroseconds();
 		}
 	}

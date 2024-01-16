@@ -59,7 +59,8 @@ void Game::start()
 		zeitSeitLetztemFrame = frameLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemFrame >= deltaFrameZeit) 
 		{
-			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++) 
+			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++)
+																				//solange render nur Bilder wiedergibt ist  die Schleife nicht von Nöten
 			//{
 				this->render();
 			//}

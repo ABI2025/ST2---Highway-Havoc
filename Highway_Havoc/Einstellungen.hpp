@@ -19,8 +19,15 @@ public:
 	void setLautstaerke(unsigned short lautstaerke);
 	void setFramerate(unsigned short framerate);
 	void setTickrate(unsigned short tickrate);
-	void setBewegung_links(unsigned short bewegung);
-	void setBewegung_rechts(unsigned short bewegung_rechts);
-	void setAction(unsigned short action);
+	void setBewegung_links(sf::Keyboard::Key bewegung);
+	void setBewegung_rechts(sf::Keyboard::Key bewegung_rechts);
+	void setAction(sf::Keyboard::Key action);
+
+	unsigned short getLautstaerke() const;
+	unsigned short getFramerate() const;
+	unsigned short getTickrate() const;
+	sf::Keyboard::Key getBewegung_links() const;
+	sf::Keyboard::Key getBewegung_rechts() const;
+	sf::Keyboard::Key getAction() const;
 };
 

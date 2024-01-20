@@ -93,15 +93,15 @@ void Startbildschirm::aktualisieren()
 		this->auswahl += 1;
 	}
 																					//	Die Mausposition prüfen und die Auswahl anpassen
-	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->spielStartText.getGlobalBounds())) {
+	if (this->eingabeverwaltung->mausPositionInFlaeche(this->spielStartText.getGlobalBounds())) {
 		this->auswahl = 0;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
-	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->einstellungenOeffnenText.getGlobalBounds())) {
+	if (this->eingabeverwaltung->mausPositionInFlaeche(this->einstellungenOeffnenText.getGlobalBounds())) {
 		this->auswahl = 1;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
-	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->spielBeendenText.getGlobalBounds())) {
+	if (this->eingabeverwaltung->mausPositionInFlaeche(this->spielBeendenText.getGlobalBounds())) {
 		this->auswahl = 2;
 		benutztMaus = true;
 	}

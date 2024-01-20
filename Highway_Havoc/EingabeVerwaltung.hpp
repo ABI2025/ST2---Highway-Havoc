@@ -12,7 +12,7 @@ private:
 	std::list<sf::Mouse::Button> mausTasten;
 	std::list<bool> mausTastenStatus;
 	std::list<bool> mausTastenStatusGeaendert;
-	sf::Vector2i mausPosition;
+	sf::Vector2f mausPosition;
 
 	sf::RenderWindow* window;
 public:
@@ -22,7 +22,7 @@ public:
 	void aktualisieren();								//	Aktualisiert den "tastenStatus" sowie den "tastenStatusGeaendert"
 	void tasteHinzufuegen(sf::Keyboard::Key taste);		//	Fügt eine Taste zum überprüfen hinzu (kann duch Indexnummer überprüft werden)
 	void mausTasteHinzufuegen(sf::Mouse::Button taste);	//	Fügt eine Maustaste zum überprüfen hinzu (kann duch Indexnummer überprüft werden)
-	bool mausPositionInFlaeche(sf::IntRect flaeche);
+	bool mausPositionInFlaeche(sf::FloatRect flaeche);
 
 	sf::Keyboard::Key getTastenIndex(short index);		//	Gibt die, mit der übergebenen index-Nummer assoziirte, Taste zurück
 	bool getTastenStatusIndex(short index);				//	Gibt zurück ob die Taste mit der übergebenen index-Nummer allgemein gedrückt ist
@@ -31,5 +31,5 @@ public:
 	sf::Mouse::Button getMausTastenIndex(short index);	//	Gibt die, mit der übergebenen index-Nummer assoziirte, Mausaste zurück
 	bool getMausTastenStatusIndex(short index);			//	Gibt zurück ob die Maustaste mit der übergebenen index-Nummer allgemein gedrückt ist
 	bool getMausTastenStatusGeandertIndex(short index);	//	Gibt zurück ob die Maustaste mit der übergebenen index-Nummer von nicht gedrück zu gedrückt gewechselt ist
-	sf::Vector2i getMausPosition();
+	sf::Vector2f getMausPosition();
 };

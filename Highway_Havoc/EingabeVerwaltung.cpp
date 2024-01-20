@@ -81,7 +81,8 @@ void EingabeVerwaltung::aktualisieren()
 		mausTastenStatusGeaendertIterator++;
 	}
 	if (this->window != nullptr) {									//	Mausposition aktualisieren
-		mausPosition = sf::Mouse::getPosition(*this->window);
+		sf::Vector2i pixelMausPosition = sf::Mouse::getPosition(*this->window);
+		this->mausPosition = this->window->mapPixelToCoords(pixelMausPosition);
 	}
 }
 
@@ -99,7 +100,7 @@ void EingabeVerwaltung::mausTasteHinzufuegen(sf::Mouse::Button taste)
 	this->mausTastenStatusGeaendert.push_back(false);
 }
 
-bool EingabeVerwaltung::mausPositionInFlaeche(sf::IntRect flaeche)
+bool EingabeVerwaltung::mausPositionInFlaeche(sf::FloatRect flaeche)
 {
 	if (this->window == nullptr) {
 		std::cout << "Für diese Funktion braucht die EingabeVerwaltung einen Pointer auf ein RenderWindow!" << std::endl;
@@ -156,7 +157,7 @@ bool EingabeVerwaltung::getMausTastenStatusGeandertIndex(short index)
 	return *mausTastenStatusGeaendertIterator;
 }
 
-sf::Vector2i EingabeVerwaltung::getMausPosition()
+sf::Vector2f EingabeVerwaltung::getMausPosition()
 {
 	return this->mausPosition;
 }

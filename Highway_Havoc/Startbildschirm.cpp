@@ -55,20 +55,23 @@ void Startbildschirm::anzeigen()
 {
 	this->window->clear(sf::Color(55, 166, 166, 255));								//	Hintergundfarbe setzten
 
-	this->spielStartText.setFillColor(sf::Color::White);							//	die Farbe der Momentan getroffenen Auswahl auf Rot setzten, den Rest auf Weiß
+	this->spielStartText.setFillColor(sf::Color::White);							//	Die Farbe der Momentan getroffenen Auswahl auf Rot setzten, den Rest auf Weiß
 	this->einstellungenOeffnenText.setFillColor(sf::Color::White);
 	this->spielBeendenText.setFillColor(sf::Color::White);
-	if (this->auswahl == 0) {
+	if (this->auswahl == 0) 
+	{
 		this->spielStartText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 1) {
+	if (this->auswahl == 1) 
+	{
 		this->einstellungenOeffnenText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 2) {
+	if (this->auswahl == 2) 
+	{
 		this->spielBeendenText.setFillColor(sf::Color::Red);
 	}
 
-	this->window->draw(titelText);													//	die Textelemente zeichenen
+	this->window->draw(titelText);													//	Die Textelemente zeichenen
 	this->window->draw(spielStartText);
 	this->window->draw(einstellungenOeffnenText);
 	this->window->draw(spielBeendenText);
@@ -76,15 +79,18 @@ void Startbildschirm::anzeigen()
 
 void Startbildschirm::aktualisieren()
 {
-	this->eingabeverwaltung.aktualisieren();										//	die Eingabeverwaltung aktualisieren
+	this->eingabeverwaltung.aktualisieren();										//	Die Eingabeverwaltung aktualisieren
 
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(0) && auswahl > 0) {	// Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
 		this->auswahl -= 1;
 	}
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(1) && auswahl < 2) {	// Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(1) && auswahl < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
 		this->auswahl += 1;
 	}
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(2) == true) {			//	Überprüfen ob die Auswahl Getroffen wurde
+	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(2) == true) 			//	Überprüfen ob die Auswahl Getroffen wurde
+	{
 		this->auswahlGetroffen = true;
 	}
 }

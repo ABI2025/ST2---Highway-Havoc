@@ -2,7 +2,8 @@
 #include <list>
 #include "SFML/Graphics.hpp"
 
-class EingabeVerwaltung {
+class EingabeVerwaltung 
+{
 private:
 	std::list<sf::Keyboard::Key> tasten;				//	Liste der zu überprüfenden Tasten
 	std::list<bool> tastenStatus;						//	Liste der Zustände (gedrückt oder nicht) der Tasten (über den Index identifizierbar)

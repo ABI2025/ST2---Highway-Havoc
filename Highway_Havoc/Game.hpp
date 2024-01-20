@@ -10,7 +10,8 @@ struct Zustaende
 	bool spielBeenden = false;
 };
 
-class Game {
+class Game 
+{
 private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
 	int fps;						//	Bildwiederholungsrate, mit der das Spiel läuft

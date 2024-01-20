@@ -19,11 +19,23 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Startbildschirm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="EingabeVerwaltung.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Startbildschirm.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="EingabeVerwaltung.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

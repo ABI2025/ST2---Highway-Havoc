@@ -7,18 +7,25 @@ EingabeVerwaltung::~EingabeVerwaltung()
 
 EingabeVerwaltung::EingabeVerwaltung()
 {
+	this->window = nullptr;
+}
+
+EingabeVerwaltung::EingabeVerwaltung(sf::RenderWindow* window)
+{
+	this->window = window;
 }
 
 void EingabeVerwaltung::aktualisieren()
 {
-	std::list<sf::Keyboard::Key>::iterator tastenIterator;			//	Iteratoren für die Listen erstellen und auf den Listenanfang setzten.
+	//	Tastatur aktualisieren
+	std::list<sf::Keyboard::Key>::iterator tastenIterator;			//	Iteratoren für die Tastaturlisten erstellen und auf den Listenanfang setzten.
 	std::list<bool>::iterator statusIterator;
 	std::list<bool>::iterator statusGeaendertIterator;
 	tastenIterator = this->tasten.begin();
 	statusIterator = this->tastenStatus.begin();
 	statusGeaendertIterator = this->tastenStatusGeaendert.begin();
 
-	while (tastenIterator != this->tasten.end())					//	Die Listen durchgehen
+	while (tastenIterator != this->tasten.end())					//	Die "tasten"-Liste durchgehen
 	{
 		if (sf::Keyboard::isKeyPressed(*tastenIterator))			//	Wenn eine Taste gedrückt wird, werden entsprechend die "tastenStatus" und "tastenStatusGeaendert"-Listen aktualisiert.
 		{
@@ -41,13 +48,64 @@ void EingabeVerwaltung::aktualisieren()
 		statusIterator++;
 		statusGeaendertIterator++;
 	}
+
+	//	Maus aktualisieren
+	std::list<sf::Mouse::Button>::iterator mausTastenIterator;		//	Iteratoren für die Tastaturlisten erstellen und auf den Listenanfang setzten.
+	std::list<bool>::iterator mausTastenStatusIterator;
+	std::list<bool>::iterator mausTastenStatusGeaendertIterator;
+	mausTastenIterator = this->mausTasten.begin();
+	mausTastenStatusIterator = this->mausTastenStatus.begin();
+	mausTastenStatusGeaendertIterator = this->mausTastenStatusGeaendert.begin();
+
+	while (mausTastenIterator != this->mausTasten.end())			//	Die "mausTasten"-Liste durchgehen
+	{
+		if (sf::Mouse::isButtonPressed(*mausTastenIterator))		//	Wenn eine Taste gedrückt wird, werden entsprechend die "mausTastenStatus" und "mausTastenStatusGeaendert"-Listen aktualisiert.
+		{
+			if (*mausTastenStatusIterator == false) 
+			{
+				*mausTastenStatusGeaendertIterator = true;
+			}
+			else 
+			{
+				*mausTastenStatusGeaendertIterator = false;
+			}
+			*mausTastenStatusIterator = true;
+		}
+		else 
+		{
+			*mausTastenStatusIterator = false;
+			*mausTastenStatusGeaendertIterator = false;
+		}
+		mausTastenIterator++;
+		mausTastenStatusIterator++;
+		mausTastenStatusGeaendertIterator++;
+	}
+	if (this->window != nullptr) {									//	Mausposition aktualisieren
+		mausPosition = sf::Mouse::getPosition(*this->window);
+	}
 }
 
 void EingabeVerwaltung::tasteHinzufuegen(sf::Keyboard::Key taste)
 {
-	this->tasten.push_back(taste);							//	Für die übergebene Taste wird in jeder Liste ein neuer Eintrag hinzugefügt.
+	this->tasten.push_back(taste);							//	Für die übergebene Taste wird in jeder tastatur-Liste ein neuer Eintrag hinzugefügt.
 	this->tastenStatus.push_back(false);
 	this->tastenStatusGeaendert.push_back(false);
+}
+
+void EingabeVerwaltung::mausTasteHinzufuegen(sf::Mouse::Button taste)
+{
+	this->mausTasten.push_back(taste);						//	Für die übergebene Taste wird in jeder maus-Liste ein neuer Eintrag hinzugefügt.
+	this->mausTastenStatus.push_back(false);
+	this->mausTastenStatusGeaendert.push_back(false);
+}
+
+bool EingabeVerwaltung::mausPositionInFlaeche(sf::IntRect flaeche)
+{
+	if (this->window == nullptr) {
+		std::cout << "Für diese Funktion braucht die EingabeVerwaltung einen Pointer auf ein RenderWindow!" << std::endl;
+		return false;
+	}
+	return flaeche.contains(mausPosition);
 }
 
 sf::Keyboard::Key EingabeVerwaltung::getTastenIndex(short index)
@@ -74,19 +132,31 @@ bool EingabeVerwaltung::getTastenStatusGeandertIndex(short index)
 	return *statusGeaendertIterator;
 }
 
+sf::Mouse::Button EingabeVerwaltung::getMausTastenIndex(short index)
+{
+	std::list<sf::Mouse::Button>::iterator mausTastenIterator;
+	mausTastenIterator = this->mausTasten.begin();
+	std::advance(mausTastenIterator, index);
+	return *mausTastenIterator;
+}
 
+bool EingabeVerwaltung::getMausTastenStatusIndex(short index)
+{
+	std::list<bool>::iterator mausTastenStatusIterator;
+	mausTastenStatusIterator = this->mausTastenStatus.begin();
+	std::advance(mausTastenStatusIterator, index);
+	return *mausTastenStatusIterator;
+}
 
-//const std::list<sf::Keyboard::Key>* EingabeVerwaltung::getTastenPtr()		//	besitzt momentan keinen Anwendungszweck
-//{
-//	return &this->tasten;
-//}
-//
-//const std::list<bool>* EingabeVerwaltung::getTastenStatusPtr()
-//{
-//	return &this->tastenStatus;
-//}
-//
-//const std::list<bool>* EingabeVerwaltung::getTastenStatusGeaendertPtr()
-//{
-//	return &this->tastenStatusGeaendert;
-//}
+bool EingabeVerwaltung::getMausTastenStatusGeandertIndex(short index)
+{
+	std::list<bool>::iterator mausTastenStatusGeaendertIterator;
+	mausTastenStatusGeaendertIterator = this->mausTastenStatusGeaendert.begin();
+	std::advance(mausTastenStatusGeaendertIterator, index);
+	return *mausTastenStatusGeaendertIterator;
+}
+
+sf::Vector2i EingabeVerwaltung::getMausPosition()
+{
+	return this->mausPosition;
+}

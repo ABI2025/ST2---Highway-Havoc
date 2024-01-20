@@ -9,6 +9,7 @@ Startbildschirm::~Startbildschirm()
 Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 {
 	this->window = window;
+	this->eingabeverwaltung = new EingabeVerwaltung(window);
 	if (!this->PixeboyFont.loadFromFile("Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
@@ -46,9 +47,10 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 	this->spielBeendenText.setString("Spiel beenden");
 	this->spielBeendenText.setPosition({ window->getSize().x / 2 - spielBeendenText.getGlobalBounds().width / 2, 110 });
 
-	this->eingabeverwaltung.tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
-	this->eingabeverwaltung.tasteHinzufuegen(sf::Keyboard::Key::Down);
-	this->eingabeverwaltung.tasteHinzufuegen(sf::Keyboard::Key::Enter);
+	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
+	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);
+	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Enter);
+	this->eingabeverwaltung->mausTasteHinzufuegen(sf::Mouse::Button::Left);
 }
 
 void Startbildschirm::anzeigen()
@@ -79,17 +81,32 @@ void Startbildschirm::anzeigen()
 
 void Startbildschirm::aktualisieren()
 {
-	this->eingabeverwaltung.aktualisieren();										//	Die Eingabeverwaltung aktualisieren
+	this->eingabeverwaltung->aktualisieren();										//	Die Eingabeverwaltung aktualisieren
+	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getTastenStatusGeandertIndex(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahl -= 1;
 	}
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(1) && auswahl < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getTastenStatusGeandertIndex(1) && auswahl < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahl += 1;
 	}
-	if (this->eingabeverwaltung.getTastenStatusGeandertIndex(2) == true) 			//	Überprüfen ob die Auswahl Getroffen wurde
+																					//	Die Mausposition prüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->spielStartText.getGlobalBounds())) {
+		this->auswahl = 0;
+		benutztMaus = true;
+	}																				//	Die Mausposition prüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->einstellungenOeffnenText.getGlobalBounds())) {
+		this->auswahl = 1;
+		benutztMaus = true;
+	}																				//	Die Mausposition prüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->mausPositionInFlaeche((sf::IntRect)this->spielBeendenText.getGlobalBounds())) {
+		this->auswahl = 2;
+		benutztMaus = true;
+	}
+	if (this->eingabeverwaltung->getTastenStatusGeandertIndex(2) == true			//	Überprüfen ob die Auswahl getroffen wurde
+		|| (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) == true && benutztMaus == true))
 	{
 		this->auswahlGetroffen = true;
 	}

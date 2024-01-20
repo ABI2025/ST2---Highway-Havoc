@@ -14,7 +14,7 @@ private:
 	sf::Text spielStartText;					//	Textelement, das den "Spiel starten"-Schriftzug enthält
 	sf::Text einstellungenOeffnenText;			//	Textelement, das den "Einstellungen"-Schriftzug enthält
 	sf::Text spielBeendenText;					//	Textelement, das den "Spiel beenden"-Schriftzug enthält
-	EingabeVerwaltung eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
+	EingabeVerwaltung* eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
 
 
 public:

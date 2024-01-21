@@ -35,7 +35,7 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 	this->spielStartText.setCharacterSize(30);
 	this->spielStartText.setLetterSpacing(1);
 	this->spielStartText.setString("Spiel starten");
-	this->spielStartText.setPosition({ window->getSize().x / 2 - spielStartText.getGlobalBounds().width / 2, 60 });
+	this->spielStartText.setPosition({ window->getSize().x / 2 - spielStartText.getGlobalBounds().width / 2, 80 });
 
 	this->einstellungenOeffnenText.setFont(PixeboyFont);							//	Parameter und Position vom "Einstellungen"-Schriftzug setzen
 	this->einstellungenOeffnenText.setFillColor(sf::Color::White);
@@ -43,7 +43,7 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 	this->einstellungenOeffnenText.setCharacterSize(30);
 	this->einstellungenOeffnenText.setLetterSpacing(1);
 	this->einstellungenOeffnenText.setString("Einstellungen");
-	this->einstellungenOeffnenText.setPosition({ window->getSize().x / 2 - einstellungenOeffnenText.getGlobalBounds().width / 2, 85 });
+	this->einstellungenOeffnenText.setPosition({ window->getSize().x / 2 - einstellungenOeffnenText.getGlobalBounds().width / 2, 110 });
 
 	this->spielBeendenText.setFont(PixeboyFont);									//	Parameter und Position vom "Spiel beenden"-Schriftzug setzen
 	this->spielBeendenText.setFillColor(sf::Color::White);
@@ -51,7 +51,7 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 	this->spielBeendenText.setCharacterSize(30);
 	this->spielBeendenText.setLetterSpacing(1);
 	this->spielBeendenText.setString("Spiel beenden");
-	this->spielBeendenText.setPosition({ window->getSize().x / 2 - spielBeendenText.getGlobalBounds().width / 2, 110 });
+	this->spielBeendenText.setPosition({ window->getSize().x / 2 - spielBeendenText.getGlobalBounds().width / 2, 140 });
 
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);

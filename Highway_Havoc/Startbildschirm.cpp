@@ -14,6 +14,12 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
 	}
+	if (!this->autoTextur.loadFromFile("auto_startbildschirm.png")) {
+		std::cout << "Fehler beim laden der Textur! (auto_startbildschirm.png)" << std::endl;
+	}
+	this->autoSprite.setTexture(this->autoTextur);
+	this->autoSprite.setScale({1.5f,1.5f});
+	this->autoSprite.setPosition(window->getSize().x / 2 - autoSprite.getGlobalBounds().width / 2, 150);
 
 	this->titelText.setFont(PixeboyFont);											//	Parameter und Position vom Titeltext setzen
 	this->titelText.setFillColor(sf::Color::White);
@@ -77,6 +83,7 @@ void Startbildschirm::anzeigen()
 	this->window->draw(spielStartText);
 	this->window->draw(einstellungenOeffnenText);
 	this->window->draw(spielBeendenText);
+	this->window->draw(autoSprite);
 }
 
 void Startbildschirm::aktualisieren()

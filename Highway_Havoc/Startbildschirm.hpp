@@ -15,7 +15,8 @@ private:
 	sf::Text einstellungenOeffnenText;			//	Textelement, das den "Einstellungen"-Schriftzug enthält
 	sf::Text spielBeendenText;					//	Textelement, das den "Spiel beenden"-Schriftzug enthält
 	EingabeVerwaltung* eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
-
+	sf::Texture autoTextur;
+	sf::Sprite autoSprite;
 
 public:
 	~Startbildschirm();							//	Destruktor

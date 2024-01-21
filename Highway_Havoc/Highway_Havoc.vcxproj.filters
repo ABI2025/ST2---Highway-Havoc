@@ -21,9 +21,15 @@
     <ClCompile Include="Game.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
+    <ClCompile Include="Auto.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Auto.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

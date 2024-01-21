@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "Auto.hpp"
 #include <iostream>
 #pragma once
 
@@ -20,12 +21,16 @@ void Game::render()
 {
 	window->clear(sf::Color::Black);
 
+	Auto testAuto('0');
+	testAuto.draw(*window);
+
 	window->display();
 }
 
 void Game::tick() 
 {
 	sf::Event event;
+
 	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed) window->close();

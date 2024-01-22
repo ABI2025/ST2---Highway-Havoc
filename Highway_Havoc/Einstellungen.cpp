@@ -51,7 +51,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->lautstärkeWertText.setCharacterSize(20);
 	this->lautstärkeWertText.setLetterSpacing(1);
 	this->lautstärkeWertText.setString(std::to_string(laustaerkeWert));
-	this->lautstärkeWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 80, 90 });
+	this->lautstärkeWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 90 });
 
 
 	this->fpsText.setFont(PixeboyFont);							//	Parameter und Position vom "Fps"-Schriftzug setzen
@@ -84,7 +84,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->fpsWertText.setCharacterSize(20);
 	this->fpsWertText.setLetterSpacing(1);
 	this->fpsWertText.setString(std::to_string(fpsWert));
-	this->fpsWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 80, 160 });
+	this->fpsWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 160 });
 
 
 	this->speichernText.setFont(PixeboyFont);									//	Parameter und Position vom "Speichern"-Schriftzug setzen

@@ -22,7 +22,7 @@ void EingabeVerwaltung::aktualisieren()
 	std::list<bool>::iterator statusIterator;
 	std::list<bool>::iterator statusGeaendertIterator;
 	tastenIterator = this->tasten.begin();
-	statusIterator = this->tastenStatus.begin();
+ 	statusIterator = this->tastenStatus.begin();
 	statusGeaendertIterator = this->tastenStatusGeaendert.begin();
 
 	while (tastenIterator != this->tasten.end())					//	Die "tasten"-Liste durchgehen

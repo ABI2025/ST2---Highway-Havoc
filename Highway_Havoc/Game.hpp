@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Startbildschirm.hpp"
+#include "Einstellungen.hpp"
 #include "Map.hpp"
 struct Zustaende
 {
@@ -18,6 +19,7 @@ private:
 	int tickrate;					//	Spielberechnungsrate, mit der das Spiel läuft
 	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgeführt
 	Startbildschirm* startbildschirm;
+	Einstellungen* einstellungen;
 	Map* map;
 public:
 	Game(int fps, int tickrate);	//	Konstruktor

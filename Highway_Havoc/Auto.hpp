@@ -6,17 +6,17 @@ class Auto
 protected:
 
     char level;                   // Das Level bestimmt über die Optik und andere Merkmale des Autos (siehe Konstruktor)
-    sf::Sprite derWicht;          // benötigt um eine Textur zu anzuzeigen (draw())     (Namensgebung -> Übersetzer)
-    sf::Texture textur;           // Bild/PNG des Autos
-    sf::Vector2f Position;        // Koordinate eines Auto-Objeks
+    sf::Sprite derWicht;          // benötigt um eine Textur zu anzuzeigen (draw()), (Namensgebung -> Übersetzer)
+    sf::Texture textur;           // speichert Bild/PNG des Autos
+    sf::Vector2f position;        // Koordinate eines Auto-Objeks
     unsigned short hoehe;         // Höhe des Autos angegeben in Pixeln
     unsigned short breite;        // Breite des Autos in Pixeln
-    sf::Vector2f Geschwindigkeit; // Geschwindigkeit 
-    sf::Vector2f Beschleunigung;  // wird das Auto gerade schneller oder langsamer
+    sf::Vector2f geschwindigkeit; // Geschwindigkeit 
+    sf::Vector2f beschleunigung;  // wird das Auto gerade schneller oder langsamer
 
 public:
 
-    Auto(const char extLevel);
+    Auto(const char extLevel);  // Parameterkonstruktor für die Erstellung eines Autos -> siehe .cpp
     // Auto(unsigned short extBreite, unsigned short extHoehe);
     ~Auto();
 
@@ -47,5 +47,6 @@ public:
     float getXBeschleunigung() const;
     float getYBeschleunigung() const;
 
-    void draw(sf::RenderWindow& window) const;
+    void update();       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
+    void draw(sf::RenderWindow& window); // zeichnet das Auto
 };

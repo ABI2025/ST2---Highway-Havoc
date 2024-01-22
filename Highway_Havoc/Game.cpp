@@ -21,9 +21,6 @@ void Game::render()
 {
 	window->clear(sf::Color::Black);
 
-	Auto testAuto('0');
-	testAuto.draw(*window);
-
 	window->display();
 }
 

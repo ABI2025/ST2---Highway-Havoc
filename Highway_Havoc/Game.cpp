@@ -75,6 +75,7 @@ void Game::tick()
 	if (this->zustaende.spielBeenden == true)			//	Spiel beenden, wenn gefordert
 	{
 		this->~Game();
+		exit(0);
 	}
 }
 

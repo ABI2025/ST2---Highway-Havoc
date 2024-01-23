@@ -1,5 +1,4 @@
 #include "Game.hpp"
-#include "Auto.hpp"
 #include <iostream>
 #pragma once
 
@@ -7,6 +6,7 @@ Game::Game(int fps, int tickrate)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	//this->window->setView(sf::View(sf::Vector2f(640/2, 360/2), sf::Vector2f(1920,1080)));	//	optional
+	test_auto = new Auto(window,'1');
 	this->fps = fps;
 	this->tickrate = tickrate;
 }
@@ -21,6 +21,9 @@ void Game::render()
 {
 	window->clear(sf::Color::Black);
 
+	
+	test_auto->anzeigen();
+
 	window->display();
 }
 
@@ -28,10 +31,12 @@ void Game::tick()
 {
 	sf::Event event;
 
+
 	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed) window->close();
 	}
+	test_auto->aktualisieren();
 }
 
 void Game::start() 

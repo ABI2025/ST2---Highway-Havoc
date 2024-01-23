@@ -1,13 +1,14 @@
 #include "Auto.hpp"
 #include <iostream>
 
-Auto::Auto(const char extLevel) :   // Parameterkonstruktor zur Erstellung eines Autos 
-	position{ 0.f, 0.f },
+Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstruktor zur Erstellung eines Autos 
+	position{0.f, 0.f},
 	geschwindigkeit{ 0.f, 0.f },
 	beschleunigung{ 0.f, 0.f},
 	breite(60),
 	hoehe(120)
 { 
+	this->window = window;
 	level = extLevel;
 
 	switch (level)  // Lade die entsprechende Grafik des Levels, des Autos in die Variable textur
@@ -18,6 +19,9 @@ Auto::Auto(const char extLevel) :   // Parameterkonstruktor zur Erstellung eines
 
 	case '1':
 		if (!textur.loadFromFile("Auto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
+		derWicht.setTexture(textur);
+		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 });  // Setze Position des Autos in die Mitte des Bildes
+		derWicht.setPosition(position);                                                 // Setze Bild/Sprite des Autos ebenfalls in die Mitte
 	break;
 
 	//case '2':
@@ -32,8 +36,9 @@ Auto::Auto(const char extLevel) :   // Parameterkonstruktor zur Erstellung eines
 
 	}
 
-	derWicht.setTexture(textur);    // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu können (Position etc.)
+										// entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu können (Position etc.)
 }
+
 
 /*
 Auto::Auto(unsigned short extBreite, unsigned short extHoehe) :    // Parameterkonstruktor, welcher die Höhe und Breite des Autos festlegt
@@ -80,18 +85,27 @@ sf::Vector2f Auto::getBeschleunigung() const { return beschleunigung; }
 float Auto::getXBeschleunigung() const { return beschleunigung.x; }
 float Auto::getYBeschleunigung() const { return beschleunigung.y; }
 
-void Auto::update()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
-{
-	geschwindigkeit += beschleunigung; // Die Geschwindigkeit wird um Beschleunigung erhöht
-	position -= geschwindigkeit;       // Die Position minus die Geschwindigkeit ergibt die neue Position, da (0|0) oben links ist => somit Position kleiner Auto kommt näher an oberen Bildrand
 
-	derWicht.setPosition(position);
+void Auto::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
+{
+	derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) geschwindigkeit.x = 1.f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) geschwindigkeit.x = -1.f;     // Eingabe auf Pfeiltasten abfragen und Geschwindigkeit anpassen
+	
+	position += geschwindigkeit;// sf::Vector2f(geschwindigkeit.x, geschwindigkeit.y);
+
+
+	//geschwindigkeit += beschleunigung; // Die Geschwindigkeit wird um Beschleunigung erhöht
+	//position -= geschwindigkeit;       // Die Position minus die Geschwindigkeit ergibt die neue Position, da (0|0) oben links ist => somit Position kleiner Auto kommt näher an oberen Bildrand
+
+	derWicht.setPosition(position);    // Bild/Sprite an die neue Position setzen
+	geschwindigkeit.x = 0.f;
 }
 
-void Auto::draw(sf::RenderWindow& window) // Zeichnet das Auto...
-{
-	update();  // nur temporär in der draw()-Methode, muss später an anderer Stelle stehen
 
-	window.draw(derWicht);
+void Auto::anzeigen() // Zeichnet das Auto...
+{
+	window->draw(derWicht);
 }
 

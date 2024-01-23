@@ -13,10 +13,11 @@ protected:
     unsigned short breite;        // Breite des Autos in Pixeln
     sf::Vector2f geschwindigkeit; // Geschwindigkeit 
     sf::Vector2f beschleunigung;  // wird das Auto gerade schneller oder langsamer
+    sf::RenderWindow* window;
 
 public:
 
-    Auto(const char extLevel);  // Parameterkonstruktor für die Erstellung eines Autos -> siehe .cpp
+    Auto(sf::RenderWindow* window, const char extLevel);  // Parameterkonstruktor für die Erstellung eines Autos -> siehe .cpp
     // Auto(unsigned short extBreite, unsigned short extHoehe);
     ~Auto();
 
@@ -47,6 +48,6 @@ public:
     float getXBeschleunigung() const;
     float getYBeschleunigung() const;
 
-    void update();       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
-    void draw(sf::RenderWindow& window); // zeichnet das Auto
+    void aktualisieren();       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
+    void anzeigen();            // zeichnet das Auto
 };

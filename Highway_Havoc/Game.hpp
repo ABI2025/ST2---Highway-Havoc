@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "Auto.hpp"
 
 class Game 
 {
@@ -7,6 +8,7 @@ private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
 	int fps;						//	Bildwiederholungsrate, mit der das Spiel läuft
 	int tickrate;					//	Spielberechnungsrate, mit der das Spiel läuft
+	Auto* test_auto;
 
 public:
 	Game(int fps, int tickrate);	//	Konstruktor

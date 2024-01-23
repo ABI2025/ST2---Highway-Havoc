@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "Auto.hpp"
 #include "Startbildschirm.hpp"
 #include "Einstellungen.hpp"
 #include "Map.hpp"
@@ -15,9 +16,11 @@ class Game
 {
 private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
-	int fps;						//	Bildwiederholungsrate, mit der das Spiel l‰uft
-	int tickrate;					//	Spielberechnungsrate, mit der das Spiel l‰uft
-	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgef¸hrt
+	int fps;						//	Bildwiederholungsrate, mit der das Spiel l√§uft
+	int tickrate;					//	Spielberechnungsrate, mit der das Spiel l√§uft
+	Auto* test_auto;
+
+	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgef√ºhrt
 	Startbildschirm* startbildschirm;
 	Einstellungen* einstellungen;
 	Map* map;

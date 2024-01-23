@@ -6,6 +6,7 @@ Game::Game(int fps, int tickrate)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	//this->window->setView(sf::View(sf::Vector2f(640/2, 360/2), sf::Vector2f(1920,1080)));	//	optional
+	test_auto = new Auto(window,'1');
 	this->startbildschirm = new Startbildschirm(window);
 	this->einstellungen = new Einstellungen(window);
 	this->map = new Map(window);
@@ -35,6 +36,10 @@ void Game::render()
 		this->einstellungen->anzeigen();
 	}
 
+	
+	test_auto->anzeigen();
+
+	window->display();
 	if (this->zustaende.spielStarten == true)				//	Die Map anzeigen, wenn gefordert
 	{
 		map->zeichnen();
@@ -51,6 +56,7 @@ void Game::tick()
 	{
 		if (event.type == sf::Event::Closed) this->window->close();
 	}
+	test_auto->aktualisieren();
 
 	if (this->zustaende.startbildschirmAnzeigen == true)	//	Den Startbildschirm updaten und auslesen, wenn gefordert
 	{
@@ -82,7 +88,7 @@ void Game::tick()
 		{
 			switch (this->einstellungen->getAuswahl())
 			{
-			case 0:										//	Lautstärke verringern
+			case 0:										//	LautstÃ¤rke verringern
 				einstellungen->lautsaerkeWertMinus(5);
 				break;
 			case 1:
@@ -127,7 +133,7 @@ void Game::start()
 
 	while (this->window->isOpen())
 	{
-		//	tick (Ruft die "tick-Methode" annähernd so oft pro Sekunde auf wie es in "tickrate" steht.)
+		//	tick (Ruft die "tick-Methode" annÃ¤hernd so oft pro Sekunde auf wie es in "tickrate" steht.)
 		zeitSeitLetztemTick = tickLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemTick >= deltaTickZeit)
 		{
@@ -138,12 +144,12 @@ void Game::start()
 			tickLimitClock.restart().asMicroseconds();
 		}
 
-		//	render (Ruft die "render-Methode" annähernd so oft pro Sekunde auf wie es in "fps" steht.)
+		//	render (Ruft die "render-Methode" annÃ¤hernd so oft pro Sekunde auf wie es in "fps" steht.)
 		zeitSeitLetztemFrame = frameLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemFrame >= deltaFrameZeit)
 		{
 			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++)
-																				//solange render nur Bilder wiedergibt ist  die Schleife nicht von Nöten
+																				//solange render nur Bilder wiedergibt ist  die Schleife nicht von NÃ¶ten
 			//{
 			this->render();
 			//}

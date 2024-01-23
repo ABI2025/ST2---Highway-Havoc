@@ -33,11 +33,15 @@
     <ClCompile Include="Einstellungen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Auto.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Auto.hpp">
     <ClInclude Include="Startbildschirm.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>

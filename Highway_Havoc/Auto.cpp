@@ -11,6 +11,8 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 	this->window = window;
 	level = extLevel;
 
+	this->eingabeverwaltung = new EingabeVerwaltung(window);
+
 	switch (level)  // Lade die entsprechende Grafik des Levels, des Autos in die Variable textur
 	{
 	case '0':
@@ -27,7 +29,7 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
 		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
 		derWicht.setPosition(position);                                                             // Setze Bild/Sprite des Autos ebenfalls in die Mitte
-		derWicht.setScale(2.f, 2.f);
+		derWicht.setScale(2.2f, 2.2f);
 	break;
 
 	//case '2':
@@ -42,6 +44,8 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 
 	}
 
+	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Right);
+	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Left);
 
 }
 
@@ -62,7 +66,12 @@ Auto::Auto(unsigned short extBreite, unsigned short extHoehe) :    // Parameterk
 }
 */
 
-Auto::~Auto() { }
+Auto::~Auto() {
+	if (this->eingabeverwaltung != nullptr) {
+		delete this->eingabeverwaltung;
+		this->eingabeverwaltung = nullptr;
+	}
+}
 
 // set-Methoden
 void Auto::setPosition(sf::Vector2f extPosition) { position = extPosition; }
@@ -94,13 +103,15 @@ float Auto::getYBeschleunigung() const { return beschleunigung.y; }
 
 void Auto::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
 {
-	
+	this->eingabeverwaltung->aktualisieren();
+	float breite = this->derWicht.getGlobalBounds().width / 4;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) geschwindigkeit.x = 1.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  geschwindigkeit.x = -1.f;     // Eingabe auf Pfeiltasten abfragen und Geschwindigkeit anpassen
-	
-	position += geschwindigkeit;// sf::Vector2f(geschwindigkeit.x, geschwindigkeit.y);
-
+	if (position.x >= 28 * 6.4 + breite && this->eingabeverwaltung->getTastenStatusIndex(1) == true) {
+		position.x += -1.f;
+	}
+	if (position.x <= 640 - (28 * 6.4) - breite && this->eingabeverwaltung->getTastenStatusIndex(0) == true) {
+		position.x += 1.f;
+	}
 
 	//geschwindigkeit += beschleunigung; // Die Geschwindigkeit wird um Beschleunigung erhöht
 	//position -= geschwindigkeit;       // Die Position minus die Geschwindigkeit ergibt die neue Position, da (0|0) oben links ist => somit Position kleiner Auto kommt näher an oberen Bildrand

@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "EingabeVerwaltung.hpp"
 class Auto
 {
 protected:
@@ -14,6 +14,7 @@ protected:
     sf::Vector2f geschwindigkeit; // Geschwindigkeit 
     sf::Vector2f beschleunigung;  // wird das Auto gerade schneller oder langsamer
     sf::RenderWindow* window;
+    EingabeVerwaltung* eingabeverwaltung;
 
 public:
 

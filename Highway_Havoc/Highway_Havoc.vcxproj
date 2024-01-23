@@ -134,12 +134,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Auto.cpp" />
+    <ClCompile Include="EingabeVerwaltung.cpp" />
+    <ClCompile Include="Einstellungen.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Startbildschirm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Auto.hpp" />
+    <ClInclude Include="EingabeVerwaltung.hpp" />
+    <ClInclude Include="Einstellungen.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Startbildschirm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

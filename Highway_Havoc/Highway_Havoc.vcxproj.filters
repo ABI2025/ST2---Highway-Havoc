@@ -19,7 +19,19 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Startbildschirm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="EingabeVerwaltung.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Einstellungen.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Auto.cpp">
       <Filter>Quelldateien</Filter>
@@ -30,6 +42,16 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Auto.hpp">
+    <ClInclude Include="Startbildschirm.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="EingabeVerwaltung.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Einstellungen.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

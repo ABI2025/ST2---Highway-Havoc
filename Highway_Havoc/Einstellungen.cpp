@@ -12,7 +12,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
 	}
 
-	this->titelText.setFont(PixeboyFont);											//	Parameter und Position vom Titeltext setzen
+	this->titelText.setFont(PixeboyFont);											//	Parameter und Position von den Schriftzügen setzen
 	this->titelText.setFillColor(sf::Color::White);
 	this->titelText.setOutlineColor(sf::Color::White);
 	this->titelText.setCharacterSize(60);
@@ -21,7 +21,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->titelText.setPosition({ window->getSize().x / 2 - titelText.getGlobalBounds().width / 2, 0 });
 
 
-	this->lautstärkeText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->lautstärkeText.setFont(PixeboyFont);
 	this->lautstärkeText.setFillColor(sf::Color::White);
 	this->lautstärkeText.setOutlineColor(sf::Color::White);
 	this->lautstärkeText.setCharacterSize(30);
@@ -29,7 +29,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->lautstärkeText.setString("Lautstaerke");
 	this->lautstärkeText.setPosition({ window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2, 60 });
 
-	this->lautstärkeLeiserText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->lautstärkeLeiserText.setFont(PixeboyFont);
 	this->lautstärkeLeiserText.setFillColor(sf::Color::White);
 	this->lautstärkeLeiserText.setOutlineColor(sf::Color::White);
 	this->lautstärkeLeiserText.setCharacterSize(20);
@@ -37,7 +37,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->lautstärkeLeiserText.setString("Leiser");
 	this->lautstärkeLeiserText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) - 20, 90 });
 
-	this->lautstärkeLauterText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->lautstärkeLauterText.setFont(PixeboyFont);
 	this->lautstärkeLauterText.setFillColor(sf::Color::White);
 	this->lautstärkeLauterText.setOutlineColor(sf::Color::White);
 	this->lautstärkeLauterText.setCharacterSize(20);
@@ -45,7 +45,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->lautstärkeLauterText.setString("Lauter");
 	this->lautstärkeLauterText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 120, 90 });
 
-	this->lautstärkeWertText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->lautstärkeWertText.setFont(PixeboyFont);
 	this->lautstärkeWertText.setFillColor(sf::Color::White);
 	this->lautstärkeWertText.setOutlineColor(sf::Color::White);
 	this->lautstärkeWertText.setCharacterSize(20);
@@ -54,7 +54,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->lautstärkeWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 90 });
 
 
-	this->fpsText.setFont(PixeboyFont);							//	Parameter und Position vom "Fps"-Schriftzug setzen
+	this->fpsText.setFont(PixeboyFont);
 	this->fpsText.setFillColor(sf::Color::White);
 	this->fpsText.setOutlineColor(sf::Color::White);
 	this->fpsText.setCharacterSize(30);
@@ -62,7 +62,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->fpsText.setString("Fps");
 	this->fpsText.setPosition({ window->getSize().x / 2 - fpsText.getGlobalBounds().width / 2, 130 });
 
-	this->fpsWenigerText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->fpsWenigerText.setFont(PixeboyFont);
 	this->fpsWenigerText.setFillColor(sf::Color::White);
 	this->fpsWenigerText.setOutlineColor(sf::Color::White);
 	this->fpsWenigerText.setCharacterSize(20);
@@ -70,7 +70,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->fpsWenigerText.setString("Weniger");
 	this->fpsWenigerText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) - 20, 160 });
 
-	this->fpsMehrText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->fpsMehrText.setFont(PixeboyFont);
 	this->fpsMehrText.setFillColor(sf::Color::White);
 	this->fpsMehrText.setOutlineColor(sf::Color::White);
 	this->fpsMehrText.setCharacterSize(20);
@@ -78,7 +78,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->fpsMehrText.setString("Mehr");
 	this->fpsMehrText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 120, 160 });
 
-	this->fpsWertText.setFont(PixeboyFont);										//	Parameter und Position vom "Lautstärke"-Schriftzug setzen
+	this->fpsWertText.setFont(PixeboyFont);
 	this->fpsWertText.setFillColor(sf::Color::White);
 	this->fpsWertText.setOutlineColor(sf::Color::White);
 	this->fpsWertText.setCharacterSize(20);
@@ -87,7 +87,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	this->fpsWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 160 });
 
 
-	this->speichernText.setFont(PixeboyFont);									//	Parameter und Position vom "Speichern"-Schriftzug setzen
+	this->speichernText.setFont(PixeboyFont);
 	this->speichernText.setFillColor(sf::Color::White);
 	this->speichernText.setOutlineColor(sf::Color::White);
 	this->speichernText.setCharacterSize(40);
@@ -106,7 +106,7 @@ void Einstellungen::anzeigen()
 {
 	this->window->clear(sf::Color(55, 166, 166, 255));								//	Hintergundfarbe setzten
 
-	this->lautstärkeWertText.setString(std::to_string(laustaerkeWert));							// Den momentaren Wert anzeigen
+	this->lautstärkeWertText.setString(std::to_string(laustaerkeWert));				// Den momentaren Wert anzeigen
 	this->fpsWertText.setString(std::to_string(fpsWert));							
 
 	this->lautstärkeLeiserText.setFillColor(sf::Color::White);	
@@ -151,7 +151,7 @@ void Einstellungen::aktualisieren()
 {
 	this->eingabeverwaltung->aktualisieren();										//	Die Eingabeverwaltung aktualisieren
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
-	this->auswahlGetroffen = false;
+	this->auswahlGetroffen = false;													//	Zurücksetzen von Auswahlgetroffen, da sonst ein Klickspam ensteht 
 
 	if (this->eingabeverwaltung->getTastenStatusGeandertIndex(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{

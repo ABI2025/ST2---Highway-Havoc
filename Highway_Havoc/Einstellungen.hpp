@@ -24,8 +24,8 @@
 		unsigned short lautstaerkeMinWert = 0;
 		unsigned short lautstaerkeMaxWert = 100;
 
-		unsigned short fpsWert = 15;
-		unsigned short fpsMinWert = 15;
+		unsigned short fpsWert = 60;
+		unsigned short fpsMinWert = 10;
 		unsigned short fpsMaxWert = 120;
 
 
@@ -36,6 +36,7 @@
 		void aktualisieren();						//	Aktualisiert die Auswahl
 		short getAuswahl();
 		bool getAuswahlGetroffen();
+		unsigned short getFpsWert();
 
 		void setLaustaerkeWert(unsigned short value);
 		void setFpsWert(unsigned short value);

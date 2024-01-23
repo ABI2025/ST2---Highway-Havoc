@@ -90,7 +90,7 @@ void Startbildschirm::aktualisieren()
 {
 	this->eingabeverwaltung->aktualisieren();										//	Die Eingabeverwaltung aktualisieren
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
-	this->auswahlGetroffen = false;
+	this->auswahlGetroffen = false;													//	AuswahlGetroffen zurücksetzten
 
 	if (this->eingabeverwaltung->getTastenStatusGeandertIndex(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{

@@ -199,6 +199,11 @@ bool Einstellungen::getAuswahlGetroffen()
 	return this->auswahlGetroffen;
 }
 
+unsigned short Einstellungen::getFpsWert()
+{
+	return this->fpsWert;
+}
+
 void Einstellungen::setLaustaerkeWert(unsigned short wert)
 {
 	if (wert >= lautstaerkeMinWert && wert <= lautstaerkeMaxWert)laustaerkeWert = wert;

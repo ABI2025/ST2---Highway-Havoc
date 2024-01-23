@@ -86,7 +86,7 @@ void Game::tick()
 		{
 			switch (this->einstellungen->getAuswahl())
 			{
-			case 0:										//	Lautstärke verringern
+			case 0:										//	Lautstärke anpassen
 				einstellungen->lautsaerkeWertMinus(5);
 				break;
 			case 1:
@@ -94,9 +94,11 @@ void Game::tick()
 				break;
 			case 2:
 				einstellungen->fpsWertMinus(5);
+				this->fps = einstellungen->getFpsWert();//	Bildwiederholungsrate anpassen
 				break;
 			case 3:
 				einstellungen->fpsWertPlus(5);
+				this->fps = einstellungen->getFpsWert();
 				break;
 			case 4:
 				this->zustaende.einstellungenAnzeigen = false;
@@ -148,11 +150,13 @@ void Game::start()
 		if (zeitSeitLetztemFrame >= deltaFrameZeit)
 		{
 			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++)
-																				//solange render nur Bilder wiedergibt ist  die Schleife nicht von Nöten
+																				//	solange render nur Bilder wiedergibt ist  die Schleife nicht von Nöten
 			//{
 			this->render();
 			//}
 			frameLimitClock.restart().asMicroseconds();
 		}
+		deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;			//	Wird in der Schleife berechnet, um die Bildwiederholungrate zur Laufzeit anpassen zu können
+		deltaTickZeit = ((double)1 / (double)tickrate) * (double)1000000;
 	}
 }

@@ -15,13 +15,19 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 	{
 	case '0':
 		if (!textur.loadFromFile("Scheißauto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
+		derWicht.setTexture(textur);                                                                 // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu können (Position etc.)
+		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
+		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
+		derWicht.setPosition(position);                                                             // Setze Bild/Sprite des Autos ebenfalls in die Mitte
 	break;
 
 	case '1':
 		if (!textur.loadFromFile("Auto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
-		derWicht.setTexture(textur);
-		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 });  // Setze Position des Autos in die Mitte des Bildes
-		derWicht.setPosition(position);                                                 // Setze Bild/Sprite des Autos ebenfalls in die Mitte
+		derWicht.setTexture(textur);                                                                 // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu können (Position etc.)
+		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
+		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
+		derWicht.setPosition(position);                                                             // Setze Bild/Sprite des Autos ebenfalls in die Mitte
+		derWicht.setScale(2.f, 2.f);
 	break;
 
 	//case '2':
@@ -36,7 +42,7 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 
 	}
 
-										// entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu können (Position etc.)
+
 }
 
 
@@ -88,10 +94,10 @@ float Auto::getYBeschleunigung() const { return beschleunigung.y; }
 
 void Auto::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
 {
-	derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
+	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) geschwindigkeit.x = 1.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) geschwindigkeit.x = -1.f;     // Eingabe auf Pfeiltasten abfragen und Geschwindigkeit anpassen
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  geschwindigkeit.x = -1.f;     // Eingabe auf Pfeiltasten abfragen und Geschwindigkeit anpassen
 	
 	position += geschwindigkeit;// sf::Vector2f(geschwindigkeit.x, geschwindigkeit.y);
 

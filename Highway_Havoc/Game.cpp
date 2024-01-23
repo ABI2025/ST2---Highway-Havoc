@@ -6,7 +6,7 @@ Game::Game(int fps, int tickrate)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	//this->window->setView(sf::View(sf::Vector2f(640/2, 360/2), sf::Vector2f(1920,1080)));	//	optional
-	test_auto = new Auto(window,'1');
+	test_auto = new Auto(window,'0');
 	this->startbildschirm = new Startbildschirm(window);
 	this->einstellungen = new Einstellungen(window);
 	this->map = new Map(window);
@@ -35,14 +35,12 @@ void Game::render()
 	{
 		this->einstellungen->anzeigen();
 	}
-
 	
-	test_auto->anzeigen();
 
-	window->display();
 	if (this->zustaende.spielStarten == true)				//	Die Map anzeigen, wenn gefordert
 	{
 		map->zeichnen();
+		test_auto->anzeigen();
 	} 
 
 	this->window->display();
@@ -56,7 +54,7 @@ void Game::tick()
 	{
 		if (event.type == sf::Event::Closed) this->window->close();
 	}
-	test_auto->aktualisieren();
+	
 
 	if (this->zustaende.startbildschirmAnzeigen == true)	//	Den Startbildschirm updaten und auslesen, wenn gefordert
 	{
@@ -110,6 +108,7 @@ void Game::tick()
 
 	if (this->zustaende.spielStarten == true) {
 		this->map->aktualisieren();
+		test_auto->aktualisieren();
 	}
 
 	if (this->zustaende.spielBeenden == true)			//	Spiel beenden, wenn gefordert

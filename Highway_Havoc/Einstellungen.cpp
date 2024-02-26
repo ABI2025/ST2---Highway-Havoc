@@ -11,7 +11,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
 	}
-	if (!this->musik.openFromFile("waiting_music.ogg"))
+	if (!this->musik.openFromFile("waiting-music.ogg"))
 	{
 		std::cout << "Fehler beim Laden der Musikdatei!" << std::endl;
 	}

@@ -11,6 +11,12 @@ Einstellungen::Einstellungen(sf::RenderWindow* window)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
 	}
+	if (!this->musik.openFromFile("waiting_music.ogg"))
+	{
+		std::cout << "Fehler beim Laden der Musikdatei!" << std::endl;
+	}
+
+	this->musik.setLoop(true);
 
 	this->titelText.setFont(PixeboyFont);											//	Parameter und Position von den Schriftzügen setzen
 	this->titelText.setFillColor(sf::Color::White);
@@ -187,6 +193,12 @@ void Einstellungen::aktualisieren()
 	{
 		this->auswahlGetroffen = true;
 	}
+}
+
+void Einstellungen::playMusik(bool status)
+{
+	if (status) this->musik.play();
+	else this->musik.stop();
 }
 
 short Einstellungen::getAuswahl()

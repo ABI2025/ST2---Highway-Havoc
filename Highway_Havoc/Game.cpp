@@ -82,6 +82,7 @@ void Game::tick()
 	if (this->zustaende.einstellungenAnzeigen == true)	//	Die Einstellungen updaten und auslesen, wenn gefordert
 	{
 		this->einstellungen->aktualisieren();
+		this->einstellungen->playMusik(true);
 		if (this->einstellungen->getAuswahlGetroffen())
 		{
 			switch (this->einstellungen->getAuswahl())

@@ -5,7 +5,7 @@ class Auto
 {
 protected:
 
-    char level;                   // Das Level bestimmt über die Optik und andere Merkmale des Autos (siehe Konstruktor)
+    char level;                   // Das Level bestimmt über die Optik des Autos (siehe Konstruktor) -> a,b,c,... Bots; 1,2,3,... Spieler
     sf::Sprite derWicht;          // benötigt um eine Textur zu anzuzeigen (draw()), (Namensgebung -> Übersetzer)
     sf::Texture textur;           // speichert Bild/PNG des Autos
     sf::Vector2f position;        // Koordinate eines Auto-Objeks
@@ -49,6 +49,6 @@ public:
     float getXBeschleunigung() const;
     float getYBeschleunigung() const;
 
-    void aktualisieren();       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
-    void anzeigen();            // zeichnet das Auto
+    virtual void aktualisieren() = 0;       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
+    // virtual void anzeigen();            // zeichnet das Auto
 };

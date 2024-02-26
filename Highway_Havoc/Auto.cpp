@@ -3,7 +3,7 @@
 
 Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstruktor zur Erstellung eines Autos 
 	position{0.f, 0.f},
-	geschwindigkeit{ 0.f, 0.f },
+	geschwindigkeit{ 1.85f, 0.f },
 	beschleunigung{ 0.f, 0.f},
 	breite(60),
 	hoehe(120)
@@ -15,7 +15,7 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 
 	switch (level)  // Lade die entsprechende Grafik des Levels, des Autos in die Variable textur
 	{
-	case '0':
+	case 'a':
 		if (!textur.loadFromFile("Scheiﬂauto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
 		derWicht.setTexture(textur);                                                                 // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu kˆnnen (Position etc.)
 		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
@@ -27,7 +27,7 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 		if (!textur.loadFromFile("Auto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
 		derWicht.setTexture(textur);                                                                 // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu kˆnnen (Position etc.)
 		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
-		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
+		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y * 0.66f}); // Setze Position des Autos auf das untere Drittel in die Mitte
 		derWicht.setPosition(position);                                                             // Setze Bild/Sprite des Autos ebenfalls in die Mitte
 		derWicht.setScale(2.2f, 2.2f);
 	break;
@@ -101,28 +101,9 @@ float Auto::getXBeschleunigung() const { return beschleunigung.x; }
 float Auto::getYBeschleunigung() const { return beschleunigung.y; }
 
 
-void Auto::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
-{
-	this->eingabeverwaltung->aktualisieren();
-	float breite = this->derWicht.getGlobalBounds().width / 4;
-
-	if (position.x >= 28 * 6.4 + breite && this->eingabeverwaltung->getTastenStatusIndex(1) == true) {
-		position.x += -1.f;
-	}
-	if (position.x <= 640 - (28 * 6.4) - breite && this->eingabeverwaltung->getTastenStatusIndex(0) == true) {
-		position.x += 1.f;
-	}
-
-	//geschwindigkeit += beschleunigung; // Die Geschwindigkeit wird um Beschleunigung erhˆht
-	//position -= geschwindigkeit;       // Die Position minus die Geschwindigkeit ergibt die neue Position, da (0|0) oben links ist => somit Position kleiner Auto kommt n‰her an oberen Bildrand
-
-	derWicht.setPosition(position);    // Bild/Sprite an die neue Position setzen
-	geschwindigkeit.x = 0.f;
-}
-
-
+/*
 void Auto::anzeigen() // Zeichnet das Auto...
 {
 	window->draw(derWicht);
 }
-
+*/

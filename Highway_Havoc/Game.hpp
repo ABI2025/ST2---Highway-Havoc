@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "Auto.hpp"
+#include "Spieler.hpp"
 #include "Startbildschirm.hpp"
 #include "Einstellungen.hpp"
 #include "Map.hpp"
@@ -18,7 +18,7 @@ private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
 	int fps;						//	Bildwiederholungsrate, mit der das Spiel läuft
 	int tickrate;					//	Spielberechnungsrate, mit der das Spiel läuft
-	Auto* test_auto;
+	Spieler* test_spieler;
 
 	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgeführt
 	Startbildschirm* startbildschirm;

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include "EingabeVerwaltung.hpp"
 	class Einstellungen
 	{
@@ -7,6 +8,7 @@
 		short auswahl = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)
 		bool auswahlGetroffen = false;				//	Ob die Momentan ausgewählte Auswahl bestätigt wurde
 		sf::RenderWindow* window;					//	Pointer auf window, wird für die anzeigen-Methode benötigt
+		sf::Music musik;
 		sf::Font PixeboyFont;						//	Die Schriftart, die für die Textzüge genutz wird
 		sf::Text titelText;							//	Textelement, das den Spieltitel enthält
 		sf::Text lautstärkeText;					//	Textelement, das den "LautstärkeText"-Schriftzug enthält f.f.
@@ -34,6 +36,8 @@
 		Einstellungen(sf::RenderWindow* window);	//	Konstruktor
 		void anzeigen();							//	Zeichnet die Einstellungen, wird in Game::render() aufgerufen
 		void aktualisieren();						//	Aktualisiert die Auswahl
+
+		void playMusik(bool);
 
 		short getAuswahl();
 		bool getAuswahlGetroffen();

@@ -2,9 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "EingabeVerwaltung.hpp"
 
-
-class Startbildschirm 
-{
+class PauseMenue {
 protected:
 	short auswahl = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)
 	bool auswahlGetroffen = false;				//	Ob die Momentan ausgewählte Auswahl bestätigt wurde
@@ -17,12 +15,14 @@ protected:
 	EingabeVerwaltung* eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
 	sf::Texture autoTextur;
 	sf::Sprite autoSprite;
+	sf::RectangleShape fensterHintergrund;
 
 public:
-	~Startbildschirm();							//	Destruktor
-	Startbildschirm(sf::RenderWindow* window);	//	Konstruktor
+	~PauseMenue();							//	Destruktor
+	PauseMenue(sf::RenderWindow* window);	//	Konstruktor
 	void anzeigen();							//	Zeichnet den Startbildschirm, wird in Game::render() aufgerufen
 	void aktualisieren();						//	Aktualisiert die Auswahl
 	short getAuswahl();
 	bool getAuswahlGetroffen();
+	bool getEsc();
 };

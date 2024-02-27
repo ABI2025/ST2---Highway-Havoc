@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Auto.hpp"
 #include "Startbildschirm.hpp"
+#include "PauseMenue.hpp"
 #include "Einstellungen.hpp"
 #include "Map.hpp"
 struct Zustaende
@@ -10,6 +11,7 @@ struct Zustaende
 	bool spielStarten = false;
 	bool einstellungenAnzeigen = false;
 	bool spielBeenden = false;
+	bool pauseMenueAnzeigen = false;
 };
 
 class Game 
@@ -22,6 +24,7 @@ private:
 
 	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgeführt
 	Startbildschirm* startbildschirm;
+	PauseMenue* pauseMenue;
 	Einstellungen* einstellungen;
 	Map* map;
 public:

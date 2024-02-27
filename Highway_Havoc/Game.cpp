@@ -2,12 +2,14 @@
 #include "Game.hpp"
 #include <iostream>
 
+
 Game::Game(int fps, int tickrate)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	//this->window->setView(sf::View(sf::Vector2f(640/2, 360/2), sf::Vector2f(1920,1080)));	//	optional
 	test_auto = new Auto(window,'0');
 	this->startbildschirm = new Startbildschirm(window);
+	this->pauseMenue = new PauseMenue(window);
 	this->einstellungen = new Einstellungen(window);
 	this->map = new Map(window);
 	this->zustaende.startbildschirmAnzeigen = true;
@@ -29,6 +31,13 @@ void Game::render()
 	if (this->zustaende.startbildschirmAnzeigen == true)	//	Den Startbildschirm anzeigen, wenn gefordert
 	{
 		this->startbildschirm->anzeigen();
+	}
+
+	if (this->zustaende.pauseMenueAnzeigen == true)	//	Den pauseMenue anzeigen, wenn gefordert
+	{
+		map->zeichnen();
+		test_auto->anzeigen();
+		this->pauseMenue->anzeigen();
 	}
 
 	if (this->zustaende.einstellungenAnzeigen == true)		//	Den Einstellungsbildschirm anzeigen, wenn gefordert
@@ -54,7 +63,12 @@ void Game::tick()
 	{
 		if (event.type == sf::Event::Closed) this->window->close();
 	}
+
 	
+	if ((this->pauseMenue->getEsc() == true) && (this->zustaende.spielStarten == true)) {
+		this->zustaende.pauseMenueAnzeigen = true;
+		this->zustaende.spielStarten = false;
+	}
 
 	if (this->zustaende.startbildschirmAnzeigen == true)	//	Den Startbildschirm updaten und auslesen, wenn gefordert
 	{
@@ -74,6 +88,30 @@ void Game::tick()
 			case 2:
 				this->zustaende.spielBeenden = true;
 				this->zustaende.startbildschirmAnzeigen = false;
+				break;
+			}
+		}
+	}
+
+
+	if (this->zustaende.pauseMenueAnzeigen == true)	//	Den PauseMenue updaten und auslesen, wenn gefordert
+	{
+		this->pauseMenue->aktualisieren();
+		if (this->pauseMenue->getAuswahlGetroffen())
+		{
+			switch (this->pauseMenue->getAuswahl())
+			{
+			case 0:
+				this->zustaende.spielStarten = true;
+				this->zustaende.pauseMenueAnzeigen = false;
+				break;
+			case 1:
+				this->zustaende.einstellungenAnzeigen = true;
+				this->zustaende.pauseMenueAnzeigen = false;
+				break;
+			case 2:
+				this->zustaende.spielBeenden = true;
+				this->zustaende.pauseMenueAnzeigen = false;
 				break;
 			}
 		}

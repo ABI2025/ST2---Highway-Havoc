@@ -134,20 +134,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Auto.cpp" />
+    <ClCompile Include="Bot.cpp" />
     <ClCompile Include="EingabeVerwaltung.cpp" />
     <ClCompile Include="Einstellungen.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PauseMenue.cpp" />
+    <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Startbildschirm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Auto.hpp" />
+    <ClInclude Include="Bot.hpp" />
     <ClInclude Include="EingabeVerwaltung.hpp" />
     <ClInclude Include="Einstellungen.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Spieler.hpp" />
     <ClInclude Include="PauseMenue.hpp" />
     <ClInclude Include="Startbildschirm.hpp" />
   </ItemGroup>

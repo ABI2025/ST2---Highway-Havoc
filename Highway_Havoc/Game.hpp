@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "SFML/Audio/Music.hpp"
-#include "Auto.hpp"
+#include "Spieler.hpp"
+#include "Bot.hpp"
 #include "Startbildschirm.hpp"
 #include "PauseMenue.hpp"
 #include "Einstellungen.hpp"
@@ -21,7 +21,8 @@ private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
 	int fps;						//	Bildwiederholungsrate, mit der das Spiel läuft
 	int tickrate;					//	Spielberechnungsrate, mit der das Spiel läuft
-	Auto* test_auto;
+	Spieler* test_spieler;
+	Bot* test_bot;
 
 	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgeführt
 	Startbildschirm* startbildschirm;
@@ -38,5 +39,5 @@ public:
 	void render();					//	Hier kommt der Rendercode rein!!!!!
 	void tick();					//	Hier kommt der Spielcode rein, der nicht der Rendercode ist!!!
 	void start();					//	Ruft die Render- und Tick-Methoden auf.
-	//sf::Music* getMusik();
+	void autoKollisionen();         //  Prüfen ob sich Autos berühren 
 };

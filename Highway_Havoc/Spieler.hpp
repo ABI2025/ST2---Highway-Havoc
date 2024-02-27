@@ -1,7 +1,7 @@
 #pragma once
 #include "Auto.hpp"
 
-class Spieler : Auto
+class Spieler : public Auto
 {
 private:
 	bool tot;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Auto.hpp"
 
-class Bot : Auto
+class Bot : public Auto
 {
 private: 
 

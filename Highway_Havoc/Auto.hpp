@@ -15,6 +15,7 @@ protected:
     sf::Vector2f beschleunigung;  // wird das Auto gerade schneller oder langsamer
     sf::RenderWindow* window;
     EingabeVerwaltung* eingabeverwaltung;
+    sf::FloatRect grenzenGrafik;
 
 public:
 
@@ -48,6 +49,7 @@ public:
     sf::Vector2f getBeschleunigung() const;
     float getXBeschleunigung() const;
     float getYBeschleunigung() const;
+    sf::FloatRect getGrenzenGrafik() const;
 
     virtual void aktualisieren() = 0;       // Bringt die Attribute/Variablen auf den "aktuellen Stand"
     // virtual void anzeigen();            // zeichnet das Auto

@@ -44,6 +44,8 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 
 	}
 
+	grenzenGrafik = derWicht.getGlobalBounds();
+
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Right);
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Left);
 
@@ -99,6 +101,7 @@ float Auto::getYGeschwindigkeit() const { return geschwindigkeit.y; }
 sf::Vector2f Auto::getBeschleunigung() const { return beschleunigung; }
 float Auto::getXBeschleunigung() const { return beschleunigung.x; }
 float Auto::getYBeschleunigung() const { return beschleunigung.y; }
+sf::FloatRect Auto::getGrenzenGrafik() const { return grenzenGrafik; }
 
 
 /*

@@ -21,6 +21,7 @@ void Spieler::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuel
 {
 	this->eingabeverwaltung->aktualisieren();
 	float breite = this->derWicht.getGlobalBounds().width / 4;
+	grenzenGrafik = derWicht.getGlobalBounds();
 	derWicht.setRotation(0.f);
 
 	if (position.x >= 28 * 6.4 + breite && this->eingabeverwaltung->getTastenStatusIndex(1) == true) 

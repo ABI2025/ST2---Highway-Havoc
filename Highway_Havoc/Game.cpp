@@ -54,7 +54,8 @@ void Game::render()
 	if (this->zustaende.pauseMenueAnzeigen == true)	//	Den pauseMenue anzeigen, wenn gefordert
 	{
 		map->zeichnen();
-		test_auto->anzeigen();
+		test_spieler->anzeigen();
+		test_bot->anzeigen();
 		this->pauseMenue->anzeigen();
 	}
 

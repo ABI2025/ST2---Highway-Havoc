@@ -1,6 +1,7 @@
 #pragma once
 #include "Auto.hpp"
 
+class Bot;
 class Spieler : public Auto
 {
 private:
@@ -16,7 +17,7 @@ public:
 
 	void aktualisieren(); 
 	void anzeigen();
-	void stirb();
+	void stirb(Bot* extBot);
 	
 };
 

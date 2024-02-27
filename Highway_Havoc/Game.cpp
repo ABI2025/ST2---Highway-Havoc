@@ -168,10 +168,11 @@ void Game::start()
 
 void Game::autoKollisionen()
 {
+
 	if ((test_bot->getGrenzenGrafik()).contains(test_spieler->getPosition()))
 	{
 		this->zustaende.spielStarten = false;
 		this->zustaende.startbildschirmAnzeigen = true;
-		std::cout << "Kollidiert!";
+		test_spieler->stirb(test_bot);
 	}
 }

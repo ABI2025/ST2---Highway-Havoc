@@ -26,6 +26,7 @@ private:
 	Startbildschirm* startbildschirm;
 	Einstellungen* einstellungen;
 	Map* map;
+
 public:
 	Game(int fps, int tickrate);	//	Konstruktor
 	~Game();						//	Destruktor

@@ -1,4 +1,5 @@
 #include "Spieler.hpp"
+#include "Bot.hpp"
 
 Spieler::Spieler(sf::RenderWindow* window, const char extLevel) : Auto(window, extLevel),
 tot(0)
@@ -14,7 +15,13 @@ Spieler::~Spieler()
 
 bool Spieler::getTot() const { return tot; }
 
-void Spieler::stirb() { tot = 1; }
+void Spieler::stirb(Bot* extBot) 
+{ 
+	tot = true; 
+	if (extBot->getFahrbahn() == 'r' || extBot->getFahrbahn() == 'l') position.x = (float)640 / 2;
+	else position.x = (640.f / 2) - (15.f * 6.4);
+	
+}
 
 
 void Spieler::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuellen" Stand
@@ -23,6 +30,11 @@ void Spieler::aktualisieren()  // Bringt die Werte der Variablen auf den "aktuel
 	float breite = this->derWicht.getGlobalBounds().width / 4;
 	grenzenGrafik = derWicht.getGlobalBounds();
 	derWicht.setRotation(0.f);
+
+	if (tot)
+	{
+		tot = false;
+	}
 
 	if (position.x >= 28 * 6.4 + breite && this->eingabeverwaltung->getTastenStatusIndex(1) == true) 
 	{

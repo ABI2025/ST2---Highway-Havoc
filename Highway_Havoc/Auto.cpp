@@ -19,7 +19,7 @@ Auto::Auto(sf::RenderWindow* window, const char extLevel) :   // Parameterkonstr
 		if (!textur.loadFromFile("Scheiﬂauto.png")) std::cout << "Laden der Grafik fehlgeschlagen!";
 		derWicht.setTexture(textur);                                                                 // entsprechende Textur / Bild in die Sprite laden um damit arbeiten zu kˆnnen (Position etc.)
 		derWicht.setOrigin(derWicht.getGlobalBounds().width / 2, derWicht.getGlobalBounds().height / 2); // Ansprechpunkt der Sprite ist nun in der Mitte des Bildes
-		setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
+		// setPosition({ (float)this->window->getSize().x / 2, (float)this->window->getSize().y / 2 }); // Setze Position des Autos in die Mitte des Bildes
 		derWicht.setPosition(position);                                                             // Setze Bild/Sprite des Autos ebenfalls in die Mitte
 	break;
 

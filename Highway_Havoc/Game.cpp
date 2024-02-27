@@ -5,16 +5,33 @@
 
 Game::Game(int fps, int tickrate)
 {
+	if (!musik.openFromFile("self.ogg"))
+	{
+		std::cout << "Fehler beim Laden der Musikdatei!" << std::endl;
+	}
+
+	this->pmusik = &musik;
+
+	if (!musikStartbildschirm.openFromFile("waiting-music.ogg"))
+	{
+		std::cout << "Fehler beim Laden der Musikdatei!" << std::endl;
+	}
+	this->pmusikStartbildschirm = &musikStartbildschirm;
+	musikStartbildschirm.play();
+
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	//this->window->setView(sf::View(sf::Vector2f(640/2, 360/2), sf::Vector2f(1920,1080)));	//	optional
 	test_auto = new Auto(window,'0');
 	this->startbildschirm = new Startbildschirm(window);
+	this->einstellungen = new Einstellungen(window, &musik, &musikStartbildschirm); // ,musik
 	this->pauseMenue = new PauseMenue(window);
-	this->einstellungen = new Einstellungen(window);
 	this->map = new Map(window);
 	this->zustaende.startbildschirmAnzeigen = true;
 	this->fps = fps;
 	this->tickrate = tickrate;
+
+	/*musik->setLoop(true);*/
+	/*musik.play();*/
 }
 
 Game::~Game()
@@ -80,10 +97,16 @@ void Game::tick()
 			case 0:
 				this->zustaende.spielStarten = true;
 				this->zustaende.startbildschirmAnzeigen = false;
+				musikStartbildschirm.pause();
+				musik.play();
+				std::cout << "Spiel gestartet!" << std::endl;
 				break;
 			case 1:
 				this->zustaende.einstellungenAnzeigen = true;
 				this->zustaende.startbildschirmAnzeigen = false;
+				musik.pause();
+				musikStartbildschirm.play();
+				std::cout << "Einstellungen gestartet!" << std::endl;
 				break;
 			case 2:
 				this->zustaende.spielBeenden = true;
@@ -198,3 +221,4 @@ void Game::start()
 		deltaTickZeit = ((double)1 / (double)tickrate) * (double)1000000;
 	}
 }
+

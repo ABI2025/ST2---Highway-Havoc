@@ -13,6 +13,14 @@ Game::Game(int fps, int tickrate)
 	this->zustaende.startbildschirmAnzeigen = true;
 	this->fps = fps;
 	this->tickrate = tickrate;
+
+	if (!this->musik.openFromFile("HintergrundMusik.ogg"))
+	{
+		std::cout << "Fehler beim Laden der Musikdatei!" << std::endl;
+	}
+
+	this->musik.setLoop(true);
+	this->musik.play();
 }
 
 Game::~Game()

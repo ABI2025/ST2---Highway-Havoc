@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio/Music.hpp"
 #include "Auto.hpp"
 #include "Startbildschirm.hpp"
 #include "Einstellungen.hpp"
@@ -24,6 +25,7 @@ private:
 	Startbildschirm* startbildschirm;
 	Einstellungen* einstellungen;
 	Map* map;
+	sf::Music musik;
 public:
 	Game(int fps, int tickrate);	//	Konstruktor
 	~Game();						//	Destruktor

@@ -26,10 +26,14 @@ private:
 	Einstellungen* einstellungen;
 	Map* map;
 	sf::Music musik;
+	sf::Music* pmusik;
+	sf::Music musikStartbildschirm;
+	sf::Music* pmusikStartbildschirm;
 public:
 	Game(int fps, int tickrate);	//	Konstruktor
 	~Game();						//	Destruktor
 	void render();					//	Hier kommt der Rendercode rein!!!!!
 	void tick();					//	Hier kommt der Spielcode rein, der nicht der Rendercode ist!!!
 	void start();					//	Ruft die Render- und Tick-Methoden auf.
+	//sf::Music* getMusik();
 };

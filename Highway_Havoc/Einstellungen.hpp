@@ -8,7 +8,8 @@
 		short auswahl = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)
 		bool auswahlGetroffen = false;				//	Ob die Momentan ausgewählte Auswahl bestätigt wurde
 		sf::RenderWindow* window;					//	Pointer auf window, wird für die anzeigen-Methode benötigt
-		sf::Music musik;
+		sf::Music* musik;
+		sf::Music* musikStartbildschirm;
 		sf::Font PixeboyFont;						//	Die Schriftart, die für die Textzüge genutz wird
 		sf::Text titelText;							//	Textelement, das den Spieltitel enthält
 		sf::Text lautstärkeText;					//	Textelement, das den "LautstärkeText"-Schriftzug enthält f.f.
@@ -22,7 +23,7 @@
 		sf::Text speichernText;
 		EingabeVerwaltung* eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
 
-		unsigned short laustaerkeWert = 0;
+		unsigned short laustaerkeWert = 100;
 		unsigned short lautstaerkeMinWert = 0;
 		unsigned short lautstaerkeMaxWert = 100;
 
@@ -33,20 +34,19 @@
 
 	public:
 		~Einstellungen();							//	Destruktor
-		Einstellungen(sf::RenderWindow* window);	//	Konstruktor
+		Einstellungen(sf::RenderWindow* window, sf::Music* musik, sf::Music* musikStartbildschirm);	//	, sf::Music* musik	Konstruktor
 		void anzeigen();							//	Zeichnet die Einstellungen, wird in Game::render() aufgerufen
 		void aktualisieren();						//	Aktualisiert die Auswahl
 
-		void playMusik(bool);
 
-		short getAuswahl();
-		bool getAuswahlGetroffen();
-		unsigned short getFpsWert();
+		short getAuswahl() const;
+		bool getAuswahlGetroffen() const;
+		unsigned short getFpsWert() const;
 
 		void setLaustaerkeWert(unsigned short value);
 		void setFpsWert(unsigned short value);
 
-		void lautsaerkeWertPlus(unsigned short value);	// 
+		void lautsaerkeWertPlus(unsigned short value);	
 		void lautsaerkeWertMinus(unsigned short value);
 
 		void fpsWertPlus(unsigned short value);

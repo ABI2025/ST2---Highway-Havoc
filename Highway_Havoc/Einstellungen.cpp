@@ -3,16 +3,17 @@
 
 Einstellungen::~Einstellungen() { }
 
-Einstellungen::Einstellungen(sf::RenderWindow* window)
+Einstellungen::Einstellungen(sf::RenderWindow* window, sf::Music* musik, sf::Music* musikStartbildschirm) //, sf::Music* musik
 {
 	this->window = window;
+	this->musik = musik;
+	this->musikStartbildschirm = musikStartbildschirm;
 	this->eingabeverwaltung = new EingabeVerwaltung(window);
 	if (!this->PixeboyFont.loadFromFile("Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (Pixeboy-z8XGD.ttf)" << std::endl;
 	}
 	
-
 	this->titelText.setFont(PixeboyFont);											//	Parameter und Position von den Schriftzügen setzen
 	this->titelText.setFillColor(sf::Color::White);
 	this->titelText.setOutlineColor(sf::Color::White);
@@ -190,23 +191,18 @@ void Einstellungen::aktualisieren()
 	}
 }
 
-void Einstellungen::playMusik(bool status)
-{
-	if (status) this->musik.play();
-	else this->musik.stop();
-}
 
-short Einstellungen::getAuswahl()
+short Einstellungen::getAuswahl() const
 {
 	return this->auswahl;
 }
 
-bool Einstellungen::getAuswahlGetroffen()
+bool Einstellungen::getAuswahlGetroffen() const
 {
 	return this->auswahlGetroffen;
 }
 
-unsigned short Einstellungen::getFpsWert()
+unsigned short Einstellungen::getFpsWert() const
 {
 	return this->fpsWert;
 }
@@ -225,12 +221,22 @@ void Einstellungen::setFpsWert(unsigned short wert)
 
 void Einstellungen::lautsaerkeWertPlus(unsigned short value)
 {
-	if (laustaerkeWert < lautstaerkeMaxWert) laustaerkeWert += value;
+	if (laustaerkeWert < lautstaerkeMaxWert)
+	{
+		laustaerkeWert += value;
+		musik->setVolume(laustaerkeWert);
+		musikStartbildschirm->setVolume(laustaerkeWert);
+	}
 }
 
 void Einstellungen::lautsaerkeWertMinus(unsigned short value)
 {
-	if (laustaerkeWert > lautstaerkeMinWert) laustaerkeWert -= value;
+	if (laustaerkeWert > lautstaerkeMinWert)
+	{
+		laustaerkeWert -= value;
+		musik->setVolume(laustaerkeWert);
+		musikStartbildschirm->setVolume(laustaerkeWert);
+	}
 }
 
 void Einstellungen::fpsWertPlus(unsigned short value)

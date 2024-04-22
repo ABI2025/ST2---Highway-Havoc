@@ -47,6 +47,32 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
 	}
+	sf::Texture level1Textur;
+	if (!level1Textur.loadFromFile("./res/grafiken/level1_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	{
+		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level1_cover.png)" << std::endl;
+	}
+	this->levelTextureVector.push_back(level1Textur);
+	sf::Texture level2Textur;
+	if (!level2Textur.loadFromFile("./res/grafiken/level2_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	{
+		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level2_cover.png)" << std::endl;
+	}
+	this->levelTextureVector.push_back(level2Textur);
+	sf::Texture level3Textur;
+	if (!level3Textur.loadFromFile("./res/grafiken/level3_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	{
+		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level3_cover.png)" << std::endl;
+	}
+	this->levelTextureVector.push_back(level3Textur);
+	for (int i = 0; i < this->levelTextureVector.size(); i++) {
+		sf::Sprite levelIconSprite;
+		levelIconSprite.setTexture(this->levelTextureVector[i]);
+		levelIconSprite.setPosition(sf::Vector2f(730 / 11, 100));
+		levelIconSprite.move((730 / 11 + 50) * i, 0);
+		this->levelSpriteVector.push_back(levelIconSprite);
+	}
+
 	this->titelText.setFont(PixeboyFont);
 	this->titelText.setFillColor(sf::Color::White);
 	this->titelText.setOutlineColor(sf::Color::White);
@@ -64,10 +90,11 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->zurueckPfeil.setPoint(5, sf::Vector2f(50, 75));
 	this->zurueckPfeil.setPoint(6, sf::Vector2f(50, 100));
 	this->zurueckPfeil.setScale(sf::Vector2f(0.35f, 0.35f));
-	this->zurueckPfeil.setPosition(0,25);
+	this->zurueckPfeil.setPosition(0, 25);
 
 	this->levelHinzufuegen(this->levelGenerieren(1));
 	this->levelHinzufuegen(this->levelGenerieren(2));
+	this->levelHinzufuegen(this->levelGenerieren(1));
 }
 
 void LevelAuswahl::aktualisieren()
@@ -185,6 +212,7 @@ void LevelAuswahl::anzeigen()
 			this->levelBoxVector[i].setOutlineColor(sf::Color::White);
 			if (i == this->auswahl - 1) this->levelBoxVector[i].setOutlineColor(sf::Color::Red);
 			this->window->draw(this->levelBoxVector[i]);
+			this->window->draw(this->levelSpriteVector[i]);
 		}
 	}
 	if (this->zustaende.levelAnzeigen) this->levelVector[this->auswahl - 1]->anzeigen();

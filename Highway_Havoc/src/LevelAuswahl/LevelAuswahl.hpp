@@ -15,6 +15,8 @@ class LevelAuswahl {
 	bool auswahlGetroffen = false;
 	std::vector<Level*> levelVector;
 	std::vector<sf::RectangleShape> levelBoxVector;
+	std::vector<sf::Sprite> levelSpriteVector;
+	std::vector<sf::Texture> levelTextureVector;
 
 	struct Zustaende {
 		bool pauseMenueAnzeigen = false;

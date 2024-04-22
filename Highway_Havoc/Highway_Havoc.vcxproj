@@ -133,27 +133,72 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Auto.cpp" />
-    <ClCompile Include="Bot.cpp" />
-    <ClCompile Include="EingabeVerwaltung.cpp" />
-    <ClCompile Include="Einstellungen.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="PauseMenue.cpp" />
-    <ClCompile Include="Spieler.cpp" />
-    <ClCompile Include="Startbildschirm.cpp" />
+    <ClCompile Include="src\auto\Automobil.cpp" />
+    <ClCompile Include="src\auto\Autoverwalter.cpp" />
+    <ClCompile Include="src\auto\Bot1\Bot1.cpp" />
+    <ClCompile Include="src\auto\Bot2\Bot2.cpp" />
+    <ClCompile Include="src\auto\Bot\Bot.cpp" />
+    <ClCompile Include="src\auto\Spieler1\Spieler1.cpp" />
+    <ClCompile Include="src\auto\Spieler2\Spieler2.cpp" />
+    <ClCompile Include="src\auto\Spieler\Spieler.cpp" />
+    <ClCompile Include="src\auto_von_felix_losti\Auto.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\auto_von_felix_losti\Bot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\EingabeVerwaltung\EingabeVerwaltung.cpp" />
+    <ClCompile Include="src\Einstellungen\Einstellungen.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\level1\level1.cpp" />
+    <ClCompile Include="src\level2\level2.cpp" />
+    <ClCompile Include="src\LevelAuswahl\LevelAuswahl.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Map\Map.cpp" />
+    <ClCompile Include="src\MusikVerwaltung\MusikVerwaltung.cpp" />
+    <ClCompile Include="src\PauseMenue\PauseMenue.cpp" />
+    <ClCompile Include="src\auto_von_felix_losti\Spieler.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\Startbildschirm\Startbildschirm.cpp" />
+    <ClCompile Include="src\utils\Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Auto.hpp" />
-    <ClInclude Include="Bot.hpp" />
-    <ClInclude Include="EingabeVerwaltung.hpp" />
-    <ClInclude Include="Einstellungen.hpp" />
-    <ClInclude Include="Game.hpp" />
-    <ClInclude Include="Map.hpp" />
-    <ClInclude Include="Spieler.hpp" />
-    <ClInclude Include="PauseMenue.hpp" />
-    <ClInclude Include="Startbildschirm.hpp" />
+    <ClInclude Include="src\auto\Automobil.hpp" />
+    <ClInclude Include="src\auto\Autoverwalter.hpp" />
+    <ClInclude Include="src\auto\Bot1\Bot1.hpp" />
+    <ClInclude Include="src\auto\Bot2\Bot2.hpp" />
+    <ClInclude Include="src\auto\Bot\Bot.hpp" />
+    <ClInclude Include="src\auto\Spieler1\Spieler1.hpp" />
+    <ClInclude Include="src\auto\Spieler2\Spieler2.hpp" />
+    <ClInclude Include="src\auto\Spieler\Spieler.hpp" />
+    <ClInclude Include="src\auto_von_felix_losti\Auto.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="src\auto_von_felix_losti\Bot.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="src\EingabeVerwaltung\EingabeVerwaltung.hpp" />
+    <ClInclude Include="src\Einstellungen\Einstellungen.hpp" />
+    <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\level1\level1.hpp" />
+    <ClInclude Include="src\level2\level2.hpp" />
+    <ClInclude Include="src\LevelAuswahl\Level.hpp" />
+    <ClInclude Include="src\LevelAuswahl\LevelAuswahl.hpp" />
+    <ClInclude Include="src\Map\Map.hpp" />
+    <ClInclude Include="src\auto_von_felix_losti\Spieler.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="src\MusikVerwaltung\MusikVerwaltung.hpp" />
+    <ClInclude Include="src\PauseMenue\PauseMenue.hpp" />
+    <ClInclude Include="src\Startbildschirm\Startbildschirm.hpp" />
+    <ClInclude Include="src\utils\Collision.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

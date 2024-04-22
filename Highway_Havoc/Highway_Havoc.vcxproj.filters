@@ -1,68 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Auto.cpp" />
-    <ClCompile Include="EingabeVerwaltung.cpp" />
-    <ClCompile Include="Einstellungen.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Startbildschirm.cpp" />
-    <ClCompile Include="Spieler.cpp" />
-    <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="src\auto_von_felix_losti\Auto.cpp" />
+    <ClCompile Include="src\EingabeVerwaltung\EingabeVerwaltung.cpp" />
+    <ClCompile Include="src\Einstellungen\Einstellungen.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Map\Map.cpp" />
+    <ClCompile Include="src\Startbildschirm\Startbildschirm.cpp" />
+    <ClCompile Include="src\auto_von_felix_losti\Spieler.cpp" />
+    <ClCompile Include="src\auto_von_felix_losti\Bot.cpp" />
+    <ClCompile Include="src\level1\level1.cpp" />
+    <ClCompile Include="src\auto\Automobil.cpp" />
+    <ClCompile Include="src\auto\Autoverwalter.cpp" />
+    <ClCompile Include="src\auto\Bot\Bot.cpp" />
+    <ClCompile Include="src\auto\Spieler\Spieler.cpp" />
+    <ClCompile Include="src\LevelAuswahl\LevelAuswahl.cpp" />
+    <ClCompile Include="src\level2\level2.cpp" />
+    <ClCompile Include="src\utils\Collision.cpp" />
+    <ClCompile Include="src\auto\Spieler2\Spieler2.cpp" />
+    <ClCompile Include="src\auto\Spieler1\Spieler1.cpp" />
+    <ClCompile Include="src\auto\Bot1\Bot1.cpp" />
+    <ClCompile Include="src\auto\Bot2\Bot2.cpp" />
+    <ClCompile Include="src\MusikVerwaltung\MusikVerwaltung.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Auto.hpp" />
-    <ClInclude Include="EingabeVerwaltung.hpp" />
-    <ClInclude Include="Einstellungen.hpp" />
-    <ClInclude Include="Game.hpp" />
-    <ClInclude Include="Map.hpp" />
-    <ClInclude Include="Startbildschirm.hpp" />
-    <ClInclude Include="Spieler.hpp" />
-    <ClInclude Include="Bot.hpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Auto.cpp">
+    <ClInclude Include="src\auto_von_felix_losti\Auto.hpp" />
+    <ClInclude Include="src\EingabeVerwaltung\EingabeVerwaltung.hpp" />
+    <ClInclude Include="src\Einstellungen\Einstellungen.hpp" />
+    <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\Map\Map.hpp" />
+    <ClInclude Include="src\Startbildschirm\Startbildschirm.hpp" />
+    <ClInclude Include="src\auto_von_felix_losti\Spieler.hpp" />
+    <ClInclude Include="src\auto_von_felix_losti\Bot.hpp" />
+    <ClCompile Include="src\PauseMenue\PauseMenue.cpp">
       <Filter>Objekt-Code</Filter>
     </ClCompile>
-    <ClCompile Include="EingabeVerwaltung.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
-    <ClCompile Include="Einstellungen.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
-    <ClCompile Include="Startbildschirm.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenue.cpp">
-      <Filter>Objekt-Code</Filter>
-    </ClCompile>
+    <ClInclude Include="src\level1\level1.hpp" />
+    <ClInclude Include="src\auto\Automobil.hpp" />
+    <ClInclude Include="src\auto\Autoverwalter.hpp" />
+    <ClInclude Include="src\auto\Bot\Bot.hpp" />
+    <ClInclude Include="src\auto\Spieler\Spieler.hpp" />
+    <ClInclude Include="src\LevelAuswahl\LevelAuswahl.hpp" />
+    <ClInclude Include="src\LevelAuswahl\Level.hpp" />
+    <ClInclude Include="src\level2\level2.hpp" />
+    <ClInclude Include="src\utils\Collision.hpp" />
+    <ClInclude Include="src\auto\Spieler2\Spieler2.hpp" />
+    <ClInclude Include="src\auto\Spieler1\Spieler1.hpp" />
+    <ClInclude Include="src\auto\Bot1\Bot1.hpp" />
+    <ClInclude Include="src\auto\Bot2\Bot2.hpp" />
+    <ClInclude Include="src\MusikVerwaltung\MusikVerwaltung.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Auto.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="EingabeVerwaltung.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Einstellungen.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Startbildschirm.hpp">
-      <Filter>Objekt-Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenue.hpp">
+    <ClInclude Include="src\PauseMenue\PauseMenue.hpp">
       <Filter>Objekt-Header</Filter>
     </ClInclude>
   </ItemGroup>

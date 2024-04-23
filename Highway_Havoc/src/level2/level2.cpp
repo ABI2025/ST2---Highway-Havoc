@@ -15,7 +15,7 @@ Level2::Level2(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
 	this->zustaende.mapAktualisieren = true;
 	this->zustaende.mapAnzeigen = true;
 	this->autoverwalter = new Autoverwalter(window, this->map, eingabeverwaltung);
-	this->autoverwalter->botLevelGenerieren(2, 20, 2);
+	this->autoverwalter->botLevelGenerieren(1, 20, 2);
 	this->autoverwalter->spielerHinzufuegen(new Spieler2(window, eingabeverwaltung));
 
 }
@@ -34,7 +34,7 @@ void Level2::aktualisieren()
 		}
 		this->botGenerierungsIntervallZaehler++;
 		if ((this->botGenerierungsIntervallZaehler >= this->botGenerierungsIntervall) && this->botGenerierungsIntervall != 0) {
-			this->autoverwalter->botGenerieren(2, 2);
+			this->autoverwalter->botGenerieren(1, 2);
 			this->botGenerierungsIntervallZaehler = 0;
 		}
 	}
@@ -46,6 +46,7 @@ void Level2::anzeigen()
 	if (this->zustaende.mapAnzeigen) this->map->zeichnen();
 	this->autoverwalter->botsAnzeigen();
 	this->autoverwalter->spielerAnzeigen();
+	this->map->brueckeZeichnen();
 }
 
 bool Level2::getUnterbrechung()

@@ -143,8 +143,8 @@ void Autoverwalter::spielerAktualisieren()
 				this->istTot = true;
 			}
 		}
-		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 28 * 6.4, 100000))) this->istTot = true;
-		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (28 * 6.4), -10000, 640 , 100000))) this->istTot = true;
+		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 26 * 6.4, 100000))) this->istTot = true;
+		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640 , 100000))) this->istTot = true;
 		
 	}
 }

@@ -20,6 +20,10 @@ Level* LevelAuswahl::levelGenerieren(int index)
 		delete level_tmp;
 		level_tmp = new Level2(this->window, this->eingabeverwaltung);
 	}
+	if (index == 3) {
+		delete level_tmp;
+		level_tmp = new Level3(this->window, this->eingabeverwaltung);
+	}
 	return level_tmp;
 }
 
@@ -94,7 +98,7 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 
 	this->levelHinzufuegen(this->levelGenerieren(1));
 	this->levelHinzufuegen(this->levelGenerieren(2));
-	this->levelHinzufuegen(this->levelGenerieren(1));
+	this->levelHinzufuegen(this->levelGenerieren(3));
 }
 
 void LevelAuswahl::aktualisieren()

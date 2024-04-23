@@ -1,13 +1,13 @@
 #pragma once
-#include "level1.hpp"
+#include "level3.hpp"
 
-Level1::~Level1()
+Level3::~Level3()
 {
 	delete this->autoverwalter;
 	delete this->map;
 }
 
-Level1::Level1(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
+Level3::Level3(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
 {
 	this->window = window;
 	this->map = new Map(window);
@@ -15,12 +15,12 @@ Level1::Level1(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
 	this->zustaende.mapAktualisieren = true;
 	this->zustaende.mapAnzeigen = true;
 	this->autoverwalter = new Autoverwalter(window, this->map, eingabeverwaltung);
-	this->autoverwalter->botLevelGenerieren(1, 20, 1);
-	this->autoverwalter->spielerHinzufuegen(new Spieler1(window, eingabeverwaltung));
+	this->autoverwalter->botLevelGenerieren(2, 20, 2);
+	this->autoverwalter->spielerHinzufuegen(new Spieler3(window, eingabeverwaltung));
 
 }
 
-void Level1::aktualisieren()
+void Level3::aktualisieren()
 {
 	this->unterbrechung = false;
 	this->eingabeverwaltung->aktualisieren();
@@ -34,13 +34,13 @@ void Level1::aktualisieren()
 		}
 		this->botGenerierungsIntervallZaehler++;
 		if ((this->botGenerierungsIntervallZaehler >= this->botGenerierungsIntervall) && this->botGenerierungsIntervall != 0) {
-			this->autoverwalter->botGenerieren(1, 1);
+			this->autoverwalter->botGenerieren(2, 2);
 			this->botGenerierungsIntervallZaehler = 0;
 		}
 	}
 }
 
-void Level1::anzeigen()
+void Level3::anzeigen()
 {
 	this->autoverwalter->viewAufGesteuertenSpieler(0);
 	if (this->zustaende.mapAnzeigen) this->map->zeichnen();
@@ -49,12 +49,12 @@ void Level1::anzeigen()
 	this->map->brueckeZeichnen();
 }
 
-bool Level1::getUnterbrechung()
+bool Level3::getUnterbrechung()
 {
 	return this->unterbrechung;
 }
 
-int Level1::getUnterbrechungsgrund()
+int Level3::getUnterbrechungsgrund()
 {
 	return this->unterbrechungsgrund;
 }

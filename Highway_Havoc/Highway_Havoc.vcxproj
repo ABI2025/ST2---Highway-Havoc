@@ -140,6 +140,7 @@
     <ClCompile Include="src\auto\Bot\Bot.cpp" />
     <ClCompile Include="src\auto\Spieler1\Spieler1.cpp" />
     <ClCompile Include="src\auto\Spieler2\Spieler2.cpp" />
+    <ClCompile Include="src\auto\Spieler3\Spieler3.cpp" />
     <ClCompile Include="src\auto\Spieler\Spieler.cpp" />
     <ClCompile Include="src\auto_von_felix_losti\Auto.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -154,6 +155,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\level1\level1.cpp" />
     <ClCompile Include="src\level2\level2.cpp" />
+    <ClCompile Include="src\level3\level3.cpp" />
     <ClCompile Include="src\LevelAuswahl\LevelAuswahl.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Map\Map.cpp" />
@@ -174,6 +176,7 @@
     <ClInclude Include="src\auto\Bot\Bot.hpp" />
     <ClInclude Include="src\auto\Spieler1\Spieler1.hpp" />
     <ClInclude Include="src\auto\Spieler2\Spieler2.hpp" />
+    <ClInclude Include="src\auto\Spieler3\Spieler3.hpp" />
     <ClInclude Include="src\auto\Spieler\Spieler.hpp" />
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -188,6 +191,7 @@
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\level1\level1.hpp" />
     <ClInclude Include="src\level2\level2.hpp" />
+    <ClInclude Include="src\level3\level3.hpp" />
     <ClInclude Include="src\LevelAuswahl\Level.hpp" />
     <ClInclude Include="src\LevelAuswahl\LevelAuswahl.hpp" />
     <ClInclude Include="src\Map\Map.hpp" />

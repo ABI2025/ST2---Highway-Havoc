@@ -3,19 +3,19 @@
 #include "../Automobil.hpp"
 #include "../Spieler/Spieler.hpp"
 #include "../../EingabeVerwaltung/EingabeVerwaltung.hpp"
-class Spieler2 : public Spieler {
+class Spieler3 : public Spieler {
 private:
 	sf::RenderWindow* window;
 	float geschwindigkeit;
 	float rotation;
-	float maxMinGeschwindigkeit = 4;
+	float maxMinGeschwindigkeit = 5;
 	float reibung = 0.01;
 	float beschlaeunigung = 0.08;
 
 	EingabeVerwaltung* eingabeverwaltung;
 public:
-	~Spieler2();
-	Spieler2();
-	Spieler2(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung);
+	~Spieler3();
+	Spieler3();
+	Spieler3(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung);
 	void aktualisieren();
 };

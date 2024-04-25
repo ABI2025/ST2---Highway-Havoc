@@ -25,6 +25,7 @@
     <ClCompile Include="src\MusikVerwaltung\MusikVerwaltung.cpp" />
     <ClCompile Include="src\level3\level3.cpp" />
     <ClCompile Include="src\auto\Spieler3\Spieler3.cpp" />
+    <ClCompile Include="src\Fortschritt\Fortschritt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="src\MusikVerwaltung\MusikVerwaltung.hpp" />
     <ClInclude Include="src\level3\level3.hpp" />
     <ClInclude Include="src\auto\Spieler3\Spieler3.hpp" />
+    <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PauseMenue\PauseMenue.hpp">

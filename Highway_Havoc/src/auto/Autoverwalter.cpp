@@ -38,7 +38,7 @@ void Autoverwalter::botGenerieren(unsigned short anzahl, int typ)
 			if (typ == 1)bot_tmp = new Bot1(this->window);
 			if (typ == 2)bot_tmp = new Bot2(this->window);
 			sf::Vector2f position_tmp;
-			srand(rand());
+			//srand(rand());
 			short fahrbahn = rand() % 3;
 			if (fahrbahn == 0) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) - (15.f * 6.4f), this->window->getView().getSize().y + bot_tmp->getGlobalBounds().height / 2);
 			if (fahrbahn == 1) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2), this->window->getView().getSize().y + bot_tmp->getGlobalBounds().height / 2);
@@ -72,7 +72,7 @@ void Autoverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short rei
 				if (typ == 1)bot_tmp = new Bot1(this->window);
 				if (typ == 2)bot_tmp = new Bot2(this->window);
 				sf::Vector2f position_tmp;
-				srand(rand());
+				//srand(rand());
 				short fahrbahn = rand() % 3;
 				if (fahrbahn == 0) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) - (15.f * 6.4f), yKoordinateMap + bot_tmp->getGlobalBounds().height / 2 - (yAbstand * y));
 				if (fahrbahn == 1) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2), yKoordinateMap + bot_tmp->getGlobalBounds().height / 2 - (yAbstand * y));
@@ -145,6 +145,7 @@ void Autoverwalter::spielerAktualisieren()
 		}
 		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 26 * 6.4, 100000))) this->istTot = true;
 		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640 , 100000))) this->istTot = true;
+		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y < this->map->getMapViereck().getPosition().y) this->hatGewonnen = true;
 		
 	}
 }
@@ -167,4 +168,9 @@ void Autoverwalter::viewAufGesteuertenSpieler(unsigned short spielerIndex)
 bool Autoverwalter::getIstTot()
 {
 	return this->istTot;
+}
+
+bool Autoverwalter::getHatGewonnen()
+{
+	return this->hatGewonnen;
 }

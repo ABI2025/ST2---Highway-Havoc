@@ -8,7 +8,8 @@ Game::Game(int fps, int tickrate)
 	this->eingabeverwaltung = new EingabeVerwaltung(window);
 	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung);
 	this->einstellungen = new Einstellungen(window, eingabeverwaltung);
-	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung);
+	this->fortschritt = new Fortschritt();
+	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung, fortschritt);
 	this->musikverwaltung = new MusikVerwaltung();
 	this->fps = fps;
 	this->tickrate = tickrate;
@@ -44,6 +45,8 @@ Game::Game(int fps, int tickrate)
 	this->eingabeverwaltung->tasteZuGruppeHinzufuegen(4, 9);
 
 	this->zustaende.musikStartbildschirmSpielen = true;
+
+	//this->fortschritt->fortschrittLaden();
 }
 
 Game::~Game()
@@ -51,12 +54,21 @@ Game::~Game()
 	this->window->close();
 	delete this->window;
 	this->window = nullptr;
+	delete this->eingabeverwaltung;
+	this->eingabeverwaltung = nullptr;
 	delete this->startbildschirm;
 	this->startbildschirm = nullptr;
 	delete this->einstellungen;
 	this->einstellungen = nullptr;
 	delete this->event;
 	this->event = nullptr;
+	delete this->levelauswahl;
+	this->levelauswahl = nullptr;
+	delete this->musikverwaltung;
+	this->musikverwaltung = nullptr;
+	delete this->fortschritt;
+	this->fortschritt = nullptr;
+
 }
 
 void Game::render() {

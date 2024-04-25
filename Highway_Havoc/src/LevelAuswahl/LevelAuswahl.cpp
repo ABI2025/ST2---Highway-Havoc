@@ -33,11 +33,12 @@ LevelAuswahl::~LevelAuswahl()
 	this->eingabeverwaltung = nullptr;
 }
 
-LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
+LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt)
 {
 	this->window = window;
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->pauseMenue = new PauseMenue(window, eingabeverwaltung);
+	this->fortschritt = fortschritt;
 
 	this->zustaende.pauseMenueAnzeigen = false;
 	this->zustaende.pauseMenueAktualisieren = false;
@@ -51,24 +52,42 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
 	}
+	if (!this->levelSchlossTextur.loadFromFile("./res/grafiken/level_schloss.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	{
+		std::cout << "Fehler beim laden der Textur! (./res/grafiken/level_schloss.png)" << std::endl;
+	}
+	this->levelSchlossSprite.setTexture(this->levelSchlossTextur);
+	this->levelSchlossSprite.setScale(0.5f, 0.5f);
 	sf::Texture level1Textur;
-	if (!level1Textur.loadFromFile("./res/grafiken/level1_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	if (!level1Textur.loadFromFile("./res/grafiken/level1_cover.png"))
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level1_cover.png)" << std::endl;
 	}
 	this->levelTextureVector.push_back(level1Textur);
 	sf::Texture level2Textur;
-	if (!level2Textur.loadFromFile("./res/grafiken/level2_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	if (!level2Textur.loadFromFile("./res/grafiken/level2_cover.png"))
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level2_cover.png)" << std::endl;
 	}
 	this->levelTextureVector.push_back(level2Textur);
 	sf::Texture level3Textur;
-	if (!level3Textur.loadFromFile("./res/grafiken/level3_cover.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	if (!level3Textur.loadFromFile("./res/grafiken/level3_cover.png"))
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level3_cover.png)" << std::endl;
 	}
 	this->levelTextureVector.push_back(level3Textur);
+	sf::Texture level4Textur;
+	if (!level4Textur.loadFromFile("./res/grafiken/level4_cover.png"))
+	{
+		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level4_cover.png)" << std::endl;
+	}
+	this->levelTextureVector.push_back(level4Textur);
+	sf::Texture level5Textur;
+	if (!level5Textur.loadFromFile("./res/grafiken/level5_cover.png"))
+	{
+		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level5_cover.png)" << std::endl;
+	}
+	this->levelTextureVector.push_back(level5Textur);
 	for (int i = 0; i < this->levelTextureVector.size(); i++) {
 		sf::Sprite levelIconSprite;
 		levelIconSprite.setTexture(this->levelTextureVector[i]);
@@ -99,6 +118,8 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->levelHinzufuegen(this->levelGenerieren(1));
 	this->levelHinzufuegen(this->levelGenerieren(2));
 	this->levelHinzufuegen(this->levelGenerieren(3));
+	this->levelHinzufuegen(this->levelGenerieren(1));
+	this->levelHinzufuegen(this->levelGenerieren(1));
 }
 
 void LevelAuswahl::aktualisieren()
@@ -167,23 +188,25 @@ void LevelAuswahl::aktualisieren()
 			}
 		}
 		if (this->eingabeverwaltung->getGruppenStatusGeaendert(4) || (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) && benutztMaus == true)) {
-			this->auswahlGetroffen = true;
-			if (this->auswahl != 0) {
-				this->zustaende.pauseMenueAnzeigen = false;
-				this->zustaende.pauseMenueAktualisieren = false;
-				this->zustaende.levelAuswahlAktualisieren = false;
-				this->zustaende.levelAuswahlAnzeigen = false;
-				this->zustaende.levelLaeuft = true;
-				this->zustaende.levelAnzeigen = true;
-				this->zustaende.levelAktualisieren = true;
-				//return;
+			if (this->auswahl <= this->fortschritt->getLevelFreigeschaltet()) {
+				this->auswahlGetroffen = true;
+				if (this->auswahl != 0) {
+					this->zustaende.pauseMenueAnzeigen = false;
+					this->zustaende.pauseMenueAktualisieren = false;
+					this->zustaende.levelAuswahlAktualisieren = false;
+					this->zustaende.levelAuswahlAnzeigen = false;
+					this->zustaende.levelLaeuft = true;
+					this->zustaende.levelAnzeigen = true;
+					this->zustaende.levelAktualisieren = true;
+				}
 			}
 		}
 	}
 	if (zustaende.levelAktualisieren) {
 		this->levelVector[this->auswahl - 1]->aktualisieren();
 		if (this->levelVector[this->auswahl - 1]->getUnterbrechung()) {
-			if (this->levelVector[this->auswahl - 1]->getUnterbrechungsgrund() == 0) {
+			int unterbrechungsgrund = this->levelVector[this->auswahl - 1]->getUnterbrechungsgrund();
+			if (unterbrechungsgrund == 0) {
 				this->zustaende.pauseMenueAnzeigen = false;
 				this->zustaende.pauseMenueAktualisieren = false;
 				this->zustaende.levelAuswahlAktualisieren = true;
@@ -194,6 +217,19 @@ void LevelAuswahl::aktualisieren()
 				this->eingabeverwaltung->aktualisieren();
 				delete this->levelVector[this->auswahl - 1];
 				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
+			}
+			if (unterbrechungsgrund == 1) {
+				this->zustaende.pauseMenueAnzeigen = false;
+				this->zustaende.pauseMenueAktualisieren = false;
+				this->zustaende.levelAuswahlAktualisieren = true;
+				this->zustaende.levelAuswahlAnzeigen = true;
+				this->zustaende.levelLaeuft = false;
+				this->zustaende.levelAnzeigen = false;
+				this->zustaende.levelAktualisieren = false;
+				this->eingabeverwaltung->aktualisieren();
+				delete this->levelVector[this->auswahl - 1];
+				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
+				if (this->fortschritt->getLevelFreigeschaltet() == this->auswahl) this->fortschritt->setLevelFreigeschaltet(this->auswahl+1);
 			}
 		}
 	}
@@ -215,8 +251,11 @@ void LevelAuswahl::anzeigen()
 		for (int i = 0; i < this->levelBoxVector.size(); i++) {
 			this->levelBoxVector[i].setOutlineColor(sf::Color::White);
 			if (i == this->auswahl - 1) this->levelBoxVector[i].setOutlineColor(sf::Color::Red);
+			this->levelSchlossSprite.setPosition(this->levelSpriteVector[i].getPosition() + sf::Vector2f(28, 25));
 			this->window->draw(this->levelBoxVector[i]);
 			this->window->draw(this->levelSpriteVector[i]);
+			if (i + 1 > this->fortschritt->getLevelFreigeschaltet()) this->window->draw(this->levelSchlossSprite);
+			
 		}
 	}
 	if (this->zustaende.levelAnzeigen) this->levelVector[this->auswahl - 1]->anzeigen();

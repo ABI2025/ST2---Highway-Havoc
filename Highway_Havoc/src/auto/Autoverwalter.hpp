@@ -17,6 +17,7 @@ private:
 	Map* map;
 
 	bool istTot = false;
+	bool hatGewonnen = false;
 public:
 	~Autoverwalter();
 	Autoverwalter();
@@ -32,4 +33,5 @@ public:
 	void spielerAnzeigen();
 	void viewAufGesteuertenSpieler(unsigned short spielerIndex);
 	bool getIstTot();
+	bool getHatGewonnen();
 }; 

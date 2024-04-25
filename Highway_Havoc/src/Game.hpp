@@ -6,6 +6,7 @@
 #include "./LevelAuswahl/LevelAuswahl.hpp"
 #include "./EingabeVerwaltung/EingabeVerwaltung.hpp"
 #include "./MusikVerwaltung/MusikVerwaltung.hpp"
+#include "./Fortschritt/Fortschritt.hpp"
 
 struct Zustaende
 {
@@ -35,6 +36,7 @@ private:
 	Zustaende zustaende;			//	Sagt was gerade angezeigt werden soll, bzw ausgeführt
 	Startbildschirm* startbildschirm;
 	Einstellungen* einstellungen;
+	Fortschritt* fortschritt;
 	LevelAuswahl* levelauswahl;
 	EingabeVerwaltung* eingabeverwaltung;
 	MusikVerwaltung* musikverwaltung;

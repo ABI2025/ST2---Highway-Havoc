@@ -32,6 +32,10 @@ void Level3::aktualisieren()
 			this->unterbrechung = true;
 			this->unterbrechungsgrund = 0;
 		}
+		if (this->autoverwalter->getHatGewonnen()) {
+			this->unterbrechung = true;
+			this->unterbrechungsgrund = 1;
+		}
 		this->botGenerierungsIntervallZaehler++;
 		if ((this->botGenerierungsIntervallZaehler >= this->botGenerierungsIntervall) && this->botGenerierungsIntervall != 0) {
 			this->autoverwalter->botGenerieren(2, 2);

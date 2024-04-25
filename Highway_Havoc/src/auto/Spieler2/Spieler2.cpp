@@ -36,8 +36,8 @@ void Spieler2::aktualisieren()
 	if (this->eingabeverwaltung->getGruppenStatus(3)) {
 		this->rotation += 1 * geschwindigkeit / 2;
 	}
-	if (this->geschwindigkeit < 0) this->geschwindigkeit += 0.01;
-	if (this->geschwindigkeit > 0) this->geschwindigkeit -= 0.01;
+	if (this->geschwindigkeit < 0) this->geschwindigkeit += this->reibung;
+	if (this->geschwindigkeit > 0) this->geschwindigkeit -= this->reibung;
 	if (this->geschwindigkeit > this->maxMinGeschwindigkeit) this->geschwindigkeit = this->maxMinGeschwindigkeit;
 	if (this->geschwindigkeit < -this->maxMinGeschwindigkeit) this->geschwindigkeit = -this->maxMinGeschwindigkeit;
 	this->sprite.setRotation(this->rotation);

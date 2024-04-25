@@ -152,6 +152,7 @@
     </ClCompile>
     <ClCompile Include="src\EingabeVerwaltung\EingabeVerwaltung.cpp" />
     <ClCompile Include="src\Einstellungen\Einstellungen.cpp" />
+    <ClCompile Include="src\Fortschritt\Fortschritt.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\level1\level1.cpp" />
     <ClCompile Include="src\level2\level2.cpp" />
@@ -188,6 +189,7 @@
     </ClInclude>
     <ClInclude Include="src\EingabeVerwaltung\EingabeVerwaltung.hpp" />
     <ClInclude Include="src\Einstellungen\Einstellungen.hpp" />
+    <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\level1\level1.hpp" />
     <ClInclude Include="src\level2\level2.hpp" />

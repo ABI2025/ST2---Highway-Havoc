@@ -21,8 +21,6 @@ class LevelAuswahl {
 	std::vector<sf::Sprite> levelSpriteVector;
 	std::vector<sf::Texture> levelTextureVector;
 
-	//int levelFreigeschaltet = 1;
-
 	struct Zustaende {
 		bool pauseMenueAnzeigen = false;
 		bool pauseMenueAktualisieren = false;

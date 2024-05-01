@@ -230,6 +230,7 @@ void LevelAuswahl::aktualisieren()
 				delete this->levelVector[this->auswahl - 1];
 				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
 				if (this->fortschritt->getLevelFreigeschaltet() == this->auswahl) this->fortschritt->setLevelFreigeschaltet(this->auswahl+1);
+				this->fortschritt->fortschrittSpeichern();
 			}
 		}
 	}

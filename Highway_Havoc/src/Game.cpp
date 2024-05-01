@@ -46,7 +46,7 @@ Game::Game(int fps, int tickrate)
 
 	this->zustaende.musikStartbildschirmSpielen = true;
 
-	//this->fortschritt->fortschrittLaden();
+	this->fortschritt->fortschrittLaden();
 }
 
 Game::~Game()

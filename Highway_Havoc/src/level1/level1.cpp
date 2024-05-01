@@ -16,7 +16,7 @@ Level1::Level1(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
 	this->zustaende.mapAnzeigen = true;
 	this->autoverwalter = new Autoverwalter(window, this->map, eingabeverwaltung);
 	this->autoverwalter->botLevelGenerieren(1, 20, 1);
-	this->autoverwalter->spielerHinzufuegen(new Spieler1(window, eingabeverwaltung));
+	this->autoverwalter->spielerGenerieren(1, 1);
 
 }
 

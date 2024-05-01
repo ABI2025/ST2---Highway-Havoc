@@ -6,7 +6,6 @@
 #include "../auto/Automobil.hpp"
 #include "../auto/Autoverwalter.hpp"
 #include "../auto/Bot/Bot.hpp"
-#include "../auto/Spieler3/Spieler3.hpp"
 #include "../LevelAuswahl/Level.hpp"
 class Level3 : public Level{
 private:

@@ -4,7 +4,7 @@
 class Automobil {
 protected:
 	sf::RenderWindow* window;
-	sf::Texture texture;
+	sf::Texture textur;
 	sf::Sprite sprite;
 public:
 	virtual ~Automobil();

@@ -1,11 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Bot/Bot.hpp"
-#include "Bot1/Bot1.hpp"
-#include "Bot2/Bot2.hpp"
 #include "Spieler/Spieler.hpp"
-#include "Spieler1/Spieler1.hpp"
-#include "Spieler2/Spieler2.hpp"
 #include "../Map/Map.hpp"
 #include "../utils/Collision.hpp"
 class Autoverwalter {
@@ -15,6 +11,9 @@ private:
 	std::vector<Bot*> botVector;
 	std::vector<Spieler*>  spielerVector;
 	Map* map;
+
+	std::vector<sf::Texture> spielerTexturen;
+	std::vector<sf::Texture> botTexturen;
 
 	bool istTot = false;
 	bool hatGewonnen = false;
@@ -28,7 +27,7 @@ public:
 	void botsAktualisieren();
 	void botsAnzeigen();
 	void spielerHinzufuegen(Spieler* spieler);
-	void spielerGenerieren(unsigned short anzahl);
+	void spielerGenerieren(unsigned short anzahl, int typ);
 	void spielerAktualisieren();
 	void spielerAnzeigen();
 	void viewAufGesteuertenSpieler(unsigned short spielerIndex);

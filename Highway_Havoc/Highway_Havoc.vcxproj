@@ -135,12 +135,7 @@
   <ItemGroup>
     <ClCompile Include="src\auto\Automobil.cpp" />
     <ClCompile Include="src\auto\Autoverwalter.cpp" />
-    <ClCompile Include="src\auto\Bot1\Bot1.cpp" />
-    <ClCompile Include="src\auto\Bot2\Bot2.cpp" />
     <ClCompile Include="src\auto\Bot\Bot.cpp" />
-    <ClCompile Include="src\auto\Spieler1\Spieler1.cpp" />
-    <ClCompile Include="src\auto\Spieler2\Spieler2.cpp" />
-    <ClCompile Include="src\auto\Spieler3\Spieler3.cpp" />
     <ClCompile Include="src\auto\Spieler\Spieler.cpp" />
     <ClCompile Include="src\auto_von_felix_losti\Auto.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -172,12 +167,7 @@
   <ItemGroup>
     <ClInclude Include="src\auto\Automobil.hpp" />
     <ClInclude Include="src\auto\Autoverwalter.hpp" />
-    <ClInclude Include="src\auto\Bot1\Bot1.hpp" />
-    <ClInclude Include="src\auto\Bot2\Bot2.hpp" />
     <ClInclude Include="src\auto\Bot\Bot.hpp" />
-    <ClInclude Include="src\auto\Spieler1\Spieler1.hpp" />
-    <ClInclude Include="src\auto\Spieler2\Spieler2.hpp" />
-    <ClInclude Include="src\auto\Spieler3\Spieler3.hpp" />
     <ClInclude Include="src\auto\Spieler\Spieler.hpp" />
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

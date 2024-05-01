@@ -2,19 +2,30 @@
 #include "SFML/Graphics.hpp"
 #include "../Automobil.hpp"
 #include "../../EingabeVerwaltung/EingabeVerwaltung.hpp"
-class Spieler : public Automobil{
-//private:
-//	sf::RenderWindow* window;
-//	float geschwindigkeit;
-//	float rotation;
-//	float maxMinGeschwindigkeit = 3;
-//	float reibung = 0.01;
-//	float beschlaeunigung = 0.05;
-//
-//	EingabeVerwaltung* eingabeverwaltung;
+struct Eigenschaften {
+	float maxGeschwindigkeit = 3;
+	float reibung = 0.01;
+	float beschlaeunigung = 0.05;
+	Eigenschaften operator *(float multiplikator) {
+		float maxGeschwindigkeitTmp = this->maxGeschwindigkeit * multiplikator;
+		float reibungTmp = this->reibung * multiplikator;
+		float beschlaeunigungTmp = this->beschlaeunigung * multiplikator;
+		return Eigenschaften{maxGeschwindigkeitTmp, reibungTmp, beschlaeunigungTmp};
+	}
+};
+class Spieler : public Automobil {
+private:
+	sf::RenderWindow* window;
+	float geschwindigkeit;
+	float rotation;
+
+	Eigenschaften eigenschaften;
+	
+	EingabeVerwaltung* eingabeverwaltung;
 public:
-	virtual ~Spieler();
+	~Spieler();
 	Spieler();
-	Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung);
-	virtual void aktualisieren() = 0;
+	Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften);
+	void aktualisieren();
+	void anzeigen();
 };

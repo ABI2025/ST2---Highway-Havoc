@@ -2,8 +2,8 @@
 #include "../Automobil.hpp"
 class Bot : public Automobil {
 public:
-	virtual ~Bot();
 	Bot();
-	Bot(sf::RenderWindow* window);
-	virtual void aktualisieren() = 0;
+	Bot(sf::RenderWindow* window, sf::Texture* textur);
+	void aktualisieren();
+	void anzeigen();
 };

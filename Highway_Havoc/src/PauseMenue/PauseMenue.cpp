@@ -49,11 +49,6 @@ PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwa
 	this->fensterHintergrund.setOrigin(this->fensterHintergrund.getGlobalBounds().width / 2, this->fensterHintergrund.getGlobalBounds().height / 2);
 	this->fensterHintergrund.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y);
 
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Enter);
-	//this->eingabeverwaltung->mausTasteHinzufuegen(sf::Mouse::Button::Left);
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Escape);
 }
 
 void PauseMenue::anzeigen()

@@ -20,6 +20,32 @@ Autoverwalter::Autoverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltu
 	this->window = window;
 	this->map = map;
 	this->eingabeverwaltung = eingabeverwaltung;
+	for (int i = 1; i <= 3; i++) {
+		sf::Texture texturTmp;
+		char pfadTmp[25] = "./res/grafiken/auto";
+		pfadTmp[19] = (char)i + 48;
+		pfadTmp[20] = '.';
+		pfadTmp[21] = 'p';
+		pfadTmp[22] = 'n';
+		pfadTmp[23] = 'g';
+		if (!texturTmp.loadFromFile(pfadTmp)) {
+			std::cout << "Fehler beim laden der Textur (" << pfadTmp << ")" << std::endl;
+		}
+		this->spielerTexturen.push_back(texturTmp);
+	}
+	for (int i = 1; i <= 2; i++) {
+		sf::Texture texturTmp;
+		char pfadTmp[24] = "./res/grafiken/bot";
+		pfadTmp[18] = (char)i + 48;
+		pfadTmp[19] = '.';
+		pfadTmp[20] = 'p';
+		pfadTmp[21] = 'n';
+		pfadTmp[22] = 'g';
+		if (!texturTmp.loadFromFile(pfadTmp)) {
+			std::cout << "Fehler beim laden der Textur (" << pfadTmp << ")" << std::endl;
+		}
+		this->botTexturen.push_back(texturTmp);
+	}
 }
 void Autoverwalter::botHinzufuegen(Bot* bot)
 {
@@ -35,8 +61,8 @@ void Autoverwalter::botGenerieren(unsigned short anzahl, int typ)
 		do {
 			versuche++;
 			kollidiert = false;
-			if (typ == 1)bot_tmp = new Bot1(this->window);
-			if (typ == 2)bot_tmp = new Bot2(this->window);
+			if (typ == 1)bot_tmp = new Bot(this->window, &this->botTexturen[0]);
+			if (typ == 2)bot_tmp = new Bot(this->window, &this->botTexturen[1]);
 			sf::Vector2f position_tmp;
 			//srand(rand());
 			short fahrbahn = rand() % 3;
@@ -69,8 +95,8 @@ void Autoverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short rei
 			do {
 				versuche++;
 				kollidiert = false;
-				if (typ == 1)bot_tmp = new Bot1(this->window);
-				if (typ == 2)bot_tmp = new Bot2(this->window);
+				if (typ == 1)bot_tmp = new Bot(this->window, &this->botTexturen[0]);
+				if (typ == 2)bot_tmp = new Bot(this->window, &this->botTexturen[1]);
 				sf::Vector2f position_tmp;
 				//srand(rand());
 				short fahrbahn = rand() % 3;
@@ -127,10 +153,19 @@ void Autoverwalter::spielerHinzufuegen(Spieler* spieler)
 	}
 }
 
-void Autoverwalter::spielerGenerieren(unsigned short anzahl)
+void Autoverwalter::spielerGenerieren(unsigned short anzahl, int typ)
 {
+	Eigenschaften eigenschaftenTmp{3,0.01,0.05};
 	for (int i = 0; i < anzahl; i++) {
-		this->spielerVector.push_back(new Spieler1(this->window, this->eingabeverwaltung));
+		this->spielerVector.push_back(new Spieler(this->window, this->eingabeverwaltung,&this->spielerTexturen[typ - 1], eigenschaftenTmp * (1 + 0.2*typ)));
+		for (int i = 0; i < this->botVector.size(); i++) {
+			if (Collision::pixelPerfectTest(*this->spielerVector[this->spielerVector.size() - 1]->getSprite(), *this->botVector[i]->getSprite(), 177)) {
+				std::vector<Bot*>::iterator loeschIterator = this->botVector.begin();
+				std::advance(loeschIterator, i);
+				this->botVector.erase(loeschIterator);
+				i--;
+			}
+		}
 	}
 }
 
@@ -138,15 +173,14 @@ void Autoverwalter::spielerAktualisieren()
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		this->spielerVector[i]->aktualisieren();
-		for (int y = 0; y < this->botVector.size(); y++) {	
+		for (int y = 0; y < this->botVector.size(); y++) {
 			if (Collision::pixelPerfectTest(*this->spielerVector[i]->getSprite(), *this->botVector[y]->getSprite(), 177)) {
 				this->istTot = true;
 			}
 		}
 		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 26 * 6.4, 100000))) this->istTot = true;
-		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640 , 100000))) this->istTot = true;
+		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640, 100000))) this->istTot = true;
 		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y < this->map->getMapViereck().getPosition().y) this->hatGewonnen = true;
-		
 	}
 }
 
@@ -154,7 +188,7 @@ void Autoverwalter::spielerAnzeigen()
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		//if (i == 0) this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->spielerVector[i]->getPos().y), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
-		this->spielerVector[i]->anzeigen();
+		this->spielerVector[0]->anzeigen();
 	}
 }
 

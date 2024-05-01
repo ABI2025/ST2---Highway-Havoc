@@ -49,5 +49,5 @@ void Automobil::aktualisieren()
 
 void Automobil::anzeigen()
 {
-	this->window->draw(sprite);
+	this->window->draw(this->sprite);
 }

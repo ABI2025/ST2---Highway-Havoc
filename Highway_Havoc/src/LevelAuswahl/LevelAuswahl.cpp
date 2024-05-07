@@ -167,6 +167,7 @@ void LevelAuswahl::aktualisieren()
 		}
 	}
 	if (zustaende.levelAuswahlAktualisieren) {
+		this->fortschritt->fortschrittLaden();
 		this->auswahlGetroffen = false;
 		bool benutztMaus = false;
 		if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && this->auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen

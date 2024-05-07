@@ -6,9 +6,9 @@ Game::Game(int fps, int tickrate)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	this->eingabeverwaltung = new EingabeVerwaltung(window);
-	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung);
-	this->einstellungen = new Einstellungen(window, eingabeverwaltung);
 	this->fortschritt = new Fortschritt();
+	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung, fortschritt);
+	this->einstellungen = new Einstellungen(window, eingabeverwaltung);
 	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung, fortschritt);
 	this->musikverwaltung = new MusikVerwaltung();
 	this->fps = fps;
@@ -45,8 +45,6 @@ Game::Game(int fps, int tickrate)
 	this->eingabeverwaltung->tasteZuGruppeHinzufuegen(4, 9);
 
 	this->zustaende.musikStartbildschirmSpielen = true;
-
-	this->fortschritt->fortschrittLaden();
 }
 
 Game::~Game()
@@ -68,7 +66,6 @@ Game::~Game()
 	this->musikverwaltung = nullptr;
 	delete this->fortschritt;
 	this->fortschritt = nullptr;
-
 }
 
 void Game::render() {
@@ -94,23 +91,40 @@ void Game::tick() {
 	if (this->zustaende.startBildschirmLaeuft) {
 		this->startbildschirm->aktualisieren();
 		if (this->startbildschirm->getAuswahlGetroffen()) {
-			int auswahl = this->startbildschirm->getAuswahl();
-			if (auswahl == 0) {
-				this->zustaende.spielLaeuft = true;
-				this->zustaende.spielAnzeigen = true;
-				this->zustaende.musikStartbildschirmSpielen = false;
-				this->zustaende.musikSpielSpielen = true;
+			int auswahlX = this->startbildschirm->getAuswahlX();
+			int auswahlY = this->startbildschirm->getAuswahlY();
+			if (auswahlX == 0) {
+				if (auswahlY == 1) {
+					this->zustaende.spielLaeuft = true;
+					this->zustaende.spielAnzeigen = true;
+					this->zustaende.musikStartbildschirmSpielen = false;
+					this->zustaende.musikSpielSpielen = true;
+					this->zustaende.startBildschirmLaeuft = false;
+					this->zustaende.startBildschirmAnzeigen = false;
+				}
+				else if (auswahlY == 0) {
+					int spielstand = this->fortschritt->getSpielstand();
+					if (spielstand > 1) {
+						this->fortschritt->setSpielstand(spielstand - 1);
+					}
+				}
+				else if (auswahlY == 2) {
+					int spielstand = this->fortschritt->getSpielstand();
+					if (spielstand < 3) {
+						this->fortschritt->setSpielstand(spielstand + 1);
+					}
+				}
 			}
-			else if (auswahl == 1) {
+			else if (auswahlX == 1) {
 				this->zustaende.einstellungenLaeuft = true;
 				this->zustaende.einstellungenAnzeigen = true;
 				this->zustaende.einstellungenAufgerufenVon = 'S';
+				this->zustaende.startBildschirmLaeuft = false;
+				this->zustaende.startBildschirmAnzeigen = false;
 			}
-			else if (auswahl == 2) {
+			else if (auswahlX == 2) {
 				this->zustaende.programmBeenden = true;
 			}
-			this->zustaende.startBildschirmLaeuft = false;
-			this->zustaende.startBildschirmAnzeigen = false;
 		}
 	}
 	if (this->zustaende.einstellungenLaeuft) {

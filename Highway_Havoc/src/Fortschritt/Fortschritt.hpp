@@ -4,6 +4,7 @@
 #include <string>
 class Fortschritt {
 private:
+	int spielstand = 1;
 	int geld = 0;
 	int levelFreigeschaltet = 1;
 	int autoFreigeschaltet = 1;
@@ -16,4 +17,6 @@ public:
 	int getAutoFreigeschaltet();
 	bool fortschrittSpeichern();
 	bool fortschrittLaden();
+	void setSpielstand(int spielstand);
+	int getSpielstand();
 };

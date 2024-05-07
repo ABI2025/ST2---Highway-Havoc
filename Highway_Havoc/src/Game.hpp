@@ -48,5 +48,4 @@ public:
 	void render();					//	Hier kommt der Rendercode rein!!!!!
 	void tick();					//	Hier kommt der Spielcode rein, der nicht der Rendercode ist!!!
 	void start();					//	Ruft die Render- und Tick-Methoden auf.
-	void autoKollisionen();         //  Prüfen ob sich Autos berühren 
 };

@@ -6,10 +6,11 @@ Startbildschirm::~Startbildschirm()
 {
 }
 
-Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
+Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt)
 {
 	this->window = window;
 	this->eingabeverwaltung = eingabeverwaltung;
+	this->fortschritt = fortschritt;
 	if (!this->PixeboyFont.loadFromFile("./res/schriftarten/Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
@@ -18,7 +19,7 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* ei
 		std::cout << "Fehler beim laden der Textur! (./res/grafiken/auto_startbildschirm.png)" << std::endl;
 	}
 	this->autoSprite.setTexture(this->autoTextur);
-	this->autoSprite.setScale({1.5f,1.5f});
+	this->autoSprite.setScale({ 1.5f,1.5f });
 	this->autoSprite.setPosition(window->getSize().x / 2 - autoSprite.getGlobalBounds().width / 2, 150);
 
 	this->titelText.setFont(PixeboyFont);											//	Parameter und Position vom Titeltext setzen
@@ -34,8 +35,25 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* ei
 	this->spielStartText.setOutlineColor(sf::Color::White);
 	this->spielStartText.setCharacterSize(30);
 	this->spielStartText.setLetterSpacing(1);
-	this->spielStartText.setString("Spiel starten");
+	this->spielStartenCString[14] = (char)(this->fortschritt->getSpielstand() + 48);
+	this->spielStartText.setString(this->spielStartenCString);
 	this->spielStartText.setPosition({ window->getSize().x / 2 - spielStartText.getGlobalBounds().width / 2, 80 });
+
+	this->speicherstandHoch.setFont(PixeboyFont);
+	this->speicherstandHoch.setFillColor(sf::Color::White);
+	this->speicherstandHoch.setOutlineColor(sf::Color::White);
+	this->speicherstandHoch.setCharacterSize(30);
+	this->speicherstandHoch.setLetterSpacing(1);
+	this->speicherstandHoch.setString(">");
+	this->speicherstandHoch.setPosition(this->spielStartText.getGlobalBounds().getPosition().x + this->spielStartText.getGlobalBounds().getSize().x + 10, 80);
+
+	this->speicherstandRunter.setFont(PixeboyFont);
+	this->speicherstandRunter.setFillColor(sf::Color::White);
+	this->speicherstandRunter.setOutlineColor(sf::Color::White);
+	this->speicherstandRunter.setCharacterSize(30);
+	this->speicherstandRunter.setLetterSpacing(1);
+	this->speicherstandRunter.setString("<");
+	this->speicherstandRunter.setPosition(this->spielStartText.getGlobalBounds().getPosition().x - this->speicherstandRunter.getGlobalBounds().getSize().x - 10, 80);
 
 	this->einstellungenOeffnenText.setFont(PixeboyFont);							//	Parameter und Position vom "Einstellungen"-Schriftzug setzen
 	this->einstellungenOeffnenText.setFillColor(sf::Color::White);
@@ -52,30 +70,32 @@ Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* ei
 	this->spielBeendenText.setLetterSpacing(1);
 	this->spielBeendenText.setString("Spiel beenden");
 	this->spielBeendenText.setPosition({ window->getSize().x / 2 - spielBeendenText.getGlobalBounds().width / 2, 140 });
-
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Enter);
-	//this->eingabeverwaltung->mausTasteHinzufuegen(sf::Mouse::Button::Left);
 }
 
 void Startbildschirm::anzeigen()
 {
 	this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->window->getView().getSize().y / 2), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
 	this->window->clear(sf::Color(55, 166, 166, 255));								//	Hintergundfarbe setzten
+	this->spielStartenCString[14] = (char)(this->fortschritt->getSpielstand() + 48);
+	this->spielStartText.setString(this->spielStartenCString);
 
 	this->spielStartText.setFillColor(sf::Color::White);							//	Die Farbe der Momentan getroffenen Auswahl auf Rot setzten, den Rest auf Weiß
 	this->einstellungenOeffnenText.setFillColor(sf::Color::White);
 	this->spielBeendenText.setFillColor(sf::Color::White);
-	if (this->auswahl == 0) 
+	this->speicherstandHoch.setFillColor(sf::Color::White);
+	this->speicherstandRunter.setFillColor(sf::Color::White);
+	if (this->auswahlX == 0)
 	{
-		this->spielStartText.setFillColor(sf::Color::Red);
+		if (this->auswahlY == 0) this->speicherstandRunter.setFillColor(sf::Color::Red);
+		if (this->auswahlY == 1) this->spielStartText.setFillColor(sf::Color::Red);
+		if (this->auswahlY == 2) this->speicherstandHoch.setFillColor(sf::Color::Red);
+
 	}
-	if (this->auswahl == 1) 
+	if (this->auswahlX == 1)
 	{
 		this->einstellungenOeffnenText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 2) 
+	if (this->auswahlX == 2)
 	{
 		this->spielBeendenText.setFillColor(sf::Color::Red);
 	}
@@ -84,6 +104,8 @@ void Startbildschirm::anzeigen()
 	this->window->draw(spielStartText);
 	this->window->draw(einstellungenOeffnenText);
 	this->window->draw(spielBeendenText);
+	this->window->draw(speicherstandHoch);
+	this->window->draw(speicherstandRunter);
 	this->window->draw(autoSprite);
 }
 
@@ -93,25 +115,44 @@ void Startbildschirm::aktualisieren()
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 	this->auswahlGetroffen = false;													//	AuswahlGetroffen zurücksetzten
 
-	if (this->eingabeverwaltung->/*getTastenStatusGeandertIndex(0)*/getGruppenStatusGeaendert(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
-		this->auswahl -= 1;
+		this->auswahlX -= 1;
 	}
-	if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && auswahl < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && auswahlX < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
-		this->auswahl += 1;
+		this->auswahlX += 1;
 	}
-																					//	Die Mausposition prüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(1) && auswahlX == 0 && auswahlY > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
+		this->auswahlY -= 1;
+	}
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(3) && auswahlX == 0 && auswahlY < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
+		this->auswahlY += 1;
+	}
+	//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->spielStartText.getGlobalBounds())) {
-		this->auswahl = 0;
+		this->auswahlX = 0;
+		this->auswahlY = 1;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->einstellungenOeffnenText.getGlobalBounds())) {
-		this->auswahl = 1;
+		this->auswahlX = 1;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->spielBeendenText.getGlobalBounds())) {
-		this->auswahl = 2;
+		this->auswahlX = 2;
+		benutztMaus = true;
+	}
+	if (this->eingabeverwaltung->mausPositionInFlaeche(this->speicherstandHoch.getGlobalBounds())) {
+		this->auswahlX = 0;
+		this->auswahlY = 2;
+		benutztMaus = true;
+	}
+	if (this->eingabeverwaltung->mausPositionInFlaeche(this->speicherstandRunter.getGlobalBounds())) {
+		this->auswahlX = 0;
+		this->auswahlY = 0;
 		benutztMaus = true;
 	}
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(4) == true			//	Überprüfen ob die Auswahl getroffen wurde
@@ -121,9 +162,13 @@ void Startbildschirm::aktualisieren()
 	}
 }
 
-short Startbildschirm::getAuswahl()
+short Startbildschirm::getAuswahlX()
 {
-	return this->auswahl;
+	return this->auswahlX;
+}
+short Startbildschirm::getAuswahlY()
+{
+	return this->auswahlY;
 }
 
 bool Startbildschirm::getAuswahlGetroffen()

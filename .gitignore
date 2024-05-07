@@ -98,6 +98,9 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# Game generated files
+*highwayhavoc_fortschritt.dat
+
 # Chutzpah Test files
 _Chutzpah*
 

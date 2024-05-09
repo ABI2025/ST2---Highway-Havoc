@@ -149,6 +149,7 @@
     <ClCompile Include="src\Einstellungen\Einstellungen.cpp" />
     <ClCompile Include="src\Fortschritt\Fortschritt.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GewonnenBildschrim\GewonnenBildschirm.cpp" />
     <ClCompile Include="src\level1\level1.cpp" />
     <ClCompile Include="src\level2\level2.cpp" />
     <ClCompile Include="src\level3\level3.cpp" />
@@ -163,6 +164,7 @@
     </ClCompile>
     <ClCompile Include="src\Startbildschirm\Startbildschirm.cpp" />
     <ClCompile Include="src\utils\Collision.cpp" />
+    <ClCompile Include="src\VerlorenBildschrim\VerlorenBildschirm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\auto\Automobil.hpp" />
@@ -181,6 +183,7 @@
     <ClInclude Include="src\Einstellungen\Einstellungen.hpp" />
     <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
     <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\GewonnenBildschrim\GewonnenBildschirm.hpp" />
     <ClInclude Include="src\level1\level1.hpp" />
     <ClInclude Include="src\level2\level2.hpp" />
     <ClInclude Include="src\level3\level3.hpp" />
@@ -195,6 +198,7 @@
     <ClInclude Include="src\PauseMenue\PauseMenue.hpp" />
     <ClInclude Include="src\Startbildschirm\Startbildschirm.hpp" />
     <ClInclude Include="src\utils\Collision.hpp" />
+    <ClInclude Include="src\VerlorenBildschrim\VerlorenBildschirm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

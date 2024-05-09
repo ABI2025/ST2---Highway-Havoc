@@ -21,6 +21,8 @@
     <ClCompile Include="src\MusikVerwaltung\MusikVerwaltung.cpp" />
     <ClCompile Include="src\level3\level3.cpp" />
     <ClCompile Include="src\Fortschritt\Fortschritt.cpp" />
+    <ClCompile Include="src\VerlorenBildschrim\VerlorenBildschirm.cpp" />
+    <ClCompile Include="src\GewonnenBildschrim\GewonnenBildschirm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp" />
@@ -46,6 +48,8 @@
     <ClInclude Include="src\MusikVerwaltung\MusikVerwaltung.hpp" />
     <ClInclude Include="src\level3\level3.hpp" />
     <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
+    <ClInclude Include="src\VerlorenBildschrim\VerlorenBildschirm.hpp" />
+    <ClInclude Include="src\GewonnenBildschrim\GewonnenBildschirm.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PauseMenue\PauseMenue.hpp">

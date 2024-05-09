@@ -31,6 +31,7 @@ public:
 	void spielerAktualisieren();
 	void spielerAnzeigen();
 	void viewAufGesteuertenSpieler(unsigned short spielerIndex);
+	void infoVonSpielerAnzeigen(unsigned short spielerIndex);
 	bool getIstTot();
 	bool getHatGewonnen();
 }; 

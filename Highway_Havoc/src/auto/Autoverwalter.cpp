@@ -171,23 +171,26 @@ void Autoverwalter::spielerGenerieren(unsigned short anzahl, int typ)
 
 void Autoverwalter::spielerAktualisieren()
 {
+	bool amLeben = false;
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		this->spielerVector[i]->aktualisieren();
 		for (int y = 0; y < this->botVector.size(); y++) {
-			if (Collision::pixelPerfectTest(*this->spielerVector[i]->getSprite(), *this->botVector[y]->getSprite(), 177)) {
-				this->istTot = true;
+			if (Collision::pixelPerfectTest(*this->spielerVector[i]->getSprite(), *this->botVector[y]->getSprite(), 177) && this->spielerVector[i]->getUnverwundbar() == false) {
+				this->spielerVector[i]->schadenNehmen(1);
 			}
 		}
-		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 26 * 6.4, 100000))) this->istTot = true;
-		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640, 100000))) this->istTot = true;
+		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(0, -10000, 26 * 6.4, 100000)) && this->spielerVector[i]->getUnverwundbar() == false) this->spielerVector[i]->schadenNehmen(1);
+		if (this->spielerVector[i]->getGlobalBounds().intersects(sf::FloatRect(640 - (26 * 6.4), -10000, 640, 100000)) && this->spielerVector[i]->getUnverwundbar() == false) this->spielerVector[i]->schadenNehmen(1);
 		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y < this->map->getMapViereck().getPosition().y) this->hatGewonnen = true;
+		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y > this->map->getMapViereck().getPosition().y) this->istTot = true;
+		if (this->spielerVector[i]->getLeben() != 0) amLeben = true;
 	}
+	if (amLeben == false) this->istTot = true;
 }
 
 void Autoverwalter::spielerAnzeigen()
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
-		//if (i == 0) this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->spielerVector[i]->getPos().y), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
 		this->spielerVector[0]->anzeigen();
 	}
 }
@@ -196,6 +199,13 @@ void Autoverwalter::viewAufGesteuertenSpieler(unsigned short spielerIndex)
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		if (i == spielerIndex) this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->spielerVector[i]->getPos().y), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
+	}
+}
+
+void Autoverwalter::infoVonSpielerAnzeigen(unsigned short spielerIndex)
+{
+	for (int i = 0; i < this->spielerVector.size(); i++) {
+		if (i == spielerIndex) this->spielerVector[i]->statusAnzeigen();
 	}
 }
 

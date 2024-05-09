@@ -152,8 +152,8 @@ void Game::tick() {
 	if (this->zustaende.spielLaeuft) {
 		this->levelauswahl->aktualisieren();
 		if (this->levelauswahl->getAuswahlGetroffen()) {
-			unsigned short auswahlX = this->levelauswahl->getAuswahlX();
-			if (auswahlX == 0) {
+			unsigned short auswahlY = this->levelauswahl->getAuswahlY();
+			if (auswahlY == 0) {
 				this->zustaende.spielLaeuft = false;
 				this->zustaende.spielAnzeigen = false;
 				this->zustaende.startBildschirmLaeuft = true;

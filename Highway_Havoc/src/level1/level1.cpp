@@ -51,6 +51,7 @@ void Level1::anzeigen()
 	this->autoverwalter->botsAnzeigen();
 	this->autoverwalter->spielerAnzeigen();
 	this->map->brueckeZeichnen();
+	this->autoverwalter->infoVonSpielerAnzeigen(0);
 }
 
 bool Level1::getUnterbrechung()

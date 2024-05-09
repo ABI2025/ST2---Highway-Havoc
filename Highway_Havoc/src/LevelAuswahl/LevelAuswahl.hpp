@@ -6,6 +6,8 @@
 #include "../level3/level3.hpp"
 #include "../PauseMenue/PauseMenue.hpp"
 #include "../Fortschritt/Fortschritt.hpp"
+#include "../VerlorenBildschrim/VerlorenBildschirm.hpp"
+#include "../GewonnenBildschrim/GewonnenBildschirm.hpp"
 #include "Level.hpp"
 #include <iostream>
 
@@ -14,8 +16,10 @@ class LevelAuswahl {
 	EingabeVerwaltung* eingabeverwaltung;
 	PauseMenue* pauseMenue;
 	Fortschritt* fortschritt;
+	VerlorenBildschirm* verlorenBildschirm;
+	GewonnenBildschirm* gewonnenBildschirm;
 	unsigned short auswahlX = 0;
-	unsigned short auswahlY = 0;
+	unsigned short auswahlY = 1;
 	bool auswahlGetroffen = false;
 	std::vector<Level*> levelVector;
 	std::vector<sf::RectangleShape> levelBoxVector;
@@ -30,6 +34,10 @@ class LevelAuswahl {
 		bool levelLaeuft = false;
 		bool levelAnzeigen = false;
 		bool levelAktualisieren = false;
+		bool verlorenBildschirmAnzeigen = false;
+		bool verlorenBildschirmAktualisieren = false;
+		bool gewonnenBildschirmAnzeigen = false;
+		bool gewonnenBildschirmAktualisieren = false;
 	}zustaende;
 
 	bool unterbrechung = false;
@@ -42,6 +50,7 @@ class LevelAuswahl {
 	sf::Sprite levelSchlossSprite;
 	void levelHinzufuegen(Level* level);
 	Level* levelGenerieren(int index);
+
 public:
 	~LevelAuswahl();
 	LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt);

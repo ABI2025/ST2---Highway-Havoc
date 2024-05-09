@@ -19,11 +19,21 @@ private:
 	float geschwindigkeit;
 	float rotation;
 
+	unsigned short leben = 3;
+	bool unverwundbar = false;
+	unsigned long long unverwundbarNoch = 0;		//in Ticks
+	unsigned long long unverwundbarZeit = 60 * 3;	//in Ticks
+
 	sf::Texture tachoTextur;
 	sf::Sprite tachoSprite;
 
 	sf::Texture tachoZeigerTextur;
 	sf::Sprite tachoZeigerSprite;
+
+	sf::Texture lebensTexturen[4];
+	sf::Sprite lebensSprites[4];
+
+
 
 	Eigenschaften eigenschaften;
 	
@@ -34,4 +44,10 @@ public:
 	Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften);
 	void aktualisieren();
 	void anzeigen();
+	void statusAnzeigen();
+	void setLeben(unsigned short leben);
+	void setUnverwundbar(bool unverwundbar);
+	unsigned short getLeben();
+	bool getUnverwundbar();
+	void schadenNehmen(unsigned short schaden);
 };

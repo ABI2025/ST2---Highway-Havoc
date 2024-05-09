@@ -1,15 +1,4 @@
 #include "Spieler.hpp"
-//Spieler::~Spieler()
-//{
-//}
-//
-//Spieler::Spieler()
-//{
-//}
-//
-//Spieler::Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung) : Automobil(window)
-//{
-//}
 Spieler::~Spieler()
 {
 }
@@ -30,6 +19,19 @@ Spieler::Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung,
 	geschwindigkeit = 1;
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->eigenschaften = eigenschaften;
+
+	if (!this->tachoTextur.loadFromFile("./res/grafiken/tacho.png")) {
+		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tacho.png)" << std::endl;
+	}
+	this->tachoSprite.setTexture(this->tachoTextur);
+	this->tachoSprite.setScale(2.2f, 2.2f);
+
+	if (!this->tachoZeigerTextur.loadFromFile("./res/grafiken/tachoZeiger.png")) {
+		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tachoZeiger.png)" << std::endl;
+	}
+	this->tachoZeigerSprite.setTexture(this->tachoZeigerTextur);
+	this->tachoZeigerSprite.setOrigin(this->tachoZeigerSprite.getGlobalBounds().getSize().x, this->tachoZeigerSprite.getGlobalBounds().getSize().y / 2);
+	this->tachoZeigerSprite.setScale(2.2f, 2.2f);
 }
 
 void Spieler::aktualisieren()
@@ -61,4 +63,10 @@ void Spieler::aktualisieren()
 void Spieler::anzeigen()
 {
 	this->window->draw(this->sprite);
+	this->tachoSprite.setPosition(this->window->getView().getCenter().x + (this->window->getView().getSize().x / 2 - this->tachoSprite.getGlobalBounds().width), this->window->getView().getCenter().y + (this->window->getView().getSize().y / 2 - this->tachoSprite.getGlobalBounds().height));
+	this->window->draw(this->tachoSprite);
+	float zeigerRotation = (abs(this->geschwindigkeit) / this->eigenschaften.maxGeschwindigkeit) * 180;
+	this->tachoZeigerSprite.setRotation(zeigerRotation);
+	this->tachoZeigerSprite.setPosition(this->tachoSprite.getGlobalBounds().getPosition().x + this->tachoSprite.getGlobalBounds().getSize().x / 2, this->tachoSprite.getGlobalBounds().getPosition().y + this->tachoSprite.getGlobalBounds().getSize().y / 2 + 15);
+	this->window->draw(this->tachoZeigerSprite);
 }

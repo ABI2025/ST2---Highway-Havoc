@@ -19,6 +19,12 @@ private:
 	float geschwindigkeit;
 	float rotation;
 
+	sf::Texture tachoTextur;
+	sf::Sprite tachoSprite;
+
+	sf::Texture tachoZeigerTextur;
+	sf::Sprite tachoZeigerSprite;
+
 	Eigenschaften eigenschaften;
 	
 	EingabeVerwaltung* eingabeverwaltung;

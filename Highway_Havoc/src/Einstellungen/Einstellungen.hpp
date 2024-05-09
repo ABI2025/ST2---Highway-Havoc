@@ -5,7 +5,8 @@
 class Einstellungen
 	{
 	private:
-		short auswahl = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)
+		short auswahlX = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)
+		short auswahlY = 0;
 		bool auswahlGetroffen = false;				//	Ob die Momentan ausgewählte Auswahl bestätigt wurde
 		sf::RenderWindow* window;					//	Pointer auf window, wird für die anzeigen-Methode benötigt
 		sf::Music* musik;
@@ -39,7 +40,8 @@ class Einstellungen
 		void aktualisieren();						//	Aktualisiert die Auswahl
 
 
-		short getAuswahl() const;
+		short getAuswahlX() const;
+		short getAuswahlY() const;
 		bool getAuswahlGetroffen() const;
 		unsigned short getFpsWert() const;
 		unsigned short getLautstaerkeWert() const;

@@ -117,23 +117,23 @@ void Einstellungen::anzeigen()
 	this->fpsWenigerText.setFillColor(sf::Color::White);
 	this->fpsMehrText.setFillColor(sf::Color::White);
 	this->speichernText.setFillColor(sf::Color::White);
-	if (this->auswahl == 0)
+	if (this->auswahlX == 0 && this->auswahlY == 0)
 	{
 		this->lautstärkeLeiserText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 1)
+	if (this->auswahlX == 0 && this->auswahlY == 1)
 	{
 		this->lautstärkeLauterText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 2)
+	if (this->auswahlX == 1 && this->auswahlY == 0)
 	{
 		this->fpsWenigerText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 3)
+	if (this->auswahlX == 1 && this->auswahlY == 1)
 	{
 		this->fpsMehrText.setFillColor(sf::Color::Red);
 	}
-	if (this->auswahl == 4)
+	if (this->auswahlX == 2)
 	{
 		this->speichernText.setFillColor(sf::Color::Red);
 	}
@@ -156,51 +156,68 @@ void Einstellungen::aktualisieren()
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 	this->auswahlGetroffen = false;													//	Zurücksetzen von Auswahlgetroffen, da sonst ein Klickspam ensteht 
 
-	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
-		this->auswahl -= 1;
+		this->auswahlX -= 1;
 	}
-	if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && auswahl < 4) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && auswahlX < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
-		this->auswahl += 1;
+		this->auswahlX += 1;
+	}
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(1) && auswahlY > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
+		this->auswahlY -= 1;
+	}
+	if (this->eingabeverwaltung->getGruppenStatusGeaendert(3) && auswahlY < 1) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+	{
+		this->auswahlY += 1;
 	}
 	//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->lautstärkeLeiserText.getGlobalBounds())) {
-		this->auswahl = 0;
+		this->auswahlX = 0;
+		this->auswahlY = 0;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->lautstärkeLauterText.getGlobalBounds())) {
-		this->auswahl = 1;
+		this->auswahlX = 0;
+		this->auswahlY = 1;
 		benutztMaus = true;
 	}
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->fpsWenigerText.getGlobalBounds())) {
-		this->auswahl = 2;
+		this->auswahlX = 1;
+		this->auswahlY = 0;
 		benutztMaus = true;
 	}																				//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->fpsMehrText.getGlobalBounds())) {
-		this->auswahl = 3;
+		this->auswahlX = 1;
+		this->auswahlY = 1;
 		benutztMaus = true;
 	}
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->speichernText.getGlobalBounds())) {
-		this->auswahl = 4;
+		this->auswahlX = 2;
 		benutztMaus = true;
 	}
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(4) == true			//	Überprüfen ob die Auswahl getroffen wurde
 		|| (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) == true && benutztMaus == true))
 	{
 
-		if (this->auswahl == 0) this->lautsaerkeWertMinus(5);
-		else if (this->auswahl == 1) this->lautsaerkeWertPlus(5);
-		else if (this->auswahl == 2) this->fpsWertMinus(5);
-		else if (this->auswahl == 3) this->fpsWertPlus(5);
-		else if (this->auswahl == 4) this->auswahlGetroffen = true;
+		if (this->auswahlX == 0 && this->auswahlY == 0) this->lautsaerkeWertMinus(5);
+		else if (this->auswahlX == 0 && this->auswahlY == 1) this->lautsaerkeWertPlus(5);
+		else if (this->auswahlX == 1 && this->auswahlY == 0) this->fpsWertMinus(5);
+		else if (this->auswahlX == 1 && this->auswahlY == 1) this->fpsWertPlus(5);
+		else if (this->auswahlX == 2) this->auswahlGetroffen = true;
 	}
 }
 
 
-short Einstellungen::getAuswahl() const
+short Einstellungen::getAuswahlX() const
 {
-	return this->auswahl;
+	return this->auswahlX;
+}
+
+short Einstellungen::getAuswahlY() const
+{
+	return this->auswahlY;
 }
 
 bool Einstellungen::getAuswahlGetroffen() const

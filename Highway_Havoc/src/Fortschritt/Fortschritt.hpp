@@ -6,8 +6,8 @@ class Fortschritt {
 private:
 	int spielstand = 1;
 	int geld = 0;
-	int levelFreigeschaltet = 1;
-	int autoFreigeschaltet = 1;
+	int levelFreigeschaltet = 0;
+	int autoFreigeschaltet = 0;
 public:
 	void setGeld(int geld);
 	int getGeld();

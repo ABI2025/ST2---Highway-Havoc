@@ -130,8 +130,8 @@ void Game::tick() {
 	if (this->zustaende.einstellungenLaeuft) {
 		this->einstellungen->aktualisieren();
 		if (this->einstellungen->getAuswahlGetroffen()) {
-			int auswahl = this->einstellungen->getAuswahl();
-			if (auswahl == 4) {
+			int auswahlX = this->einstellungen->getAuswahlX();
+			if (auswahlX == 2) {
 				this->fps = this->einstellungen->getFpsWert();
 				this->musikverwaltung->setLautstaerke(this->einstellungen->getLautstaerkeWert());
 
@@ -152,8 +152,8 @@ void Game::tick() {
 	if (this->zustaende.spielLaeuft) {
 		this->levelauswahl->aktualisieren();
 		if (this->levelauswahl->getAuswahlGetroffen()) {
-			unsigned short auswahl = this->levelauswahl->getAuswahl();
-			if (auswahl == 0) {
+			unsigned short auswahlX = this->levelauswahl->getAuswahlX();
+			if (auswahlX == 0) {
 				this->zustaende.spielLaeuft = false;
 				this->zustaende.spielAnzeigen = false;
 				this->zustaende.startBildschirmLaeuft = true;

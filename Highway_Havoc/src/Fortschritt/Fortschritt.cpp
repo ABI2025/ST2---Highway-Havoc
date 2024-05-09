@@ -57,8 +57,8 @@ bool Fortschritt::fortschrittLaden()
 	if (!datei) {
 		std::cout << "Fehler beim Öffnen von " << pfad << std::endl;
 		this->geld = 0;
-		this->levelFreigeschaltet = 1;
-		this->autoFreigeschaltet = 1;
+		this->levelFreigeschaltet = 0;
+		this->autoFreigeschaltet = 0;
 		this->fortschrittSpeichern();
 		return false;
 	}

@@ -16,11 +16,11 @@ void LevelAuswahl::levelHinzufuegen(Level* level)
 Level* LevelAuswahl::levelGenerieren(int index)
 {
 	Level* level_tmp = new Level1(this->window, this->eingabeverwaltung);
-	if (index == 2) {
+	if (index == 1) {
 		delete level_tmp;
 		level_tmp = new Level2(this->window, this->eingabeverwaltung);
 	}
-	if (index == 3) {
+	if (index == 2) {
 		delete level_tmp;
 		level_tmp = new Level3(this->window, this->eingabeverwaltung);
 	}
@@ -115,11 +115,11 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->zurueckPfeil.setScale(sf::Vector2f(0.35f, 0.35f));
 	this->zurueckPfeil.setPosition(0, 25);
 
+	this->levelHinzufuegen(this->levelGenerieren(0));
 	this->levelHinzufuegen(this->levelGenerieren(1));
 	this->levelHinzufuegen(this->levelGenerieren(2));
-	this->levelHinzufuegen(this->levelGenerieren(3));
-	this->levelHinzufuegen(this->levelGenerieren(1));
-	this->levelHinzufuegen(this->levelGenerieren(1));
+	this->levelHinzufuegen(this->levelGenerieren(0));
+	this->levelHinzufuegen(this->levelGenerieren(0));
 }
 
 void LevelAuswahl::aktualisieren()
@@ -161,8 +161,8 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.levelAnzeigen = false;
 				this->zustaende.levelAktualisieren = false;
 				this->eingabeverwaltung->aktualisieren();
-				delete this->levelVector[this->auswahl - 1];
-				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
+				delete this->levelVector[this->auswahlY];
+				this->levelVector[this->auswahlY] = this->levelGenerieren(this->auswahlY);
 			}
 		}
 	}
@@ -170,43 +170,51 @@ void LevelAuswahl::aktualisieren()
 		this->fortschritt->fortschrittLaden();
 		this->auswahlGetroffen = false;
 		bool benutztMaus = false;
-		if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && this->auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && this->auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 		{
-			this->auswahl -= 1;
+			this->auswahlX -= 1;
 		}
-		if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && this->auswahl < this->levelBoxVector.size()) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && this->auswahlX < 1) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 		{
-			this->auswahl += 1;
+			this->auswahlX += 1;
+		}
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(1) && this->auswahlY > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		{
+			this->auswahlY -= 1;
+		}
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(3) && this->auswahlY < this->levelVector.size()) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		{
+			this->auswahlY += 1;
 		}
 		if (this->eingabeverwaltung->mausPositionInFlaeche(this->zurueckPfeil.getGlobalBounds())) {
-			this->auswahl = 0;
+			this->auswahlX = 0;
+			this->auswahlY = 0;
 			benutztMaus = true;
 		}
 		for (int i = 0; i < this->levelBoxVector.size(); i++) {
 			if (this->eingabeverwaltung->mausPositionInFlaeche(this->levelBoxVector[i].getGlobalBounds())) {
-				this->auswahl = i + 1;
+				this->auswahlX = 1;
+				this->auswahlY = i;
 				benutztMaus = true;
 			}
 		}
 		if (this->eingabeverwaltung->getGruppenStatusGeaendert(4) || (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) && benutztMaus == true)) {
-			if (this->auswahl <= this->fortschritt->getLevelFreigeschaltet()) {
-				this->auswahlGetroffen = true;
-				if (this->auswahl != 0) {
-					this->zustaende.pauseMenueAnzeigen = false;
-					this->zustaende.pauseMenueAktualisieren = false;
-					this->zustaende.levelAuswahlAktualisieren = false;
-					this->zustaende.levelAuswahlAnzeigen = false;
-					this->zustaende.levelLaeuft = true;
-					this->zustaende.levelAnzeigen = true;
-					this->zustaende.levelAktualisieren = true;
-				}
+			this->auswahlGetroffen = true;
+			if (this->auswahlY <= this->fortschritt->getLevelFreigeschaltet() && this->auswahlX == 1) {
+				this->zustaende.pauseMenueAnzeigen = false;
+				this->zustaende.pauseMenueAktualisieren = false;
+				this->zustaende.levelAuswahlAktualisieren = false;
+				this->zustaende.levelAuswahlAnzeigen = false;
+				this->zustaende.levelLaeuft = true;
+				this->zustaende.levelAnzeigen = true;
+				this->zustaende.levelAktualisieren = true;
 			}
 		}
 	}
 	if (zustaende.levelAktualisieren) {
-		this->levelVector[this->auswahl - 1]->aktualisieren();
-		if (this->levelVector[this->auswahl - 1]->getUnterbrechung()) {
-			int unterbrechungsgrund = this->levelVector[this->auswahl - 1]->getUnterbrechungsgrund();
+		this->levelVector[this->auswahlY]->aktualisieren();
+		if (this->levelVector[this->auswahlY]->getUnterbrechung()) {
+			int unterbrechungsgrund = this->levelVector[this->auswahlY]->getUnterbrechungsgrund();
 			if (unterbrechungsgrund == 0) {
 				this->zustaende.pauseMenueAnzeigen = false;
 				this->zustaende.pauseMenueAktualisieren = false;
@@ -216,8 +224,8 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.levelAnzeigen = false;
 				this->zustaende.levelAktualisieren = false;
 				this->eingabeverwaltung->aktualisieren();
-				delete this->levelVector[this->auswahl - 1];
-				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
+				delete this->levelVector[this->auswahlY];
+				this->levelVector[this->auswahlY] = this->levelGenerieren(this->auswahlY);
 			}
 			if (unterbrechungsgrund == 1) {
 				this->zustaende.pauseMenueAnzeigen = false;
@@ -228,9 +236,9 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.levelAnzeigen = false;
 				this->zustaende.levelAktualisieren = false;
 				this->eingabeverwaltung->aktualisieren();
-				delete this->levelVector[this->auswahl - 1];
-				this->levelVector[this->auswahl - 1] = this->levelGenerieren(this->auswahl);
-				if (this->fortschritt->getLevelFreigeschaltet() == this->auswahl) this->fortschritt->setLevelFreigeschaltet(this->auswahl+1);
+				delete this->levelVector[this->auswahlY];
+				this->levelVector[this->auswahlY] = this->levelGenerieren(this->auswahlY);
+				if (this->fortschritt->getLevelFreigeschaltet() == this->auswahlY) this->fortschritt->setLevelFreigeschaltet(this->auswahlY + 1);
 				this->fortschritt->fortschrittSpeichern();
 			}
 		}
@@ -244,7 +252,7 @@ void LevelAuswahl::anzeigen()
 		this->window->clear(sf::Color(55, 166, 166, 255));
 		this->zurueckPfeil.setFillColor(sf::Color::White);
 		this->zurueckPfeil.setOutlineColor(sf::Color::White);
-		if (this->auswahl == 0) {
+		if (this->auswahlX == 0) {
 			this->zurueckPfeil.setFillColor(sf::Color::Red);
 			this->zurueckPfeil.setOutlineColor(sf::Color::Red);
 		}
@@ -252,15 +260,14 @@ void LevelAuswahl::anzeigen()
 		this->window->draw(this->titelText);
 		for (int i = 0; i < this->levelBoxVector.size(); i++) {
 			this->levelBoxVector[i].setOutlineColor(sf::Color::White);
-			if (i == this->auswahl - 1) this->levelBoxVector[i].setOutlineColor(sf::Color::Red);
+			if (i == this->auswahlY && this->auswahlX == 1) this->levelBoxVector[i].setOutlineColor(sf::Color::Red);
 			this->levelSchlossSprite.setPosition(this->levelSpriteVector[i].getPosition() + sf::Vector2f(28, 25));
 			this->window->draw(this->levelBoxVector[i]);
 			this->window->draw(this->levelSpriteVector[i]);
-			if (i + 1 > this->fortschritt->getLevelFreigeschaltet()) this->window->draw(this->levelSchlossSprite);
-			
+			if (i > this->fortschritt->getLevelFreigeschaltet()) this->window->draw(this->levelSchlossSprite);
 		}
 	}
-	if (this->zustaende.levelAnzeigen) this->levelVector[this->auswahl - 1]->anzeigen();
+	if (this->zustaende.levelAnzeigen) this->levelVector[this->auswahlY]->anzeigen();
 	if (this->zustaende.pauseMenueAnzeigen)	this->pauseMenue->anzeigen();
 }
 
@@ -269,9 +276,14 @@ bool LevelAuswahl::getAuswahlGetroffen()
 	return this->auswahlGetroffen;
 }
 
-unsigned short LevelAuswahl::getAuswahl()
+unsigned short LevelAuswahl::getAuswahlX()
 {
-	return this->auswahl;
+	return this->auswahlX;
+}
+
+unsigned short LevelAuswahl::getAuswahlY()
+{
+	return this->auswahlY;
 }
 
 bool LevelAuswahl::getUnterbrechung()

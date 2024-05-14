@@ -2,7 +2,6 @@
 #include "Bot.hpp"
 Bot::Bot()
 {
-
 }
 Bot::Bot(sf::RenderWindow* window, sf::Texture* textur)
 {

@@ -45,7 +45,7 @@ namespace Collision {
 	/// Supports scaling and rotation
 	/// alphaLimit: The threshold at which a pixel becomes "solid". If alphaLimit is 127, a pixel with
 	/// alpha value 128 will cause a collision and a pixel with alpha value 126 will not.
-	/// 
+	///
 	/// This functions creates bitmasks of the textures of the two sprites by
 	/// downloading the textures from the graphics card to memory -> SLOW!
 	/// You can avoid this by using the "createTextureAndBitmask" function
@@ -57,7 +57,7 @@ namespace Collision {
 	/// Supports scaling and rotation
 	/// alphaLimit: The threshold at which a pixel becomes "solid". If alphaLimit is 127, a pixel with
 	/// alpha value 128 will cause a collision and a pixel with alpha value 126 will not.
-	/// 
+	///
 	/// This functions creates bitmasks of the textures of the sprite by
 	/// downloading the textures from the graphics card to memory -> SLOW!
 	/// You can avoid this by using the "createTextureAndBitmask" function
@@ -68,7 +68,7 @@ namespace Collision {
 	/// Replaces Texture::loadFromFile
 	/// Load an image file into the given texture and create a bitmask for it
 	/// This is much faster than creating the bitmask for a texture on the first run of "pixelPerfectTest"
-	/// 
+	///
 	/// The function returns false if the file could not be opened for some reason
 	//////
 	bool createTextureAndBitmask(sf::Texture& loadInto, const std::string& filename);

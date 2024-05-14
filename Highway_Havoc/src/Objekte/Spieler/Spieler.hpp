@@ -10,7 +10,7 @@ struct Eigenschaften {
 		float maxGeschwindigkeitTmp = this->maxGeschwindigkeit * multiplikator;
 		float reibungTmp = this->reibung * multiplikator;
 		float beschlaeunigungTmp = this->beschlaeunigung * multiplikator;
-		return Eigenschaften{maxGeschwindigkeitTmp, reibungTmp, beschlaeunigungTmp};
+		return Eigenschaften{ maxGeschwindigkeitTmp, reibungTmp, beschlaeunigungTmp };
 	}
 };
 class Spieler : public Automobil {
@@ -24,6 +24,8 @@ private:
 	unsigned long long unverwundbarNoch = 0;		//in Ticks
 	unsigned long long unverwundbarZeit = 60 * 3;	//in Ticks
 
+	int geld = 0;
+
 	sf::Texture tachoTextur;
 	sf::Sprite tachoSprite;
 
@@ -33,11 +35,14 @@ private:
 	sf::Texture lebensTexturen[4];
 	sf::Sprite lebensSprites[4];
 
-
-
 	Eigenschaften eigenschaften;
-	
+
 	EingabeVerwaltung* eingabeverwaltung;
+
+	sf::Font PixeboyFont;
+	sf::Texture muenzeTextur;
+	sf::Sprite muenzeSprite;
+	sf::Text geldText;
 public:
 	~Spieler();
 	Spieler();
@@ -50,4 +55,7 @@ public:
 	unsigned short getLeben();
 	bool getUnverwundbar();
 	void schadenNehmen(unsigned short schaden);
+	void setGeld(int geld);
+	int getGeld();
+	void hatMuenzeGesammelt();
 };

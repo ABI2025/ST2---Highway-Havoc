@@ -10,19 +10,17 @@
     <ClCompile Include="src\Startbildschirm\Startbildschirm.cpp" />
     <ClCompile Include="src\auto_von_felix_losti\Spieler.cpp" />
     <ClCompile Include="src\auto_von_felix_losti\Bot.cpp" />
-    <ClCompile Include="src\level1\level1.cpp" />
-    <ClCompile Include="src\auto\Automobil.cpp" />
-    <ClCompile Include="src\auto\Autoverwalter.cpp" />
-    <ClCompile Include="src\auto\Bot\Bot.cpp" />
-    <ClCompile Include="src\auto\Spieler\Spieler.cpp" />
+    <ClCompile Include="src\Objekte\Automobil.cpp" />
+    <ClCompile Include="src\Objekte\Objektverwalter.cpp" />
+    <ClCompile Include="src\Objekte\Bot\Bot.cpp" />
+    <ClCompile Include="src\Objekte\Spieler\Spieler.cpp" />
     <ClCompile Include="src\LevelAuswahl\LevelAuswahl.cpp" />
-    <ClCompile Include="src\level2\level2.cpp" />
     <ClCompile Include="src\utils\Collision.cpp" />
     <ClCompile Include="src\MusikVerwaltung\MusikVerwaltung.cpp" />
-    <ClCompile Include="src\level3\level3.cpp" />
     <ClCompile Include="src\Fortschritt\Fortschritt.cpp" />
-    <ClCompile Include="src\VerlorenBildschrim\VerlorenBildschirm.cpp" />
-    <ClCompile Include="src\GewonnenBildschrim\GewonnenBildschirm.cpp" />
+    <ClCompile Include="src\Objekte\Muenze\Muenze.cpp" />
+    <ClCompile Include="src\Nachricht\Nachricht.cpp" />
+    <ClCompile Include="src\LevelAuswahl\Level.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp" />
@@ -36,20 +34,17 @@
     <ClCompile Include="src\PauseMenue\PauseMenue.cpp">
       <Filter>Objekt-Code</Filter>
     </ClCompile>
-    <ClInclude Include="src\level1\level1.hpp" />
-    <ClInclude Include="src\auto\Automobil.hpp" />
-    <ClInclude Include="src\auto\Autoverwalter.hpp" />
-    <ClInclude Include="src\auto\Bot\Bot.hpp" />
-    <ClInclude Include="src\auto\Spieler\Spieler.hpp" />
+    <ClInclude Include="src\Objekte\Automobil.hpp" />
+    <ClInclude Include="src\Objekte\Objektverwalter.hpp" />
+    <ClInclude Include="src\Objekte\Bot\Bot.hpp" />
+    <ClInclude Include="src\Objekte\Spieler\Spieler.hpp" />
     <ClInclude Include="src\LevelAuswahl\LevelAuswahl.hpp" />
     <ClInclude Include="src\LevelAuswahl\Level.hpp" />
-    <ClInclude Include="src\level2\level2.hpp" />
     <ClInclude Include="src\utils\Collision.hpp" />
     <ClInclude Include="src\MusikVerwaltung\MusikVerwaltung.hpp" />
-    <ClInclude Include="src\level3\level3.hpp" />
     <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
-    <ClInclude Include="src\VerlorenBildschrim\VerlorenBildschirm.hpp" />
-    <ClInclude Include="src\GewonnenBildschrim\GewonnenBildschirm.hpp" />
+    <ClInclude Include="src\Objekte\Muenze\Muenze.hpp" />
+    <ClInclude Include="src\Nachricht\Nachricht.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PauseMenue\PauseMenue.hpp">

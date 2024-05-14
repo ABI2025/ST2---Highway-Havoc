@@ -1,7 +1,7 @@
 #pragma once
-#include "Autoverwalter.hpp"
+#include "Objektverwalter.hpp"
 
-Autoverwalter::~Autoverwalter()
+Objektverwalter::~Objektverwalter()
 {
 	for (int i = 0; i < this->botVector.size() - 0; i++) {
 		delete this->botVector[i];
@@ -9,13 +9,16 @@ Autoverwalter::~Autoverwalter()
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		delete this->spielerVector[i];
 	}
+	for (int i = 0; i < this->muenzVector.size(); i++) {
+		delete this->muenzVector[i];
+	}
 }
 
-Autoverwalter::Autoverwalter()
+Objektverwalter::Objektverwalter()
 {
 }
 
-Autoverwalter::Autoverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltung* eingabeverwaltung)
+Objektverwalter::Objektverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltung* eingabeverwaltung)
 {
 	this->window = window;
 	this->map = map;
@@ -47,11 +50,11 @@ Autoverwalter::Autoverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltu
 		this->botTexturen.push_back(texturTmp);
 	}
 }
-void Autoverwalter::botHinzufuegen(Bot* bot)
+void Objektverwalter::botHinzufuegen(Bot* bot)
 {
 	this->botVector.push_back(bot);
 }
-void Autoverwalter::botGenerieren(unsigned short anzahl, int typ)
+void Objektverwalter::botGenerieren(unsigned short anzahl, int typ)
 {
 	for (int i = 0; i < anzahl; i++) {
 		Bot* bot_tmp = nullptr;
@@ -82,7 +85,7 @@ void Autoverwalter::botGenerieren(unsigned short anzahl, int typ)
 		if (bot_tmp != nullptr) botVector.push_back(bot_tmp);
 	}
 }
-void Autoverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short reihen, int typ)
+void Objektverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short reihen, int typ)
 {
 	double yKoordinateMap = this->map->getMapViereck().getSize().y + this->map->getMapViereck().getPosition().y;
 	double yAbstand = this->map->getMapViereck().getSize().y / reihen;
@@ -117,7 +120,7 @@ void Autoverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short rei
 		}
 	}
 }
-void Autoverwalter::botsAktualisieren()
+void Objektverwalter::botsAktualisieren()
 {
 	for (int i = 0; i < this->botVector.size(); i++) {
 		this->botVector[i]->aktualisieren();
@@ -133,14 +136,14 @@ void Autoverwalter::botsAktualisieren()
 	}
 }
 
-void Autoverwalter::botsAnzeigen()
+void Objektverwalter::botsAnzeigen()
 {
 	for (int i = 0; i < this->botVector.size(); i++) {
 		this->botVector[i]->anzeigen();
 	}
 }
 
-void Autoverwalter::spielerHinzufuegen(Spieler* spieler)
+void Objektverwalter::spielerHinzufuegen(Spieler* spieler)
 {
 	this->spielerVector.push_back(spieler);
 	for (int i = 0; i < this->botVector.size(); i++) {
@@ -153,23 +156,24 @@ void Autoverwalter::spielerHinzufuegen(Spieler* spieler)
 	}
 }
 
-void Autoverwalter::spielerGenerieren(unsigned short anzahl, int typ)
+void Objektverwalter::spielerGenerieren(unsigned short anzahl, int typ)
 {
-	Eigenschaften eigenschaftenTmp{3,0.01,0.05};
+	Eigenschaften eigenschaftenTmp{ 3,0.01,0.05 };
 	for (int i = 0; i < anzahl; i++) {
-		this->spielerVector.push_back(new Spieler(this->window, this->eingabeverwaltung,&this->spielerTexturen[typ - 1], eigenschaftenTmp * (1 + 0.2*typ)));
-		for (int i = 0; i < this->botVector.size(); i++) {
-			if (Collision::pixelPerfectTest(*this->spielerVector[this->spielerVector.size() - 1]->getSprite(), *this->botVector[i]->getSprite(), 177)) {
+		this->spielerVector.push_back(new Spieler(this->window, this->eingabeverwaltung, &this->spielerTexturen[typ], eigenschaftenTmp * (1 + 0.2 * typ)));
+		for (int y = 0; y < this->botVector.size(); y++) {
+			if (Collision::pixelPerfectTest(*this->spielerVector[this->spielerVector.size() - 1]->getSprite(), *this->botVector[y]->getSprite(), 177)) {
+				delete this->botVector[y];
 				std::vector<Bot*>::iterator loeschIterator = this->botVector.begin();
-				std::advance(loeschIterator, i);
+				std::advance(loeschIterator, y);
 				this->botVector.erase(loeschIterator);
-				i--;
+				y--;
 			}
 		}
 	}
 }
 
-void Autoverwalter::spielerAktualisieren()
+void Objektverwalter::spielerAktualisieren()
 {
 	bool amLeben = false;
 	for (int i = 0; i < this->spielerVector.size(); i++) {
@@ -184,37 +188,105 @@ void Autoverwalter::spielerAktualisieren()
 		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y < this->map->getMapViereck().getPosition().y) this->hatGewonnen = true;
 		if (!this->spielerVector[i]->getGlobalBounds().intersects(this->map->getMapViereck()) && this->spielerVector[i]->getPos().y > this->map->getMapViereck().getPosition().y) this->istTot = true;
 		if (this->spielerVector[i]->getLeben() != 0) amLeben = true;
+		for (int y = 0; y < this->muenzVector.size(); y++) { // Münzen werden überprüft
+			if (Collision::pixelPerfectTest(*this->spielerVector[i]->getSprite(), *this->muenzVector[y]->getSprite(), 177) && this->spielerVector[i]->getUnverwundbar() == false) {
+				delete this->muenzVector[y];
+				std::vector<Muenze*>::iterator muenzVectorIterator = this->muenzVector.begin();
+				advance(muenzVectorIterator, y);
+				muenzVector.erase(muenzVectorIterator);
+				y--;
+				this->spielerVector[i]->hatMuenzeGesammelt();
+			}
+		}
 	}
 	if (amLeben == false) this->istTot = true;
+	for (int i = 0; i < this->spielerVector.size(); i++) {
+	}
 }
 
-void Autoverwalter::spielerAnzeigen()
+void Objektverwalter::spielerAnzeigen()
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		this->spielerVector[0]->anzeigen();
 	}
 }
 
-void Autoverwalter::viewAufGesteuertenSpieler(unsigned short spielerIndex)
+void Objektverwalter::viewAufGesteuertenSpieler(unsigned short spielerIndex)
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
-		if (i == spielerIndex) this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->spielerVector[i]->getPos().y), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
+		if (i == spielerIndex) {
+			float yPos = this->spielerVector[i]->getPos().y;
+			float yBegrenzung = this->map->getMapViereck().getPosition().y + this->map->getMapViereck().getSize().y - this->window->getView().getSize().y / 2;
+			if (yPos > yBegrenzung) yPos = yBegrenzung;
+			this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, yPos), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
+		}
+		//if (i == spielerIndex) this->window->setView(sf::View(sf::Vector2f(this->window->getView().getSize().x / 2, this->spielerVector[i]->getPos().y), sf::Vector2f(this->window->getView().getSize().x, this->window->getView().getSize().y)));
 	}
 }
 
-void Autoverwalter::infoVonSpielerAnzeigen(unsigned short spielerIndex)
+void Objektverwalter::infoVonSpielerAnzeigen(unsigned short spielerIndex)
 {
 	for (int i = 0; i < this->spielerVector.size(); i++) {
 		if (i == spielerIndex) this->spielerVector[i]->statusAnzeigen();
 	}
 }
 
-bool Autoverwalter::getIstTot()
+void Objektverwalter::muenzLevelGenerieren(unsigned short anzahl, unsigned short reihen)
+{
+	double yKoordinateMap = this->map->getMapViereck().getSize().y + this->map->getMapViereck().getPosition().y;
+	double yAbstand = this->map->getMapViereck().getSize().y / reihen;
+	for (int y = 0; y < reihen; y++) {
+		for (int i = 0; i < anzahl; i++) {
+			Muenze* muenze_tmp = nullptr;
+			bool kollidiert;
+			int versuche = 0;
+			int maxVersuche = 10;
+			do {
+				versuche++;
+				kollidiert = false;
+				muenze_tmp = new Muenze(this->window);
+				sf::Vector2f position_tmp;
+				short fahrbahn = rand() % 3;
+				if (fahrbahn == 0) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) - (15.f * 6.4f), yKoordinateMap + muenze_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				if (fahrbahn == 1) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2), yKoordinateMap + muenze_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				if (fahrbahn == 2) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) + (15.f * 6.4f), yKoordinateMap + muenze_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				muenze_tmp->setPos(position_tmp);
+				for (int i = 0; i < muenzVector.size(); i++) {
+					if (muenze_tmp->kollidiert(muenzVector[i]->getGlobalBounds())) {
+						delete muenze_tmp;
+						muenze_tmp = nullptr;
+						kollidiert = true;
+						break;
+					}
+				}
+			} while (kollidiert && (versuche < maxVersuche));
+			if (muenze_tmp != nullptr) muenzVector.push_back(muenze_tmp);
+		}
+	}
+}
+
+void Objektverwalter::muenzenAnzeigen()
+{
+	for (int i = 0; i < this->muenzVector.size(); i++) {
+		this->muenzVector[i]->anzeigen();
+	}
+}
+
+bool Objektverwalter::getIstTot()
 {
 	return this->istTot;
 }
 
-bool Autoverwalter::getHatGewonnen()
+bool Objektverwalter::getHatGewonnen()
 {
 	return this->hatGewonnen;
+}
+
+int Objektverwalter::muenzenGesammt()
+{
+	int muenzenGesammt = 0;
+	for (int i = 0; i < this->spielerVector.size(); i++) {
+		muenzenGesammt += this->spielerVector[i]->getGeld();
+	}
+	return muenzenGesammt;
 }

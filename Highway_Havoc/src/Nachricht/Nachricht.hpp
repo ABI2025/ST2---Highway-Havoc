@@ -1,20 +1,21 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include "SFML/Graphics.hpp"
 #include "../EingabeVerwaltung/EingabeVerwaltung.hpp"
 
-class VerlorenBildschirm {
+class Nachricht {
 private:
 	sf::RenderWindow* window;
 	EingabeVerwaltung* eingabeverwaltung;
 	sf::Font PixeboyFont;
-	sf::Text nachricht;
+	sf::Text nachrichtText;
 	sf::Text aktzeptieren;
 	sf::RectangleShape fensterHintergrund;
 	bool auswahlGetroffen = false;
 public:
-	~VerlorenBildschirm();
-	VerlorenBildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung);
+	~Nachricht();
+	Nachricht(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung,std::string nachrichtText, sf::Color umrandungsFarbe);
 	void aktualisieren();
 	void anzeigen();
 	bool getAuswahlGetroffen();

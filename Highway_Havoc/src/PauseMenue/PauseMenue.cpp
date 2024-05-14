@@ -14,7 +14,6 @@ PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwa
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
 	}
-	
 
 	this->spielStartText.setFont(PixeboyFont);										//	Parameter und Position vom "Spiel starten"-Schriftzug setzen
 	this->spielStartText.setFillColor(sf::Color::White);
@@ -32,7 +31,7 @@ PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwa
 	this->einstellungenOeffnenText.setLetterSpacing(1);
 	this->einstellungenOeffnenText.setString("Einstellungen");
 	this->einstellungenOeffnenText.setOrigin(einstellungenOeffnenText.getGlobalBounds().width / 2, einstellungenOeffnenText.getGlobalBounds().width);
-	this->einstellungenOeffnenText.setPosition( this->window->getView().getCenter().x, this->window->getView().getCenter().y + 157 );
+	this->einstellungenOeffnenText.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y + 157);
 
 	this->spielBeendenText.setFont(PixeboyFont);									//	Parameter und Position vom "Spiel beenden"-Schriftzug setzen
 	this->spielBeendenText.setFillColor(sf::Color::White);
@@ -41,22 +40,20 @@ PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwa
 	this->spielBeendenText.setLetterSpacing(1);
 	this->spielBeendenText.setString("Spiel beenden");
 	this->spielBeendenText.setOrigin(spielBeendenText.getGlobalBounds().width / 2, spielBeendenText.getGlobalBounds().height);
-	this->spielBeendenText.setPosition( this->window->getView().getCenter().x, this->window->getView().getCenter().y + 27 );
-
+	this->spielBeendenText.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y + 27);
 
 	this->fensterHintergrund.setSize(sf::Vector2f(250, 100));
 	this->fensterHintergrund.setFillColor(sf::Color(165, 166, 166, 155));
 	this->fensterHintergrund.setOrigin(this->fensterHintergrund.getGlobalBounds().width / 2, this->fensterHintergrund.getGlobalBounds().height / 2);
 	this->fensterHintergrund.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y);
-
 }
 
 void PauseMenue::anzeigen()
 {
 	this->fensterHintergrund.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y);
-	this->spielBeendenText.setPosition( this->window->getView().getCenter().x, this->window->getView().getCenter().y + 27 );
-	this->einstellungenOeffnenText.setPosition( this->window->getView().getCenter().x, this->window->getView().getCenter().y + 157 );
-	this->spielStartText.setPosition( this->window->getView().getCenter().x, this->window->getView().getCenter().y + 159 );
+	this->spielBeendenText.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y + 27);
+	this->einstellungenOeffnenText.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y + 157);
+	this->spielStartText.setPosition(this->window->getView().getCenter().x, this->window->getView().getCenter().y + 159);
 
 	this->window->draw(this->fensterHintergrund);
 
@@ -90,12 +87,10 @@ void PauseMenue::aktualisieren()
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && this->auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahl -= 1;
-
 	}
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && this->auswahl < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahl += 1;
-
 	}
 	//	Die Mausposition prüfen und die Auswahl anpassen
 	if (this->eingabeverwaltung->mausPositionInFlaeche(this->spielStartText.getGlobalBounds())) {

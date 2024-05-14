@@ -10,7 +10,6 @@ Automobil::Automobil() {
 Automobil::Automobil(sf::RenderWindow* window)
 {
 	this->window = window;
-
 }
 
 void Automobil::setPos(sf::Vector2f position)

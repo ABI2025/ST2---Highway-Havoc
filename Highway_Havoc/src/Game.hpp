@@ -26,7 +26,7 @@ struct Zustaende
 	bool programmBeenden = false;
 };
 
-class Game 
+class Game
 {
 private:
 	sf::RenderWindow* window;		//	Pointer auf window, weil window dynamisch ist (siehe Konstruktor)
@@ -40,7 +40,7 @@ private:
 	LevelAuswahl* levelauswahl;
 	EingabeVerwaltung* eingabeverwaltung;
 	MusikVerwaltung* musikverwaltung;
-	
+
 	sf::Event* event;
 public:
 	Game(int fps, int tickrate);	//	Konstruktor

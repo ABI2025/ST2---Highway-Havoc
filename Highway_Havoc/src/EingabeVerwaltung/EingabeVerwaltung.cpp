@@ -22,24 +22,24 @@ void EingabeVerwaltung::aktualisieren()
 	std::list<bool>::iterator statusIterator;
 	std::list<bool>::iterator statusGeaendertIterator;
 	tastenIterator = this->tasten.begin();
- 	statusIterator = this->tastenStatus.begin();
+	statusIterator = this->tastenStatus.begin();
 	statusGeaendertIterator = this->tastenStatusGeaendert.begin();
 
 	while (tastenIterator != this->tasten.end())					//	Die "tasten"-Liste durchgehen
 	{
 		if (sf::Keyboard::isKeyPressed(*tastenIterator))			//	Wenn eine Taste gedrückt wird, werden entsprechend die "tastenStatus" und "tastenStatusGeaendert"-Listen aktualisiert.
 		{
-			if (*statusIterator == false) 
+			if (*statusIterator == false)
 			{
 				*statusGeaendertIterator = true;
 			}
-			else 
+			else
 			{
 				*statusGeaendertIterator = false;
 			}
 			*statusIterator = true;
 		}
-		else 
+		else
 		{
 			*statusIterator = false;
 			*statusGeaendertIterator = false;
@@ -61,17 +61,17 @@ void EingabeVerwaltung::aktualisieren()
 	{
 		if (sf::Mouse::isButtonPressed(*mausTastenIterator))		//	Wenn eine Taste gedrückt wird, werden entsprechend die "mausTastenStatus" und "mausTastenStatusGeaendert"-Listen aktualisiert.
 		{
-			if (*mausTastenStatusIterator == false) 
+			if (*mausTastenStatusIterator == false)
 			{
 				*mausTastenStatusGeaendertIterator = true;
 			}
-			else 
+			else
 			{
 				*mausTastenStatusGeaendertIterator = false;
 			}
 			*mausTastenStatusIterator = true;
 		}
-		else 
+		else
 		{
 			*mausTastenStatusIterator = false;
 			*mausTastenStatusGeaendertIterator = false;

@@ -2,7 +2,7 @@
 #include <list>
 #include "SFML/Graphics.hpp"
 
-class EingabeVerwaltung 
+class EingabeVerwaltung
 {
 private:
 	std::list<sf::Keyboard::Key> tasten;				//	Liste der zu überprüfenden Tasten

@@ -1,13 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "../EingabeVerwaltung/EingabeVerwaltung.hpp"
-#include "../level1/level1.hpp"
-#include "../level2/level2.hpp"
-#include "../level3/level3.hpp"
 #include "../PauseMenue/PauseMenue.hpp"
 #include "../Fortschritt/Fortschritt.hpp"
-#include "../VerlorenBildschrim/VerlorenBildschirm.hpp"
-#include "../GewonnenBildschrim/GewonnenBildschirm.hpp"
+#include "../Nachricht/Nachricht.hpp"
 #include "Level.hpp"
 #include <iostream>
 
@@ -16,15 +12,21 @@ class LevelAuswahl {
 	EingabeVerwaltung* eingabeverwaltung;
 	PauseMenue* pauseMenue;
 	Fortschritt* fortschritt;
-	VerlorenBildschirm* verlorenBildschirm;
-	GewonnenBildschirm* gewonnenBildschirm;
+	Nachricht* verlorenBildschirm;
+	Nachricht* gewonnenBildschirm;
 	unsigned short auswahlX = 0;
 	unsigned short auswahlY = 1;
 	bool auswahlGetroffen = false;
-	std::vector<Level*> levelVector;
+	Level* level;
 	std::vector<sf::RectangleShape> levelBoxVector;
 	std::vector<sf::Sprite> levelSpriteVector;
 	std::vector<sf::Texture> levelTextureVector;
+
+	std::vector<sf::RectangleShape> autoBoxVector;
+	std::vector<sf::Sprite> autoSpriteVector;
+	std::vector<sf::Texture> autoTexturVector;
+	std::vector<int> autoPreisVector;
+	int autoWahl = 0;
 
 	struct Zustaende {
 		bool pauseMenueAnzeigen = false;
@@ -48,8 +50,14 @@ class LevelAuswahl {
 	sf::ConvexShape zurueckPfeil;
 	sf::Texture levelSchlossTextur;
 	sf::Sprite levelSchlossSprite;
-	void levelHinzufuegen(Level* level);
+
+	sf::Texture muenzeTextur;
+	sf::Sprite muenzeSprite;
+	sf::Text geldText;
+
+	void levelHinzufuegen(int typ);
 	Level* levelGenerieren(int index);
+	void autoHinzufuegen(int typ, int preis);
 
 public:
 	~LevelAuswahl();

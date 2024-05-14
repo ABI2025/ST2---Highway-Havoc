@@ -89,7 +89,6 @@ void Startbildschirm::anzeigen()
 		if (this->auswahlY == 0) this->speicherstandRunter.setFillColor(sf::Color::Red);
 		if (this->auswahlY == 1) this->spielStartText.setFillColor(sf::Color::Red);
 		if (this->auswahlY == 2) this->speicherstandHoch.setFillColor(sf::Color::Red);
-
 	}
 	if (this->auswahlX == 1)
 	{

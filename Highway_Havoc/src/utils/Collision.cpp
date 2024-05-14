@@ -85,7 +85,6 @@ namespace Collision
 		// Loop through our pixels
 		for (float i = intersection.left; i < intersection.left + intersection.width; ++i) {
 			for (float j = intersection.top; j < intersection.top + intersection.height; ++j) {
-
 				auto s1v = sprite1.getInverseTransform().transformPoint(i, j);
 				auto s2v = sprite2.getInverseTransform().transformPoint(i, j);
 
@@ -93,11 +92,9 @@ namespace Collision
 				if (s1v.x > 0 && s1v.y > 0 && s2v.x > 0 && s2v.y > 0 &&
 					s1v.x < s1SubRect.width && s1v.y < s1SubRect.height &&
 					s2v.x < s2SubRect.width && s2v.y < s2SubRect.height) {
-
 					if (getPixel(mask1, *sprite1.getTexture(), (int)(s1v.x) + s1SubRect.left, (int)(s1v.y) + s1SubRect.top) > alphaLimit &&
 						getPixel(mask2, *sprite2.getTexture(), (int)(s2v.x) + s2SubRect.left, (int)(s2v.y) + s2SubRect.top) > alphaLimit)
 						return true;
-
 				}
 			}
 		}
@@ -176,12 +173,12 @@ namespace Collision
 		auto OBB2 = OrientedBoundingBox(sprite2);
 
 		// Create the four distinct axes that are perpendicular to the edges of the two rectangles
-		sf::Vector2f axes [4] = {
+		sf::Vector2f axes[4] = {
 			{ OBB1.points[1].x - OBB1.points[0].x, OBB1.points[1].y - OBB1.points[0].y },
 			{ OBB1.points[1].x - OBB1.points[2].x, OBB1.points[1].y - OBB1.points[2].y },
 			{ OBB2.points[0].x - OBB2.points[3].x, OBB2.points[0].y - OBB2.points[3].y },
 			{ OBB2.points[0].x - OBB2.points[1].x, OBB2.points[0].y - OBB2.points[1].y }
-			};
+		};
 
 		for (auto& axis : axes)
 		{

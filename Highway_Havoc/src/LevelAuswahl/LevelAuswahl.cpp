@@ -1,6 +1,6 @@
 #include "LevelAuswahl.hpp"
 
-void LevelAuswahl::levelHinzufuegen(Level* level)
+void LevelAuswahl::levelHinzufuegen(int typ)
 {
 	sf::RectangleShape levelBox;
 	levelBox.setPosition(sf::Vector2f(730 / 11, 100));
@@ -10,27 +10,54 @@ void LevelAuswahl::levelHinzufuegen(Level* level)
 	levelBox.setOutlineThickness(3);
 	levelBox.setOutlineColor(sf::Color(sf::Color::White));
 	this->levelBoxVector.push_back(levelBox);
-	this->levelVector.push_back(level);
+	sf::Sprite levelIconSprite;
+	levelIconSprite.setTexture(this->levelTextureVector[typ]);
+	levelIconSprite.setOrigin(levelIconSprite.getGlobalBounds().getSize().x / 2, levelIconSprite.getGlobalBounds().getSize().y / 2);
+	float faktor = 50 / levelIconSprite.getGlobalBounds().getSize().y;
+	levelIconSprite.setScale(faktor, faktor);
+	levelIconSprite.setPosition(levelBox.getGlobalBounds().getPosition().x + levelBox.getGlobalBounds().getSize().x / 2, levelBox.getGlobalBounds().getPosition().y + levelBox.getGlobalBounds().getSize().y / 2);
+	this->levelSpriteVector.push_back(levelIconSprite);
 }
 
 Level* LevelAuswahl::levelGenerieren(int index)
 {
-	Level* level_tmp = new Level1(this->window, this->eingabeverwaltung);
+	Level* level_tmp = new Level(this->window, this->eingabeverwaltung, 1, 20, 1, 1, this->autoWahl, 1, 20);
 	if (index == 1) {
 		delete level_tmp;
-		level_tmp = new Level2(this->window, this->eingabeverwaltung);
+		level_tmp = new Level(this->window, this->eingabeverwaltung, 1, 20, 2, 1, this->autoWahl, 1, 20);
 	}
 	if (index == 2) {
 		delete level_tmp;
-		level_tmp = new Level3(this->window, this->eingabeverwaltung);
+		level_tmp = new Level(this->window, this->eingabeverwaltung, 2, 20, 2, 1, this->autoWahl, 1, 20);
 	}
 	return level_tmp;
 }
 
+void LevelAuswahl::autoHinzufuegen(int typ, int preis)
+{
+	sf::RectangleShape autoBox;
+	autoBox.setPosition(sf::Vector2f(730 / 11, 200));
+	autoBox.move((730 / 11 + 50) * this->autoBoxVector.size(), 0);
+	autoBox.setSize(sf::Vector2f(50, 50));
+	autoBox.setFillColor(sf::Color(0, 0, 0, 0));
+	autoBox.setOutlineThickness(3);
+	autoBox.setOutlineColor(sf::Color(sf::Color::White));
+	this->autoBoxVector.push_back(autoBox);
+	sf::Sprite autoSprite;
+	autoSprite.setTexture(this->autoTexturVector[typ]);
+	autoSprite.setOrigin(autoSprite.getGlobalBounds().getSize().x / 2, autoSprite.getGlobalBounds().getSize().y / 2);
+	float faktor = 50 / autoSprite.getGlobalBounds().getSize().y;
+	autoSprite.setScale(faktor, faktor);
+	autoSprite.setPosition(autoBox.getGlobalBounds().getPosition().x + autoBox.getGlobalBounds().getSize().x / 2, autoBox.getGlobalBounds().getPosition().y + autoBox.getGlobalBounds().getSize().y / 2);
+	this->autoSpriteVector.push_back(autoSprite);
+	this->autoPreisVector.push_back(preis);
+}
+
 LevelAuswahl::~LevelAuswahl()
 {
-	delete this->eingabeverwaltung;
-	this->eingabeverwaltung = nullptr;
+	delete this->pauseMenue;
+	delete this->gewonnenBildschirm;
+	delete this->verlorenBildschirm;
 }
 
 LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt)
@@ -39,8 +66,9 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->pauseMenue = new PauseMenue(window, eingabeverwaltung);
 	this->fortschritt = fortschritt;
-	this->verlorenBildschirm = new VerlorenBildschirm(window, eingabeverwaltung);
-	this->gewonnenBildschirm = new GewonnenBildschirm(window, eingabeverwaltung);
+	this->fortschritt->fortschrittLaden();
+	this->verlorenBildschirm = new Nachricht(this->window, this->eingabeverwaltung, "Du bist gestorben!", sf::Color(237, 28, 36, 55));
+	this->gewonnenBildschirm = new Nachricht(this->window, this->eingabeverwaltung, "Du hast das Level geschafft!", sf::Color(255, 242, 0, 55));
 
 	this->zustaende.pauseMenueAnzeigen = false;
 	this->zustaende.pauseMenueAktualisieren = false;
@@ -58,48 +86,58 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
 	}
-	if (!this->levelSchlossTextur.loadFromFile("./res/grafiken/level_schloss.png"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
+	if (!this->levelSchlossTextur.loadFromFile("./res/grafiken/level_schloss.png"))
 	{
 		std::cout << "Fehler beim laden der Textur! (./res/grafiken/level_schloss.png)" << std::endl;
 	}
 	this->levelSchlossSprite.setTexture(this->levelSchlossTextur);
 	this->levelSchlossSprite.setScale(0.5f, 0.5f);
-	sf::Texture level1Textur;
-	if (!level1Textur.loadFromFile("./res/grafiken/level1_cover.png"))
+
+	if (!this->muenzeTextur.loadFromFile("./res/grafiken/muenze.png"))
 	{
-		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level1_cover.png)" << std::endl;
+		std::cout << "Fehler beim laden der Textur! (./res/grafiken/muenze.png)" << std::endl;
 	}
-	this->levelTextureVector.push_back(level1Textur);
-	sf::Texture level2Textur;
-	if (!level2Textur.loadFromFile("./res/grafiken/level2_cover.png"))
-	{
-		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level2_cover.png)" << std::endl;
+	this->muenzeSprite.setTexture(this->muenzeTextur);
+	this->muenzeSprite.setScale(1.5f, 1.5f);
+	this->muenzeSprite.setPosition(this->window->getView().getSize().x - this->muenzeSprite.getGlobalBounds().width, 25);
+
+	std::string string_tmp;
+	int geld_tmp = this->fortschritt->getGeld();
+	do {
+		string_tmp.insert(string_tmp.begin(), (char)(geld_tmp % 10 + 48));
+		geld_tmp /= 10;
+	} while (geld_tmp != 0);
+	this->geldText.setFont(this->PixeboyFont);
+	this->geldText.setString(string_tmp);
+	this->geldText.setFillColor(sf::Color::White);
+	this->geldText.setOutlineColor(sf::Color::White);
+	this->geldText.setCharacterSize(60);
+	this->geldText.setLetterSpacing(1);
+	this->geldText.setOrigin(0, this->geldText.getGlobalBounds().getSize().y * 1.5f);
+	this->geldText.setPosition(this->muenzeSprite.getGlobalBounds().getPosition().x - this->geldText.getGlobalBounds().getSize().x - 5, this->muenzeSprite.getGlobalBounds().getPosition().y + this->muenzeSprite.getGlobalBounds().getSize().y / 2);
+
+	for (int i = 1; i <= 5; i++) {
+		sf::Texture texturTmp;
+		char pfadTmp[32] = "./res/grafiken/level _cover.png";
+		pfadTmp[20] = (char)i + 48;
+		if (!texturTmp.loadFromFile(pfadTmp)) {
+			std::cout << "Fehler beim laden der Textur (" << pfadTmp << ")" << std::endl;
+		}
+		this->levelTextureVector.push_back(texturTmp);
 	}
-	this->levelTextureVector.push_back(level2Textur);
-	sf::Texture level3Textur;
-	if (!level3Textur.loadFromFile("./res/grafiken/level3_cover.png"))
-	{
-		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level3_cover.png)" << std::endl;
-	}
-	this->levelTextureVector.push_back(level3Textur);
-	sf::Texture level4Textur;
-	if (!level4Textur.loadFromFile("./res/grafiken/level4_cover.png"))
-	{
-		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level4_cover.png)" << std::endl;
-	}
-	this->levelTextureVector.push_back(level4Textur);
-	sf::Texture level5Textur;
-	if (!level5Textur.loadFromFile("./res/grafiken/level5_cover.png"))
-	{
-		std::cout << "Fehler beim laden der Schriftart! (./res/grafiken/level5_cover.png)" << std::endl;
-	}
-	this->levelTextureVector.push_back(level5Textur);
-	for (int i = 0; i < this->levelTextureVector.size(); i++) {
-		sf::Sprite levelIconSprite;
-		levelIconSprite.setTexture(this->levelTextureVector[i]);
-		levelIconSprite.setPosition(sf::Vector2f(730 / 11, 100));
-		levelIconSprite.move((730 / 11 + 50) * i, 0);
-		this->levelSpriteVector.push_back(levelIconSprite);
+
+	for (int i = 1; i <= 3; i++) {
+		sf::Texture texturTmp;
+		char pfadTmp[25] = "./res/grafiken/auto";
+		pfadTmp[19] = (char)i + 48;
+		pfadTmp[20] = '.';
+		pfadTmp[21] = 'p';
+		pfadTmp[22] = 'n';
+		pfadTmp[23] = 'g';
+		if (!texturTmp.loadFromFile(pfadTmp)) {
+			std::cout << "Fehler beim laden der Textur (" << pfadTmp << ")" << std::endl;
+		}
+		this->autoTexturVector.push_back(texturTmp);
 	}
 
 	this->titelText.setFont(PixeboyFont);
@@ -121,11 +159,17 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->zurueckPfeil.setScale(sf::Vector2f(0.35f, 0.35f));
 	this->zurueckPfeil.setPosition(0, 25);
 
-	this->levelHinzufuegen(this->levelGenerieren(0));
-	this->levelHinzufuegen(this->levelGenerieren(1));
-	this->levelHinzufuegen(this->levelGenerieren(2));
-	this->levelHinzufuegen(this->levelGenerieren(0));
-	this->levelHinzufuegen(this->levelGenerieren(0));
+	this->levelHinzufuegen(0);
+	this->levelHinzufuegen(1);
+	this->levelHinzufuegen(2);
+	this->levelHinzufuegen(3);
+	this->levelHinzufuegen(4);
+
+	this->autoHinzufuegen(0, 0);
+	this->autoHinzufuegen(1, 10);
+	this->autoHinzufuegen(2, 20);
+	this->autoHinzufuegen(0, 50);
+	this->autoHinzufuegen(0, 100);
 }
 
 void LevelAuswahl::aktualisieren()
@@ -179,8 +223,9 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.gewonnenBildschirmAnzeigen = false;
 				this->zustaende.gewonnenBildschirmAktualisieren = false;
 				this->eingabeverwaltung->aktualisieren();
-				delete this->levelVector[this->auswahlX];
-				this->levelVector[this->auswahlX] = this->levelGenerieren(this->auswahlX);
+				this->fortschritt->setGeld(this->fortschritt->getGeld() + this->level->muenzenGesammelt());
+				this->fortschritt->fortschrittSpeichern();
+				delete this->level;
 			}
 		}
 	}
@@ -192,7 +237,7 @@ void LevelAuswahl::aktualisieren()
 		{
 			this->auswahlY -= 1;
 		}
-		if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && this->auswahlY < 1) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(2) && this->auswahlY < 2) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 		{
 			this->auswahlY += 1;
 		}
@@ -200,7 +245,7 @@ void LevelAuswahl::aktualisieren()
 		{
 			this->auswahlX -= 1;
 		}
-		if (this->eingabeverwaltung->getGruppenStatusGeaendert(3) && this->auswahlX < this->levelVector.size() - 1) 	//	Die Eingabe überprüfen und die Auswahl anpassen
+		if (this->eingabeverwaltung->getGruppenStatusGeaendert(3) && this->auswahlX < this->levelBoxVector.size() - 1) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 		{
 			this->auswahlX += 1;
 		}
@@ -212,6 +257,13 @@ void LevelAuswahl::aktualisieren()
 		for (int i = 0; i < this->levelBoxVector.size(); i++) {
 			if (this->eingabeverwaltung->mausPositionInFlaeche(this->levelBoxVector[i].getGlobalBounds())) {
 				this->auswahlY = 1;
+				this->auswahlX = i;
+				benutztMaus = true;
+			}
+		}
+		for (int i = 0; i < this->autoBoxVector.size(); i++) {
+			if (this->eingabeverwaltung->mausPositionInFlaeche(this->autoBoxVector[i].getGlobalBounds())) {
+				this->auswahlY = 2;
 				this->auswahlX = i;
 				benutztMaus = true;
 			}
@@ -230,13 +282,22 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.verlorenBildschirmAktualisieren = false;
 				this->zustaende.gewonnenBildschirmAnzeigen = false;
 				this->zustaende.gewonnenBildschirmAktualisieren = false;
+				this->level = this->levelGenerieren(this->auswahlX);
+			}
+			if (this->fortschritt->getGeld() >= this->autoPreisVector[auswahlX] && this->auswahlX == this->fortschritt->getAutoFreigeschaltet() + 1 && this->auswahlY == 2) {
+				this->fortschritt->setGeld(this->fortschritt->getGeld() - this->autoPreisVector[auswahlX]);
+				this->fortschritt->setAutoFreigeschaltet(this->auswahlX);
+				this->fortschritt->fortschrittSpeichern();
+			}
+			if (this->auswahlX <= this->fortschritt->getAutoFreigeschaltet() && this->auswahlY == 2) {
+				this->autoWahl = this->auswahlX;
 			}
 		}
 	}
 	if (zustaende.levelAktualisieren) {
-		this->levelVector[this->auswahlX]->aktualisieren();
-		if (this->levelVector[this->auswahlX]->getUnterbrechung()) {
-			int unterbrechungsgrund = this->levelVector[this->auswahlX]->getUnterbrechungsgrund();
+		this->level->aktualisieren();
+		if (this->level->getUnterbrechung()) {
+			int unterbrechungsgrund = this->level->getUnterbrechungsgrund();
 			if (unterbrechungsgrund == 0) {
 				this->zustaende.pauseMenueAnzeigen = false;
 				this->zustaende.pauseMenueAktualisieren = false;
@@ -262,11 +323,6 @@ void LevelAuswahl::aktualisieren()
 				this->zustaende.verlorenBildschirmAktualisieren = false;
 				this->zustaende.gewonnenBildschirmAnzeigen = true;
 				this->zustaende.gewonnenBildschirmAktualisieren = true;
-				//this->eingabeverwaltung->aktualisieren();
-				//delete this->levelVector[this->auswahlX];
-				//this->levelVector[this->auswahlX] = this->levelGenerieren(this->auswahlX);
-				//if (this->fortschritt->getLevelFreigeschaltet() == this->auswahlX) this->fortschritt->setLevelFreigeschaltet(this->auswahlX + 1);
-				//this->fortschritt->fortschrittSpeichern();
 			}
 		}
 	}
@@ -284,8 +340,9 @@ void LevelAuswahl::aktualisieren()
 			this->zustaende.verlorenBildschirmAktualisieren = false;
 			this->zustaende.gewonnenBildschirmAnzeigen = false;
 			this->zustaende.gewonnenBildschirmAktualisieren = false;
-			delete this->levelVector[this->auswahlX];
-			this->levelVector[this->auswahlX] = this->levelGenerieren(this->auswahlX);
+			this->fortschritt->setGeld(this->fortschritt->getGeld() + this->level->muenzenGesammelt());
+			delete this->level;
+			this->fortschritt->fortschrittSpeichern();
 		}
 	}
 	if (this->zustaende.gewonnenBildschirmAktualisieren) {
@@ -302,8 +359,9 @@ void LevelAuswahl::aktualisieren()
 			this->zustaende.verlorenBildschirmAktualisieren = false;
 			this->zustaende.gewonnenBildschirmAnzeigen = false;
 			this->zustaende.gewonnenBildschirmAktualisieren = false;
-			delete this->levelVector[this->auswahlX];
-			this->levelVector[this->auswahlX] = this->levelGenerieren(this->auswahlX);
+			this->fortschritt->setGeld(this->fortschritt->getGeld() + /*this->levelVector[this->auswahlX]*/this->level->muenzenGesammelt());
+			std::cout << this->level->muenzenGesammelt() << std::endl;
+			delete this->level;
 			if (this->fortschritt->getLevelFreigeschaltet() == this->auswahlX) this->fortschritt->setLevelFreigeschaltet(this->auswahlX + 1);
 			this->fortschritt->fortschrittSpeichern();
 		}
@@ -326,16 +384,38 @@ void LevelAuswahl::anzeigen()
 		for (int i = 0; i < this->levelBoxVector.size(); i++) {
 			this->levelBoxVector[i].setOutlineColor(sf::Color::White);
 			if (i == this->auswahlX && this->auswahlY == 1) this->levelBoxVector[i].setOutlineColor(sf::Color::Red);
-			this->levelSchlossSprite.setPosition(this->levelSpriteVector[i].getPosition() + sf::Vector2f(28, 25));
+			this->levelSchlossSprite.setPosition(this->levelSpriteVector[i].getPosition() + sf::Vector2f(2, 0));
 			this->window->draw(this->levelBoxVector[i]);
 			this->window->draw(this->levelSpriteVector[i]);
 			if (i > this->fortschritt->getLevelFreigeschaltet()) this->window->draw(this->levelSchlossSprite);
 		}
+		std::string string_tmp;
+		int geld_tmp = this->fortschritt->getGeld();
+		do {
+			string_tmp.insert(string_tmp.begin(), (char)(geld_tmp % 10 + 48));
+			geld_tmp /= 10;
+		} while (geld_tmp != 0);
+		this->geldText.setString(string_tmp);
+		this->geldText.setPosition(this->muenzeSprite.getGlobalBounds().getPosition().x - this->geldText.getGlobalBounds().getSize().x - 5, this->muenzeSprite.getGlobalBounds().getPosition().y + this->muenzeSprite.getGlobalBounds().getSize().y / 2);
+		this->window->draw(this->muenzeSprite);
+		this->window->draw(this->geldText);
+		for (int i = 0; i < this->autoBoxVector.size(); i++) {
+			this->autoBoxVector[i].setOutlineColor(sf::Color::White);
+			if (i == this->autoWahl) this->autoBoxVector[i].setOutlineColor(sf::Color::Green);
+			if (i == this->auswahlX && this->auswahlY == 2) this->autoBoxVector[i].setOutlineColor(sf::Color::Red);
+			this->levelSchlossSprite.setPosition(this->autoSpriteVector[i].getPosition() + sf::Vector2f(2, 0));
+			this->window->draw(this->autoBoxVector[i]);
+			this->window->draw(this->autoSpriteVector[i]);
+			if (i > this->fortschritt->getAutoFreigeschaltet()) this->window->draw(this->levelSchlossSprite);
+		}
 	}
-	if (this->zustaende.levelAnzeigen) this->levelVector[this->auswahlX]->anzeigen();
+	if (this->zustaende.levelAnzeigen) this->level->anzeigen();
 	if (this->zustaende.pauseMenueAnzeigen)	this->pauseMenue->anzeigen();
 	if (this->zustaende.verlorenBildschirmAnzeigen) this->verlorenBildschirm->anzeigen();
 	if (this->zustaende.gewonnenBildschirmAnzeigen) this->gewonnenBildschirm->anzeigen();
+
+	//this->muenzeSprite.setPosition(this->window->getView().getSize().x - this->muenzeSprite.getGlobalBounds().width, this->window->getView().getCenter().y - this->window->getView().getSize().y / 2);
+	//this->geldText.setPosition(this->muenzeSprite.getGlobalBounds().getPosition().x - this->geldText.getGlobalBounds().getSize().x - 5, this->muenzeSprite.getGlobalBounds().getPosition().y + this->muenzeSprite.getGlobalBounds().getSize().y / 2);
 }
 
 bool LevelAuswahl::getAuswahlGetroffen()

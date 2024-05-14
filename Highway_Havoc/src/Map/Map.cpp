@@ -25,8 +25,7 @@ Map::Map(sf::RenderWindow* window)
 	this->bruecke.setTexture(this->brueckeTextur);
 	this->bruecke.setScale(streckungsFaktor, streckungsFaktor);
 	this->bruecke.setOrigin(this->bruecke.getLocalBounds().width / 2, 0.f);
-	this->bruecke.setPosition({ (float)this->window->getView().getSize().x / 2,   (-(this->strasse.getLocalBounds().height) * streckungsFaktor) + ((float)this->window->getView().getSize().y) + ((-(this->bruecke.getLocalBounds().height) * streckungsFaktor))});
-
+	this->bruecke.setPosition({ (float)this->window->getView().getSize().x / 2,   (-(this->strasse.getLocalBounds().height) * streckungsFaktor) + ((float)this->window->getView().getSize().y) + ((-(this->bruecke.getLocalBounds().height) * streckungsFaktor)) });
 }
 
 void Map::zeichnen()

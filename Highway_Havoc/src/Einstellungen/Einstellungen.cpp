@@ -13,7 +13,7 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
 	}
-	
+
 	this->titelText.setFont(PixeboyFont);											//	Parameter und Position von den Schriftzügen setzen
 	this->titelText.setFillColor(sf::Color::White);
 	this->titelText.setOutlineColor(sf::Color::White);
@@ -21,7 +21,6 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	this->titelText.setLetterSpacing(1);
 	this->titelText.setString("Einstellungen");
 	this->titelText.setPosition({ window->getSize().x / 2 - titelText.getGlobalBounds().width / 2, 0 });
-
 
 	this->lautstärkeText.setFont(PixeboyFont);
 	this->lautstärkeText.setFillColor(sf::Color::White);
@@ -55,7 +54,6 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	this->lautstärkeWertText.setString(std::to_string(laustaerkeWert));
 	this->lautstärkeWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 90 });
 
-
 	this->fpsText.setFont(PixeboyFont);
 	this->fpsText.setFillColor(sf::Color::White);
 	this->fpsText.setOutlineColor(sf::Color::White);
@@ -88,7 +86,6 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	this->fpsWertText.setString(std::to_string(fpsWert));
 	this->fpsWertText.setPosition({ (window->getSize().x / 2 - lautstärkeText.getGlobalBounds().width / 2) + 70, 160 });
 
-
 	this->speichernText.setFont(PixeboyFont);
 	this->speichernText.setFillColor(sf::Color::White);
 	this->speichernText.setOutlineColor(sf::Color::White);
@@ -96,7 +93,6 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	this->speichernText.setLetterSpacing(1);
 	this->speichernText.setString("Speichern");
 	this->speichernText.setPosition({ window->getSize().x / 2 - speichernText.getGlobalBounds().width / 2, 220 });
-
 
 	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
 	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);
@@ -110,9 +106,9 @@ void Einstellungen::anzeigen()
 	this->window->clear(sf::Color(55, 166, 166, 255));								//	Hintergundfarbe setzten
 
 	this->lautstärkeWertText.setString(std::to_string(laustaerkeWert));				// Den momentaren Wert anzeigen
-	this->fpsWertText.setString(std::to_string(fpsWert));							
+	this->fpsWertText.setString(std::to_string(fpsWert));
 
-	this->lautstärkeLeiserText.setFillColor(sf::Color::White);	
+	this->lautstärkeLeiserText.setFillColor(sf::Color::White);
 	this->lautstärkeLauterText.setFillColor(sf::Color::White);						//	Die Farbe der Momentan getroffenen Auswahl auf Rot setzten, den Rest auf Weiß
 	this->fpsWenigerText.setFillColor(sf::Color::White);
 	this->fpsMehrText.setFillColor(sf::Color::White);
@@ -154,7 +150,7 @@ void Einstellungen::aktualisieren()
 {
 	this->eingabeverwaltung->aktualisieren();										//	Die Eingabeverwaltung aktualisieren
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
-	this->auswahlGetroffen = false;													//	Zurücksetzen von Auswahlgetroffen, da sonst ein Klickspam ensteht 
+	this->auswahlGetroffen = false;													//	Zurücksetzen von Auswahlgetroffen, da sonst ein Klickspam ensteht
 
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
@@ -200,7 +196,6 @@ void Einstellungen::aktualisieren()
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(4) == true			//	Überprüfen ob die Auswahl getroffen wurde
 		|| (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) == true && benutztMaus == true))
 	{
-
 		if (this->auswahlX == 0 && this->auswahlY == 0) this->lautsaerkeWertMinus(5);
 		else if (this->auswahlX == 0 && this->auswahlY == 1) this->lautsaerkeWertPlus(5);
 		else if (this->auswahlX == 1 && this->auswahlY == 0) this->fpsWertMinus(5);
@@ -208,7 +203,6 @@ void Einstellungen::aktualisieren()
 		else if (this->auswahlX == 2) this->auswahlGetroffen = true;
 	}
 }
-
 
 short Einstellungen::getAuswahlX() const
 {
@@ -276,7 +270,3 @@ void Einstellungen::fpsWertMinus(unsigned short value)
 {
 	if (fpsWert > fpsMinWert) fpsWert -= value;
 }
-
-
-
-

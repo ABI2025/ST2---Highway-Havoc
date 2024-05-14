@@ -3,8 +3,7 @@
 #include "../EingabeVerwaltung/EingabeVerwaltung.hpp"
 #include "../Fortschritt/Fortschritt.hpp"
 
-
-class Startbildschirm 
+class Startbildschirm
 {
 protected:
 	short auswahlX = 0;							//	Zeigt welche Option gerade ausgewählt ist (von oben nach unten durchnummeriert)

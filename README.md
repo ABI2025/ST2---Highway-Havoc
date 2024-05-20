@@ -18,16 +18,23 @@
 <br>
 
 ### **Startbildschirm** 
+<pre>Auswahl der verschiedenen Spielstände</pre>
+<pre>Einstellungen</pre>
+<pre>Beenden des Spiels</pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/9c8a90fd-fa23-4752-a2a1-48a39ec8ce78" width="600">
 <br>
 
 ### **Shop**
+<pre>Auswahl der Unterschiedlichen Level</pre>
+<pre>Kaufen von neuen Autos</pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/c1dc2f63-9883-4a25-bc8c-3c9d664cd141" width="600">
 <br>
 
 ### **Level 1**
+<pre>Steuerung des Autos mit <i>WASD</i> oder den <i>Pfeiltasten</i></pre>
+<pre>Pause mit <i>ESC</i> Taste </pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/131412aa-39a5-4b9e-9cf0-cf4c85486c45" width="600">
 <br>
@@ -43,6 +50,8 @@
 <br>
 
 ### **Einstellungen**
+<pre>Lautstäreke Anpassung</pre>
+<pre>FPS Anpassung</pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/94bd5dea-8d64-46c0-9369-b2ee62e590a1" width="600">
 <br>

@@ -185,7 +185,7 @@ LevelAuswahl::LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabev
 	this->zurueckPfeil.setPoint(5, sf::Vector2f(50, 75));
 	this->zurueckPfeil.setPoint(6, sf::Vector2f(50, 100));
 	this->zurueckPfeil.setScale(sf::Vector2f(0.35f, 0.35f));
-	this->zurueckPfeil.setPosition(0, 25);
+	this->zurueckPfeil.setPosition(10, 25);
 
 	this->levelHinzufuegen(0);
 	this->levelHinzufuegen(1);

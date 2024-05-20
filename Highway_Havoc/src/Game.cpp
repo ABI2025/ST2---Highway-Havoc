@@ -7,10 +7,10 @@ Game::Game(int fps, int tickrate)
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	this->eingabeverwaltung = new EingabeVerwaltung(window);
 	this->fortschritt = new Fortschritt();
-	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung, fortschritt);
-	this->einstellungen = new Einstellungen(window, eingabeverwaltung);
-	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung, fortschritt);
 	this->musikverwaltung = new MusikVerwaltung();
+	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung, fortschritt, musikverwaltung);
+	this->einstellungen = new Einstellungen(window, eingabeverwaltung, musikverwaltung);
+	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung, fortschritt, musikverwaltung);
 	this->fps = fps;
 	this->tickrate = tickrate;
 	this->event = new sf::Event();
@@ -209,11 +209,7 @@ void Game::start()
 		zeitSeitLetztemFrame = frameLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemFrame >= deltaFrameZeit)
 		{
-			//for (int i = 0; (zeitSeitLetztemFrame - deltaFrameZeit * i) >= zeitSeitLetztemFrame; i++)
-																				//	solange render nur Bilder wiedergibt ist  die Schleife nicht von Nöten
-			//{
 			this->render();
-			//}
 			frameLimitClock.restart().asMicroseconds();
 		}
 		deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;			//	Wird in der Schleife berechnet, um die Bildwiederholungrate zur Laufzeit anpassen zu können

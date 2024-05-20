@@ -2,6 +2,8 @@
 #include "SFML/Graphics.hpp"
 #include "../Automobil.hpp"
 #include "../../EingabeVerwaltung/EingabeVerwaltung.hpp"
+#include "../../MusikVerwaltung/MusikVerwaltung.hpp"
+
 struct Eigenschaften {
 	float maxGeschwindigkeit = 3;
 	float reibung = 0.01;
@@ -38,6 +40,7 @@ private:
 	Eigenschaften eigenschaften;
 
 	EingabeVerwaltung* eingabeverwaltung;
+	MusikVerwaltung* musikverwaltung;
 
 	sf::Font PixeboyFont;
 	sf::Texture muenzeTextur;
@@ -46,7 +49,7 @@ private:
 public:
 	~Spieler();
 	Spieler();
-	Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften);
+	Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften, MusikVerwaltung* musikverwaltung);
 	void aktualisieren();
 	void anzeigen();
 	void statusAnzeigen();
@@ -58,4 +61,6 @@ public:
 	void setGeld(int geld);
 	int getGeld();
 	void hatMuenzeGesammelt();
+	void setGeschwindigkeit(float geschwindigkeit);
+	float getGeschwindigkeit();
 };

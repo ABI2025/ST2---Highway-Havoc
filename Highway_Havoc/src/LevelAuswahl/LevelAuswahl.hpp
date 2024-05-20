@@ -4,6 +4,7 @@
 #include "../PauseMenue/PauseMenue.hpp"
 #include "../Fortschritt/Fortschritt.hpp"
 #include "../Nachricht/Nachricht.hpp"
+#include "../MusikVerwaltung/MusikVerwaltung.hpp"
 #include "Level.hpp"
 #include <iostream>
 
@@ -12,6 +13,7 @@ class LevelAuswahl {
 	EingabeVerwaltung* eingabeverwaltung;
 	PauseMenue* pauseMenue;
 	Fortschritt* fortschritt;
+	MusikVerwaltung* musikverwaltung;
 	Nachricht* verlorenBildschirm;
 	Nachricht* gewonnenBildschirm;
 	unsigned short auswahlX = 0;
@@ -55,13 +57,18 @@ class LevelAuswahl {
 	sf::Sprite muenzeSprite;
 	sf::Text geldText;
 
+	sf::Texture shopTextur;
+	sf::Sprite shopSprite;
+	sf::Sprite muenzeAutoSprite;
+	sf::Text autoPreisText;
+
 	void levelHinzufuegen(int typ);
 	Level* levelGenerieren(int index);
 	void autoHinzufuegen(int typ, int preis);
 
 public:
 	~LevelAuswahl();
-	LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt);
+	LevelAuswahl(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt, MusikVerwaltung* musikverwaltung);
 	void aktualisieren();
 	void anzeigen();
 	bool getAuswahlGetroffen();

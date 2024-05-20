@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../EingabeVerwaltung/EingabeVerwaltung.hpp"
 #include "../Fortschritt/Fortschritt.hpp"
+#include "../MusikVerwaltung/MusikVerwaltung.hpp"
 
 class Startbildschirm
 {
@@ -19,13 +20,14 @@ protected:
 	sf::Texture autoTextur;
 	sf::Sprite autoSprite;
 
+	MusikVerwaltung* musikverwaltung;
 	Fortschritt* fortschritt;
 	char spielStartenCString[16] = "Speicherstand  ";
 	sf::Text speicherstandHoch;
 	sf::Text speicherstandRunter;
 public:
 	~Startbildschirm();							//	Destruktor
-	Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt);	//	Konstruktor
+	Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt, MusikVerwaltung* musikverwaltung);	//	Konstruktor
 	void anzeigen();							//	Zeichnet den Startbildschirm, wird in Game::render() aufgerufen
 	void aktualisieren();						//	Aktualisiert die Auswahl
 	short getAuswahlX();

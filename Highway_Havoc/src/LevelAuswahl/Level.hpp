@@ -1,14 +1,3 @@
-//#pragma once
-//static class Level {
-//public:
-//	virtual ~Level() {
-//	}
-//	virtual void aktualisieren() = 0;
-//	virtual void anzeigen() = 0;
-//	virtual bool getUnterbrechung() = 0;
-//	virtual int getUnterbrechungsgrund() = 0;
-//	virtual int muenzenGesammelt();
-//};
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "../Map/Map.hpp"
@@ -19,14 +8,19 @@
 #include "../Objekte/Bot/Bot.hpp"
 #include "../Objekte/Spieler/Spieler.hpp"
 #include "../LevelAuswahl/Level.hpp"
+#include "../MusikVerwaltung/MusikVerwaltung.hpp"
 class Level {
 private:
 	sf::RenderWindow* window;
 	Map* map;
 	EingabeVerwaltung* eingabeverwaltung;
+	MusikVerwaltung* musikverwaltung;
 	Objektverwalter* objektverwalter;
 	unsigned int botGenerierungsIntervall = 240;
 	unsigned int botGenerierungsIntervallZaehler = 0;
+	unsigned short botTyp = 0;
+	unsigned short botAnzahl = 0;
+
 
 	struct Zustaende {
 		bool pauseMenueAnzeigen = false;
@@ -39,7 +33,7 @@ private:
 	int unterbrechungsgrund = NULL;
 public:
 	~Level();
-	Level(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, unsigned short anzahlBots, unsigned short botReihen, unsigned short botTyp, unsigned short anzahlSpieler, unsigned short spielerTyp, unsigned short anzahlMuenzen, unsigned short muenzReihen);
+	Level(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung, unsigned short anzahlBots, unsigned short botReihen, unsigned short botTyp, unsigned short anzahlSpieler, unsigned short spielerTyp, unsigned short anzahlMuenzen, unsigned short muenzReihen, unsigned short anzahlBananenschalen, unsigned short bananenschalenReihen, unsigned short mapTyp);
 	void aktualisieren();
 	void anzeigen();
 	bool getUnterbrechung();

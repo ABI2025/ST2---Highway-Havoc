@@ -21,6 +21,7 @@
     <ClCompile Include="src\Objekte\Muenze\Muenze.cpp" />
     <ClCompile Include="src\Nachricht\Nachricht.cpp" />
     <ClCompile Include="src\LevelAuswahl\Level.cpp" />
+    <ClCompile Include="src\Objekte\Bananenschale\Bananenschale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\auto_von_felix_losti\Auto.hpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="src\Fortschritt\Fortschritt.hpp" />
     <ClInclude Include="src\Objekte\Muenze\Muenze.hpp" />
     <ClInclude Include="src\Nachricht\Nachricht.hpp" />
+    <ClInclude Include="src\Objekte\Bananenschale\Bananenschale.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PauseMenue\PauseMenue.hpp">

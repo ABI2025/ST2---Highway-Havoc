@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="src\LevelAuswahl\Level.cpp" />
     <ClCompile Include="src\Objekte\Automobil.cpp" />
+    <ClCompile Include="src\Objekte\Bananenschale\Bananenschale.cpp" />
     <ClCompile Include="src\Objekte\Muenze\Muenze.cpp" />
     <ClCompile Include="src\Objekte\Objektverwalter.cpp" />
     <ClCompile Include="src\Objekte\Bot\Bot.cpp" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Objekte\Automobil.hpp" />
+    <ClInclude Include="src\Objekte\Bananenschale\Bananenschale.hpp" />
     <ClInclude Include="src\Objekte\Muenze\Muenze.hpp" />
     <ClInclude Include="src\Objekte\Objektverwalter.hpp" />
     <ClInclude Include="src\Objekte\Bot\Bot.hpp" />

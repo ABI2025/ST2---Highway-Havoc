@@ -4,12 +4,14 @@ Map::~Map()
 {
 }
 
-Map::Map(sf::RenderWindow* window)
+Map::Map(sf::RenderWindow* window, unsigned short typ)
 {
 	this->window = window;
-	if (!this->strassenTextur.loadFromFile("./res/grafiken/strasse_vip.png"))
-	{
-		std::cout << "Fehler beim laden der Textur! (./res/grafiken/strasse_vip.png)" << std::endl;
+
+	char pfadTmp[28] = "./res/grafiken/strasse .png";
+	pfadTmp[22] = (char)typ + 48;
+	if (!this->strassenTextur.loadFromFile(pfadTmp)) {
+		std::cout << "Fehler beim laden der Textur (" << pfadTmp << ")" << std::endl;
 	}
 	if (!this->brueckeTextur.loadFromFile("./res/grafiken/bruecke.png"))
 	{

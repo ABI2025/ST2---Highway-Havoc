@@ -11,7 +11,7 @@ private:
 	float geschwindigkeit = 1.8f;	//	Geschwindigkeit mit der die Bilder sich bewegen
 public:
 	~Map();
-	Map(sf::RenderWindow* window);
+	Map(sf::RenderWindow* window, unsigned short typ);
 	void zeichnen();
 	void aktualisieren();
 	sf::FloatRect getMapViereck();

@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
 #include "../EingabeVerwaltung/EingabeVerwaltung.hpp"
+#include "../MusikVerwaltung/MusikVerwaltung.hpp"
+
 class Einstellungen
 {
 private:
@@ -23,6 +25,7 @@ private:
 	sf::Text fpsWertText;
 	sf::Text speichernText;
 	EingabeVerwaltung* eingabeverwaltung;		//	Eingabeverwaltung wird für die Steuerung benötigt
+	MusikVerwaltung* musikverwaltung;
 
 	unsigned short laustaerkeWert = 100;
 	unsigned short lautstaerkeMinWert = 0;
@@ -34,7 +37,7 @@ private:
 
 public:
 	~Einstellungen();							//	Destruktor
-	Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung);	//	, sf::Music* musik	Konstruktor
+	Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung);	//	, sf::Music* musik	Konstruktor
 	void anzeigen();							//	Zeichnet die Einstellungen, wird in Game::render() aufgerufen
 	void aktualisieren();						//	Aktualisiert die Auswahl
 

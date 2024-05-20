@@ -12,17 +12,21 @@ Objektverwalter::~Objektverwalter()
 	for (int i = 0; i < this->muenzVector.size(); i++) {
 		delete this->muenzVector[i];
 	}
+	for (int i = 0; i < this->bananenschalenVector.size(); i++) {
+		delete this->bananenschalenVector[i];
+	}
 }
 
 Objektverwalter::Objektverwalter()
 {
 }
 
-Objektverwalter::Objektverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltung* eingabeverwaltung)
+Objektverwalter::Objektverwalter(sf::RenderWindow* window, Map* map, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung)
 {
 	this->window = window;
 	this->map = map;
 	this->eingabeverwaltung = eingabeverwaltung;
+	this->musikverwaltung = musikverwaltung;
 	for (int i = 1; i <= 3; i++) {
 		sf::Texture texturTmp;
 		char pfadTmp[25] = "./res/grafiken/auto";
@@ -36,7 +40,7 @@ Objektverwalter::Objektverwalter(sf::RenderWindow* window, Map* map, EingabeVerw
 		}
 		this->spielerTexturen.push_back(texturTmp);
 	}
-	for (int i = 1; i <= 2; i++) {
+	for (int i = 1; i <= 5; i++) {
 		sf::Texture texturTmp;
 		char pfadTmp[24] = "./res/grafiken/bot";
 		pfadTmp[18] = (char)i + 48;
@@ -66,6 +70,9 @@ void Objektverwalter::botGenerieren(unsigned short anzahl, int typ)
 			kollidiert = false;
 			if (typ == 1)bot_tmp = new Bot(this->window, &this->botTexturen[0]);
 			if (typ == 2)bot_tmp = new Bot(this->window, &this->botTexturen[1]);
+			if (typ == 3)bot_tmp = new Bot(this->window, &this->botTexturen[2]);
+			if (typ == 4)bot_tmp = new Bot(this->window, &this->botTexturen[3]);
+			if (typ == 5)bot_tmp = new Bot(this->window, &this->botTexturen[4]);
 			sf::Vector2f position_tmp;
 			//srand(rand());
 			short fahrbahn = rand() % 3;
@@ -100,6 +107,9 @@ void Objektverwalter::botLevelGenerieren(unsigned short anzahl, unsigned short r
 				kollidiert = false;
 				if (typ == 1)bot_tmp = new Bot(this->window, &this->botTexturen[0]);
 				if (typ == 2)bot_tmp = new Bot(this->window, &this->botTexturen[1]);
+				if (typ == 3)bot_tmp = new Bot(this->window, &this->botTexturen[2]);
+				if (typ == 4)bot_tmp = new Bot(this->window, &this->botTexturen[3]);
+				if (typ == 5)bot_tmp = new Bot(this->window, &this->botTexturen[4]);
 				sf::Vector2f position_tmp;
 				//srand(rand());
 				short fahrbahn = rand() % 3;
@@ -158,9 +168,15 @@ void Objektverwalter::spielerHinzufuegen(Spieler* spieler)
 
 void Objektverwalter::spielerGenerieren(unsigned short anzahl, int typ)
 {
+	Eigenschaften eigenschaftenArr[5]{
+		{ 3, 0.01, 0.05},
+		{ 4, 0.01, 0.07},
+		{ 5, 0.01, 0.10}
+
+	};
 	Eigenschaften eigenschaftenTmp{ 3,0.01,0.05 };
 	for (int i = 0; i < anzahl; i++) {
-		this->spielerVector.push_back(new Spieler(this->window, this->eingabeverwaltung, &this->spielerTexturen[typ], eigenschaftenTmp * (1 + 0.2 * typ)));
+		this->spielerVector.push_back(new Spieler(this->window, this->eingabeverwaltung, &this->spielerTexturen[typ], eigenschaftenArr[typ], this->musikverwaltung));
 		for (int y = 0; y < this->botVector.size(); y++) {
 			if (Collision::pixelPerfectTest(*this->spielerVector[this->spielerVector.size() - 1]->getSprite(), *this->botVector[y]->getSprite(), 177)) {
 				delete this->botVector[y];
@@ -196,6 +212,17 @@ void Objektverwalter::spielerAktualisieren()
 				muenzVector.erase(muenzVectorIterator);
 				y--;
 				this->spielerVector[i]->hatMuenzeGesammelt();
+			}
+		}
+		for (int y = 0; y < this->bananenschalenVector.size(); y++) { // Banenschalen werden überprüft
+			if (Collision::pixelPerfectTest(*this->spielerVector[i]->getSprite(), *this->bananenschalenVector[y]->getSprite(), 177) && this->spielerVector[i]->getUnverwundbar() == false) {
+				delete this->bananenschalenVector[y];
+				std::vector<Bananenschale*>::iterator muenzVectorIterator = this->bananenschalenVector.begin();
+				advance(muenzVectorIterator, y);
+				bananenschalenVector.erase(muenzVectorIterator);
+				y--;
+				this->spielerVector[i]->schadenNehmen(1);
+				this->spielerVector[i]->setGeschwindigkeit(0);
 			}
 		}
 	}
@@ -289,4 +316,61 @@ int Objektverwalter::muenzenGesammt()
 		muenzenGesammt += this->spielerVector[i]->getGeld();
 	}
 	return muenzenGesammt;
+}
+
+void Objektverwalter::bananenschalenLevelGenerieren(unsigned short anzahl, unsigned short reihen)
+{
+	double yKoordinateMap = this->map->getMapViereck().getSize().y + this->map->getMapViereck().getPosition().y;
+	double yAbstand = this->map->getMapViereck().getSize().y / reihen;
+	for (int y = 0; y < reihen; y++) {
+		for (int i = 0; i < anzahl; i++) {
+			Bananenschale* bananenschale_tmp = nullptr;
+			bool kollidiert;
+			int versuche = 0;
+			int maxVersuche = 10;
+			do {
+				versuche++;
+				kollidiert = false;
+				bananenschale_tmp = new Bananenschale(this->window);
+				sf::Vector2f position_tmp;
+				short fahrbahn = rand() % 3;
+				if (fahrbahn == 0) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) - (15.f * 6.4f), yKoordinateMap + bananenschale_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				if (fahrbahn == 1) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2), yKoordinateMap + bananenschale_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				if (fahrbahn == 2) position_tmp = sf::Vector2f((this->window->getView().getSize().x / 2) + (15.f * 6.4f), yKoordinateMap + bananenschale_tmp->getGlobalBounds().height / 2 - (yAbstand * y) - rand() % 1000);
+				bananenschale_tmp->setPos(position_tmp);
+				for (int i = 0; i < bananenschalenVector.size(); i++) {
+					if (bananenschale_tmp->kollidiert(bananenschalenVector[i]->getGlobalBounds())) {
+						delete bananenschale_tmp;
+						bananenschale_tmp = nullptr;
+						kollidiert = true;
+						break;
+					}
+				}
+				for (int i = 0; i < muenzVector.size() && bananenschale_tmp != nullptr; i++) {
+					if (bananenschale_tmp->kollidiert(muenzVector[i]->getGlobalBounds())) {
+						delete bananenschale_tmp;
+						bananenschale_tmp = nullptr;
+						kollidiert = true;
+						break;
+					}
+				}
+				for (int i = 0; i < spielerVector.size() && bananenschale_tmp != nullptr; i++) {
+					if (bananenschale_tmp->kollidiert(spielerVector[i]->getGlobalBounds())) {
+						delete bananenschale_tmp;
+						bananenschale_tmp = nullptr;
+						kollidiert = true;
+						break;
+					}
+				}
+			} while (kollidiert && (versuche < maxVersuche));
+			if (bananenschale_tmp != nullptr) bananenschalenVector.push_back(bananenschale_tmp);
+		}
+	}
+}
+
+void Objektverwalter::bananenschalenAnzeigen()
+{
+	for (int i = 0; i < this->bananenschalenVector.size(); i++) {
+		this->bananenschalenVector[i]->anzeigen();
+	}
 }

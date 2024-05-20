@@ -7,7 +7,7 @@ Spieler::Spieler()
 {
 }
 
-Spieler::Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften)
+Spieler::Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, sf::Texture* textur, Eigenschaften eigenschaften, MusikVerwaltung* musikverwaltung)
 {
 	this->window = window;
 	this->textur = *textur;
@@ -19,18 +19,20 @@ Spieler::Spieler(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung,
 	geschwindigkeit = 1;
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->eigenschaften = eigenschaften;
+	this->musikverwaltung = musikverwaltung;
 
-	if (!this->tachoTextur.loadFromFile("./res/grafiken/tacho.png")) {
-		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tacho.png)" << std::endl;
+	if (!this->tachoTextur.loadFromFile("./res/grafiken/tacho2.png")) {
+		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tacho2.png)" << std::endl;
 	}
 	this->tachoSprite.setTexture(this->tachoTextur);
 	this->tachoSprite.setScale(2.2f, 2.2f);
 
-	if (!this->tachoZeigerTextur.loadFromFile("./res/grafiken/tachoZeiger.png")) {
-		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tachoZeiger.png)" << std::endl;
+	if (!this->tachoZeigerTextur.loadFromFile("./res/grafiken/tachoZeiger2.png")) {
+		std::cout << "Fehler beim laden der Datei. (./res/grafiken/tachoZeiger2.png)" << std::endl;
 	}
 	this->tachoZeigerSprite.setTexture(this->tachoZeigerTextur);
-	this->tachoZeigerSprite.setOrigin(this->tachoZeigerSprite.getGlobalBounds().getSize().x, this->tachoZeigerSprite.getGlobalBounds().getSize().y / 2);
+	//this->tachoZeigerSprite.setOrigin(this->tachoZeigerSprite.getGlobalBounds().getSize().x, this->tachoZeigerSprite.getGlobalBounds().getSize().y / 2);
+	this->tachoZeigerSprite.setOrigin(3.5,3.5);
 	this->tachoZeigerSprite.setScale(2.2f, 2.2f);
 
 	if (!this->lebensTexturen[0].loadFromFile("./res/grafiken/lebensstand_0_3.png")) std::cout << "Fehler beim laden der Datei. (./res/grafiken/lebensstand_0_3.png)" << std::endl;
@@ -104,13 +106,13 @@ void Spieler::anzeigen()
 
 void Spieler::statusAnzeigen()
 {
-	this->tachoSprite.setPosition(this->window->getView().getCenter().x + (this->window->getView().getSize().x / 2 - this->tachoSprite.getGlobalBounds().width), this->window->getView().getCenter().y + (this->window->getView().getSize().y / 2 - this->tachoSprite.getGlobalBounds().height));
+	this->tachoSprite.setPosition(this->window->getView().getCenter().x + (this->window->getView().getSize().x / 2 - this->tachoSprite.getGlobalBounds().width) - 10, this->window->getView().getCenter().y + (this->window->getView().getSize().y / 2 - this->tachoSprite.getGlobalBounds().height) - 10);
 	this->window->draw(this->tachoSprite);
-	float zeigerRotation = (abs(this->geschwindigkeit) / this->eigenschaften.maxGeschwindigkeit) * 180;
-	this->tachoZeigerSprite.setRotation(zeigerRotation);
-	this->tachoZeigerSprite.setPosition(this->tachoSprite.getGlobalBounds().getPosition().x + this->tachoSprite.getGlobalBounds().getSize().x / 2, this->tachoSprite.getGlobalBounds().getPosition().y + this->tachoSprite.getGlobalBounds().getSize().y / 2 + 15);
+	float zeigerRotation = (abs(this->geschwindigkeit) / 5) * /*180*/300;
+	this->tachoZeigerSprite.setRotation(zeigerRotation + 120);
+	this->tachoZeigerSprite.setPosition(this->tachoSprite.getGlobalBounds().getPosition().x + this->tachoSprite.getGlobalBounds().getSize().x / 2, this->tachoSprite.getGlobalBounds().getPosition().y + this->tachoSprite.getGlobalBounds().getSize().y / 2);
 	this->window->draw(this->tachoZeigerSprite);
-	this->lebensSprites[this->leben].setPosition(this->window->getView().getCenter().x - this->window->getView().getSize().x / 2, this->window->getView().getCenter().y - this->window->getView().getSize().y / 2);
+	this->lebensSprites[this->leben].setPosition(this->window->getView().getCenter().x - this->window->getView().getSize().x / 2 + 10, this->window->getView().getCenter().y - this->window->getView().getSize().y / 2 + 10);
 	this->window->draw(this->lebensSprites[this->leben]);
 
 	std::string string_tmp;
@@ -120,7 +122,7 @@ void Spieler::statusAnzeigen()
 		geld_tmp /= 10;
 	} while (geld_tmp != 0);
 	this->geldText.setString(string_tmp);
-	this->muenzeSprite.setPosition(this->window->getView().getSize().x - this->muenzeSprite.getGlobalBounds().width, this->window->getView().getCenter().y - this->window->getView().getSize().y / 2);
+	this->muenzeSprite.setPosition(this->window->getView().getSize().x - this->muenzeSprite.getGlobalBounds().width - 10, this->window->getView().getCenter().y - this->window->getView().getSize().y / 2 + 10);
 	this->geldText.setPosition(this->muenzeSprite.getGlobalBounds().getPosition().x - this->geldText.getGlobalBounds().getSize().x - 5, this->muenzeSprite.getGlobalBounds().getPosition().y + this->muenzeSprite.getGlobalBounds().getSize().y / 2);
 	this->window->draw(this->muenzeSprite);
 	this->window->draw(this->geldText);
@@ -151,6 +153,8 @@ void Spieler::schadenNehmen(unsigned short schaden)
 	if (this->leben - schaden >= 0)this->leben -= schaden;
 	this->unverwundbar = true;
 	this->unverwundbarNoch = this->unverwundbarZeit;
+	if (this->leben > 0)this->musikverwaltung->musikAutoKollisionStarten();
+	else this->musikverwaltung->musikSpielerGestorbenStarten();
 }
 
 void Spieler::setGeld(int geld)
@@ -166,4 +170,15 @@ int Spieler::getGeld()
 void Spieler::hatMuenzeGesammelt()
 {
 	this->geld += 1;
+	this->musikverwaltung->musikMuenzeGesammeltStarten();
+}
+
+void Spieler::setGeschwindigkeit(float geschwindigkeit)
+{
+	this->geschwindigkeit = geschwindigkeit;
+}
+
+float Spieler::getGeschwindigkeit()
+{
+	return this->geschwindigkeit;
 }

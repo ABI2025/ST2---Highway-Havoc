@@ -6,11 +6,12 @@ Startbildschirm::~Startbildschirm()
 {
 }
 
-Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt)
+Startbildschirm::Startbildschirm(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, Fortschritt* fortschritt, MusikVerwaltung* musikverwaltung)
 {
 	this->window = window;
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->fortschritt = fortschritt;
+	this->musikverwaltung = musikverwaltung;
 	if (!this->PixeboyFont.loadFromFile("./res/schriftarten/Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
@@ -114,6 +115,9 @@ void Startbildschirm::aktualisieren()
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 	this->auswahlGetroffen = false;													//	AuswahlGetroffen zurücksetzten
 
+	int auswahlXAlt = this->auswahlX;												// für die Geräusche
+	int auswahlYAlt = this->auswahlY;
+
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahlX -= 1;
@@ -159,6 +163,8 @@ void Startbildschirm::aktualisieren()
 	{
 		this->auswahlGetroffen = true;
 	}
+	if (auswahlX != auswahlXAlt || auswahlY != auswahlYAlt) this->musikverwaltung->musikMenueHoverStarten();
+	if (this->auswahlGetroffen) this->musikverwaltung->musikMenueKlickStarten();
 }
 
 short Startbildschirm::getAuswahlX()

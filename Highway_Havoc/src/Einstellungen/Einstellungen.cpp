@@ -3,12 +3,11 @@
 
 Einstellungen::~Einstellungen() { }
 
-Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung) //, sf::Music* musik
+Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung) //, sf::Music* musik
 {
 	this->window = window;
-	//this->musik = musik;
-	//this->musikStartbildschirm = musikStartbildschirm;
 	this->eingabeverwaltung = eingabeverwaltung;
+	this->musikverwaltung = musikverwaltung;
 	if (!this->PixeboyFont.loadFromFile("./res/schriftarten/Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
@@ -94,10 +93,6 @@ Einstellungen::Einstellungen(sf::RenderWindow* window, EingabeVerwaltung* eingab
 	this->speichernText.setString("Speichern");
 	this->speichernText.setPosition({ window->getSize().x / 2 - speichernText.getGlobalBounds().width / 2, 220 });
 
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);				//	Die Tasten zum Steuern zur Beobachtungsliste, der Eingabeverwaltung, hinzufügen
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Down);
-	//this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Enter);
-	//this->eingabeverwaltung->mausTasteHinzufuegen(sf::Mouse::Button::Left);
 }
 
 void Einstellungen::anzeigen()
@@ -152,6 +147,9 @@ void Einstellungen::aktualisieren()
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 	this->auswahlGetroffen = false;													//	Zurücksetzen von Auswahlgetroffen, da sonst ein Klickspam ensteht
 
+	int auswahlXAlt = this->auswahlX;												// für die Geräusche
+	int auswahlYAlt = this->auswahlY;
+
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && auswahlX > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahlX -= 1;
@@ -201,7 +199,10 @@ void Einstellungen::aktualisieren()
 		else if (this->auswahlX == 1 && this->auswahlY == 0) this->fpsWertMinus(5);
 		else if (this->auswahlX == 1 && this->auswahlY == 1) this->fpsWertPlus(5);
 		else if (this->auswahlX == 2) this->auswahlGetroffen = true;
+		this->musikverwaltung->musikMenueKlickStarten();
 	}
+
+	if (auswahlX != auswahlXAlt || auswahlY != auswahlYAlt) this->musikverwaltung->musikMenueHoverStarten();
 }
 
 short Einstellungen::getAuswahlX() const

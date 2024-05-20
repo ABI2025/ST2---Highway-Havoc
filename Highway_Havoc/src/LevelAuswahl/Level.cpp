@@ -13,17 +13,21 @@ Level::~Level()
 	delete this->map;
 }
 
-Level::Level(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, unsigned short anzahlBots, unsigned short botReihen, unsigned short botTyp, unsigned short anzahlSpieler, unsigned short spielerTyp, unsigned short anzahlMuenzen, unsigned short muenzReihen)
+Level::Level(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung, unsigned short anzahlBots, unsigned short botReihen, unsigned short botTyp, unsigned short anzahlSpieler, unsigned short spielerTyp, unsigned short anzahlMuenzen, unsigned short muenzReihen, unsigned short anzahlBananenschalen, unsigned short bananenschalenReihen, unsigned short mapTyp)
 {
 	this->window = window;
-	this->map = new Map(window);
+	this->map = new Map(window, mapTyp);
 	this->eingabeverwaltung = eingabeverwaltung;
 	this->zustaende.mapAktualisieren = true;
 	this->zustaende.mapAnzeigen = true;
-	this->objektverwalter = new Objektverwalter(window, this->map, eingabeverwaltung);
+	this->musikverwaltung = musikverwaltung;
+	this->objektverwalter = new Objektverwalter(window, this->map, eingabeverwaltung, musikverwaltung);
 	this->objektverwalter->botLevelGenerieren(anzahlBots, botReihen, botTyp);
 	this->objektverwalter->spielerGenerieren(anzahlSpieler, spielerTyp);
 	this->objektverwalter->muenzLevelGenerieren(anzahlMuenzen, muenzReihen);
+	this->objektverwalter->bananenschalenLevelGenerieren(anzahlBananenschalen, bananenschalenReihen);
+	this->botAnzahl = anzahlBots;
+	this->botTyp = botTyp;
 }
 
 void Level::aktualisieren()
@@ -44,7 +48,7 @@ void Level::aktualisieren()
 		}
 		this->botGenerierungsIntervallZaehler++;
 		if ((this->botGenerierungsIntervallZaehler >= this->botGenerierungsIntervall) && this->botGenerierungsIntervall != 0) {
-			this->objektverwalter->botGenerieren(1, 1);
+			this->objektverwalter->botGenerieren(this->botAnzahl, this->botTyp);
 			this->botGenerierungsIntervallZaehler = 0;
 		}
 	}
@@ -54,6 +58,7 @@ void Level::anzeigen()
 {
 	this->objektverwalter->viewAufGesteuertenSpieler(0);
 	if (this->zustaende.mapAnzeigen) this->map->zeichnen();
+	this->objektverwalter->bananenschalenAnzeigen();
 	this->objektverwalter->muenzenAnzeigen();
 	this->objektverwalter->botsAnzeigen();
 	this->objektverwalter->spielerAnzeigen();

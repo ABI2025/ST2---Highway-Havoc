@@ -6,10 +6,11 @@ PauseMenue::~PauseMenue()
 {
 }
 
-PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung)
+PauseMenue::PauseMenue(sf::RenderWindow* window, EingabeVerwaltung* eingabeverwaltung, MusikVerwaltung* musikverwaltung)
 {
 	this->window = window;
 	this->eingabeverwaltung = eingabeverwaltung;
+	this->musikverwaltung = musikverwaltung;
 	if (!this->PixeboyFont.loadFromFile("./res/schriftarten/Pixeboy-z8XGD.ttf"))						//	Läd die Schriftart aus der Datei "Pixeboy-z8XGD.ttf" (die Schriftart muss später im selben Verzeichniss sein wie die ausfürbare Datei)
 	{
 		std::cout << "Fehler beim laden der Schriftart! (./res/schriftarten/Pixeboy-z8XGD.ttf)" << std::endl;
@@ -84,6 +85,8 @@ void PauseMenue::aktualisieren()
 	bool benutztMaus = false;														//	Gibt an ob die Maus sich über einem Textfeld befindet
 	this->auswahlGetroffen = false;													//	AuswahlGetroffen zurücksetzten
 
+	int auswahlAlt = this->auswahl;													// für die Geräusche
+
 	if (this->eingabeverwaltung->getGruppenStatusGeaendert(0) && this->auswahl > 0) 	//	Die Eingabe überprüfen und die Auswahl anpassen
 	{
 		this->auswahl -= 1;
@@ -109,7 +112,9 @@ void PauseMenue::aktualisieren()
 		|| (this->eingabeverwaltung->getMausTastenStatusGeandertIndex(0) == true && benutztMaus == true))
 	{
 		this->auswahlGetroffen = true;
+		this->musikverwaltung->musikMenueKlickStarten();
 	}
+	if (this->auswahl != auswahlAlt) this->musikverwaltung->musikMenueHoverStarten();
 }
 
 short PauseMenue::getAuswahl()

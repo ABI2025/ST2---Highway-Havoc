@@ -2,8 +2,10 @@
 #include "Game.hpp"
 #include <iostream>
 
+// Konstruktor für die Game-Klasse
 Game::Game(int fps, int tickrate)
 {
+	// Initialisiere Fenster und Komponenten des Spiels
 	this->window = new sf::RenderWindow(sf::VideoMode(640, 360), "Highway Havoc");
 	this->eingabeverwaltung = new EingabeVerwaltung(window);
 	this->fortschritt = new Fortschritt();
@@ -11,11 +13,19 @@ Game::Game(int fps, int tickrate)
 	this->startbildschirm = new Startbildschirm(window, eingabeverwaltung, fortschritt, musikverwaltung);
 	this->einstellungen = new Einstellungen(window, eingabeverwaltung, musikverwaltung);
 	this->levelauswahl = new LevelAuswahl(window, eingabeverwaltung, fortschritt, musikverwaltung);
+
+	// Initialisiere Framerate und Tickrate
 	this->fps = fps;
 	this->tickrate = tickrate;
+
+	// Initialisiere Event-Objekt
 	this->event = new sf::Event();
+
+	// Initialisiere Zustände
 	this->zustaende.startBildschirmAnzeigen = true;
 	this->zustaende.startBildschirmLaeuft = true;
+
+	// Füge Tasten zur Eingabeverwaltung hinzu
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Up);
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::W);
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Left);
@@ -28,6 +38,8 @@ Game::Game(int fps, int tickrate)
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Space);
 	this->eingabeverwaltung->tasteHinzufuegen(sf::Keyboard::Key::Escape);
 	this->eingabeverwaltung->mausTasteHinzufuegen(sf::Mouse::Button::Left);
+
+	// Erstelle und ordne Tasten zu Gruppen zu
 	this->eingabeverwaltung->gruppeHinzufuegen();
 	this->eingabeverwaltung->tasteZuGruppeHinzufuegen(0, 0);
 	this->eingabeverwaltung->tasteZuGruppeHinzufuegen(0, 1);
@@ -47,8 +59,10 @@ Game::Game(int fps, int tickrate)
 	this->zustaende.musikStartbildschirmSpielen = true;
 }
 
+// Destruktor für die Game-Klasse
 Game::~Game()
 {
+	// Schließe und lösche alle Komponenten
 	this->window->close();
 	delete this->window;
 	this->window = nullptr;
@@ -68,8 +82,10 @@ Game::~Game()
 	this->fortschritt = nullptr;
 }
 
+// Render-Methode
 void Game::render() {
 	this->window->clear(sf::Color(0, 0, 0, 0));
+	// Zeige den entsprechenden Bildschirm basierend auf dem aktuellen Zustand
 	if (this->zustaende.startBildschirmAnzeigen) {
 		this->startbildschirm->anzeigen();
 	}
@@ -82,17 +98,21 @@ void Game::render() {
 	this->window->display();
 }
 
+// Tick-Methode für die Spiel-Logik
 void Game::tick() {
 	while (this->window->pollEvent(*this->event))
 	{
+		// Beende das Spiel, wenn das Fenster geschlossen wird
 		if (this->event->type == sf::Event::Closed) this->window->close();
 	}
 
+	// Aktualisiere den Startbildschirm, falls aktiv
 	if (this->zustaende.startBildschirmLaeuft) {
 		this->startbildschirm->aktualisieren();
 		if (this->startbildschirm->getAuswahlGetroffen()) {
 			int auswahlX = this->startbildschirm->getAuswahlX();
 			int auswahlY = this->startbildschirm->getAuswahlY();
+			// Überprüfe die Auswahl und aktualisiere die Zustände entsprechend
 			if (auswahlX == 0) {
 				if (auswahlY == 1) {
 					this->zustaende.spielLaeuft = true;
@@ -127,6 +147,8 @@ void Game::tick() {
 			}
 		}
 	}
+
+	// Aktualisiere die Einstellungen, falls aktiv
 	if (this->zustaende.einstellungenLaeuft) {
 		this->einstellungen->aktualisieren();
 		if (this->einstellungen->getAuswahlGetroffen()) {
@@ -149,6 +171,8 @@ void Game::tick() {
 			}
 		}
 	}
+
+	// Aktualisiere die Levelauswahl, falls aktiv
 	if (this->zustaende.spielLaeuft) {
 		this->levelauswahl->aktualisieren();
 		if (this->levelauswahl->getAuswahlGetroffen()) {
@@ -157,7 +181,9 @@ void Game::tick() {
 				this->zustaende.spielLaeuft = false;
 				this->zustaende.spielAnzeigen = false;
 				this->zustaende.startBildschirmLaeuft = true;
-				this->zustaende.startBildschirmAnzeigen = true;
+				this->
+
+					zustaende.startBildschirmAnzeigen = true;
 				this->zustaende.musikStartbildschirmSpielen = true;
 				this->zustaende.musikSpielSpielen = false;
 			}
@@ -173,28 +199,34 @@ void Game::tick() {
 			}
 		}
 	}
+
+	// Spiele die entsprechende Musik basierend auf dem aktuellen Zustand
 	if (this->zustaende.musikStartbildschirmSpielen) this->musikverwaltung->musikStartbildschirmStarten();
 	if (this->zustaende.musikSpielSpielen) this->musikverwaltung->musikSpielStarten();
 
+	// Beende das Programm, falls der entsprechende Zustand gesetzt ist
 	if (zustaende.programmBeenden) {
 		this->~Game();
 		exit(0);
 	}
 }
 
+// Start-Methode für die Hauptspielschleife
 void Game::start()
 {
-	sf::Clock tickLimitClock;													//	braucht man zum Zeit messen
-	double zeitSeitLetztemTick = tickLimitClock.restart().asMicroseconds();		//	Variable in der die Zeit seit dem letzten Tick (Gamelogic) speichert
-	double deltaTickZeit = ((double)1 / (double)tickrate) * (double)1000000;	//	die Zeit, die zwischen zwei Ticks eigehalten werden muss (in Microsekunden)
+	// Initialisiere Timer für Tick- und Frame-Limits
+	sf::Clock tickLimitClock;
+	double zeitSeitLetztemTick = tickLimitClock.restart().asMicroseconds();
+	double deltaTickZeit = ((double)1 / (double)tickrate) * (double)1000000;
 
-	sf::Clock frameLimitClock;													//	braucht man zum Zeit messen
-	double zeitSeitLetztemFrame = frameLimitClock.restart().asMicroseconds();	//	Variable in der die Zeit seit dem letzten Frame (Rendering) speichert
-	double deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;		//	die Zeit, die zwischen zwei Frames eigehalten werden muss (in Microsekunden)
+	sf::Clock frameLimitClock;
+	double zeitSeitLetztemFrame = frameLimitClock.restart().asMicroseconds();
+	double deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;
 
+	// Hauptspielschleife
 	while (this->window->isOpen())
 	{
-		//	tick (Ruft die "tick-Methode" annähernd so oft pro Sekunde auf wie es in "tickrate" steht.)
+		// Tick-Logik
 		zeitSeitLetztemTick = tickLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemTick >= deltaTickZeit)
 		{
@@ -205,14 +237,15 @@ void Game::start()
 			tickLimitClock.restart().asMicroseconds();
 		}
 
-		//	render (Ruft die "render-Methode" annähernd so oft pro Sekunde auf wie es in "fps" steht.)
+		// Render-Logik
 		zeitSeitLetztemFrame = frameLimitClock.getElapsedTime().asMicroseconds();
 		if (zeitSeitLetztemFrame >= deltaFrameZeit)
 		{
 			this->render();
 			frameLimitClock.restart().asMicroseconds();
 		}
-		deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;			//	Wird in der Schleife berechnet, um die Bildwiederholungrate zur Laufzeit anpassen zu können
+		// Aktualisiere die Delta-Zeit-Werte für dynamische Anpassungen
+		deltaFrameZeit = ((double)1 / (double)fps) * (double)1000000;
 		deltaTickZeit = ((double)1 / (double)tickrate) * (double)1000000;
 	}
 }

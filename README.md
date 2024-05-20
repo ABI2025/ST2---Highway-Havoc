@@ -26,7 +26,7 @@
 <br>
 
 ### **Shop**
-<pre>Auswahl der Unterschiedlichen Level</pre>
+<pre>Auswahl der unterschiedlichen Level</pre>
 <pre>Kaufen von neuen Autos</pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/c1dc2f63-9883-4a25-bc8c-3c9d664cd141" width="600">
@@ -50,8 +50,8 @@
 <br>
 
 ### **Einstellungen**
-<pre>Lautstäreke Anpassung</pre>
-<pre>FPS Anpassung</pre>
+<pre>Lautstäreke-Anpassung</pre>
+<pre>FPS-Anpassung</pre>
 <br>
 <img src="https://github.com/ABI2025/ST2-Highway_Havoc/assets/133702525/94bd5dea-8d64-46c0-9369-b2ee62e590a1" width="600">
 <br>

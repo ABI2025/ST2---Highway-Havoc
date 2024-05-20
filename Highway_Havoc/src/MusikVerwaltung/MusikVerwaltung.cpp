@@ -63,6 +63,13 @@ void MusikVerwaltung::setLautstaerke(int lautstaerke)
 	this->lautstaerke = lautstaerke;
 	this->musikSpiel.setVolume(lautstaerke);
 	this->musikStartbildschirm.setVolume(lautstaerke);
+	this->autoKollision.setVolume(lautstaerke);
+	this->menueHover.setVolume(lautstaerke);
+	this->menueKlick.setVolume(lautstaerke);
+	this->muenzeGesammelt.setVolume(lautstaerke);
+	this->levelverloren.setVolume(lautstaerke);
+	this->levelgeschafft.setVolume(lautstaerke);
+	this->spielerGestorben.setVolume(lautstaerke);
 }
 
 void MusikVerwaltung::musikAutoKollisionStarten()
